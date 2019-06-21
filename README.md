@@ -1,5 +1,3 @@
-// Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-// SPDX-License-Identifier: MIT-0
 # Windows on AWS Workshops
 
 Here you'll find a collection of Windows, SQL, .Net, workshops and hands-on content guiding you through prepared scenarios that represent common use cases and operational tasks on Amazon Web Services (AWS). The workshops will provide a deep dive into a variety of AWS services in support of running, operating, and modernizing Windows workloads on AWS. 
@@ -10,9 +8,7 @@ If you have ideas for topics or scenarios you would like to see included in new 
 
 ## License Summary
 
-This sample code is made available under a modified MIT license. See the [LICENSE](LICENSE) file.
-
-
-## License Summary
-
 This sample code is made available under the MIT-0 license. See the LICENSE file.
+
+
+
