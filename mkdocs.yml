@@ -6,8 +6,8 @@ site_author: 'aws-ent-workshops@amazon.com'
 site_url: 'https://awsentworkshops.com'
 
 # Repository
-repo_name: 'aws-samples/aws-ent-workshops'
-repo_url: 'https://github.com/aws-samples/aws-ent-workshops'
+repo_name: 'aws-samples/aws-workshop-for-win-dotnet-mssql'
+repo_url: 'https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql'
 
 # Copyright
 copyright: '&copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.'
