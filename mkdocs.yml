@@ -3,7 +3,7 @@
 site_name: Windows on AWS Workshops
 site_description: 'A collection of Windows on AWS workshops'
 site_author: 'aws-ent-workshops@amazon.com'
-site_url: 'https://aws-samples.github.io/aws-workshop-for-win-dotnet-mssql/'
+site_url: 'http://awsentworkshops.com'
 
 # Repository
 repo_name: 'aws-samples/aws-workshop-for-win-dotnet-mssql'
