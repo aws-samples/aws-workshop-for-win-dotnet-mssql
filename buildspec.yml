@@ -1,0 +1,15 @@
+version: 0.1
+phases:
+  install:
+    commands:
+      - pip install mkdocs
+      - pip install mkdocs-material
+      - pip install mkdocs-pdf-export-plugin
+  pre_build:
+    commands:
+  build:
+    commands:
+      - mkdocs build
+      - aws s3 sync site s3://win319.reinvent-session.com
+  post_build:
+    commands:
