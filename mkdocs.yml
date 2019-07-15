@@ -45,11 +45,21 @@ nav:
   - Getting Started: 'getting-started.md'
   - re:Invent 2018:
     - Directory: 'reinvent/index2018.md'
+      - WIN319 Active Directory Domain Trusts and AWS SSO Jumpstart: 
+        - Home: reinvent/win319/index.md
+        - Prerequisites: reinvent/win319/prereq.md
+        - User Instructions:
+          - Deploying AD-DS on EC2: reinvent/win319/1_DeployAd.md
+          - Deploy AWS Managed AD: reinvent/win319/2_DeployMad.md
+          - Setup 2-way trust: reinvent/win319/3_Trust.md
+          - Create AWS Organization: reinvent/win319/4_Createorg.md
+          - Connect your directory to AWS SSO: reinvent/win319/5_ConnectADtoSSO.md
+          - Verify AWS SSO access to AWS account: reinvent/win319/6_VerifyADSSO_MAD.md
   - re:Invent 2019:
     - Directory: 'reinvent/index2019.md'
   - Builder Sessions:
     - Directory: 'builder-sessions/index.md'
-  - Workshops: 
+  - Full Day Workshops: 
     - Directory: 'workshops/index.md'
   - Contributing: 'contribute.md'
   - License: 'license.md'

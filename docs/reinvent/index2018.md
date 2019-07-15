@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr>
-                <td align="left"><a class="table" href="http://win319.reinvent-session.com/"><strong>Active Directory Domain Trusts and AWS SSO Jumpstart</strong></a></td>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent/win319/index/"><strong>Active Directory Domain Trusts and AWS SSO Jumpstart</strong></a></td>
                 <td align="left">Join us for this builders session where you and a small group work with an AWS subject matter expert to build a domain trust between on-premises Active Directory and AWS Managed AD in AWS. As a bonus, learn how to connect AWS Managed AD to AWS SSO.
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>

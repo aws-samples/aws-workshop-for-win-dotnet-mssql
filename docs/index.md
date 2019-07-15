@@ -1,4 +1,6 @@
- Windows on AWS Workshops
+Windows on AWS Workshops
+
+![Components](assets/images/CloudFocusedWindowsReady.png "Windows on AWS")
 
 Welcome to the AWS Windows workshops portal! Here you will find a collection of workshops and other hands-on content aimed at helping you gain an understanding of the AWS service ecosystem supporting Windows, SQL, and .Net workloads, and introduce you to a variety of best practices that can be applied to operating your Windows environments on AWS. 
 
