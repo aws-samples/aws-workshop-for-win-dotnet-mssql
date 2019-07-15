@@ -43,6 +43,10 @@ markdown_extensions:
 nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
+  - re:Invent 2018:
+    - Directory: 'reinvent/index2018.md'
+  - re:Invent 2019:
+    - Directory: 'reinvent/index2019.md'
   - Builder Sessions:
     - Directory: 'builder-sessions/index.md'
   - Workshops: 
