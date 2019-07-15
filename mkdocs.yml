@@ -46,7 +46,7 @@ nav:
   - re:Invent 2018:
     - Directory: 'reinvent/index2018.md'
       - WIN319 Active Directory Domain Trusts and AWS SSO Jumpstart: 
-        - Home: 'reinvent/win319/index.md'
+        - Home: 'reinvent/win319/win319index.md'
         - Prerequisites: 'reinvent/win319/prereq.md'
         - User Instructions:
           - Deploying AD-DS on EC2: 'reinvent/win319/1_DeployAd.md'
