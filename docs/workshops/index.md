@@ -1,6 +1,6 @@
 <!-- Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.-->
 <!-- SPDX-License-Identifier: MIT-0-->
-# Workshops
+# Full-Day Workshops
 
 <div class="md-typeset__table">
     <table>
