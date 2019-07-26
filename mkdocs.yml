@@ -69,6 +69,10 @@ nav:
             - Challenge 1 Configuring resources using AWS Tools for Windows PowerShell: 'reinvent2018/win308/challenge1.md'
             - Challenge 2 Configure EC2 instances using Powershell and SSM: 'reinvent2018/win308/challenge2.md'
             #- Challenge 3 Create a Lambda Using PowerShell: 'reinvent2018/win308/challenge3.md'
+    - Win309:
+          - Home: 'reinvent2018/win309/win309index.md'
+          - Prerequisites: 'reinvent2018/win309/prereq.md'
+          - Lab Guide: 'reinvent2018/win309/resources.md'    
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:

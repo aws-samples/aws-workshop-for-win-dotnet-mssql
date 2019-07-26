@@ -35,13 +35,24 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" href="http://win308.reinvent-session.com/"><strong>Hands-On: Automating AWS Infrastructure with Powershell</strong></a></td>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win308/win308index/"><strong>Hands-On: Automating AWS Infrastructure with Powershell</strong></a></td>
                 <td align="left">TBD
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>
                         <li><strong>Duration</strong>: 1 hour</li>
                         <li><strong>Service</strong>: TBD</li>
                         <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win309/win309index/"><strong>Architecting Active Directory in AWS</strong></a></td>
+                <td align="left">In this workshop, we are going to show you how easy it is to securely implement Active Directory in AWS, as well as discuss the different deployment options. The structure of this Workshop involves showing you two Active Directory patterns commonly observed in the field, discussing their use cases, and then guiding you through implementing them inside a fully functional AWS account.
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: Managed Active Directory</li>
+                        <li><strong>Focus</strong>: Active Directory Migration</li>
                     </ul>
                 </td>
             </tr>
