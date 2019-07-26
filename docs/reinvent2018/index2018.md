@@ -57,6 +57,17 @@
                 </td>
             </tr>
             <tr>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win314/win314index/"><strong>Modernize Your First Windows Application with Windows Containers</strong></a></td>
+                <td align="left">Our builder session will begin with a short presentation on how to containerize .NET applications on AWS. You will then have the opportunity to build a Docker container for a sample .NET application and deploy that container/application to Amazon Elastic Container Service (ECS).
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: ECS</li>
+                        <li><strong>Focus</strong>: .NET on ECS</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
                 <td align="left"><a class="table" href="http://win310.reinvent-session.com/"><strong>Hands-on building a migration strategy for SQL Server on AWS</strong></a></td>
                 <td align="left">TBD
                     <ul>
