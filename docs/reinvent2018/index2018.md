@@ -122,6 +122,17 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/dev334/dev334index/"><strong>AWS Tools for PowerShell</strong></a></td>
+                <td align="left">In this lab you will learn how to use AWS Tools for Powershell Core to create AWS resources and host a simple HTML page.
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

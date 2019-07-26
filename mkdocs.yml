@@ -83,6 +83,12 @@ nav:
           - Replatform: 'reinvent2018/win310/replatform.md'
           - Refactor: 'reinvent2018/win310/refactor.md'
           - Bonus: 'reinvent2018/win310/bonus.md'
+    - Dev334:
+          - Home: 'reinvent2018/dev334/dev334index.md'
+          - Prerequisites: 'reinvent2018/dev334/prereq.md'
+          - Resources: 'reinvent2018/dev334/resources.md'
+          - Challenges: 
+            - Powershell exercise : 'reinvent2018/dev334/challenge1.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:
