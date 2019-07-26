@@ -44,18 +44,18 @@ nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
   - re:Invent 2018:
-    - Directory: 'reinvent/index2018.md'
+    - Directory: 'reinvent2018/index2018.md'
     - Win319:
-          - Index: 'reinvent/win319/win319index.md'
-          - Pre-Requisite: 'reinvent/win319/prereq.md'
-          - Create Directory: 'reinvent/win319/1_DeployAd.md'
-          - Deploy Managed AD: 'reinvent/win319/2_DeployMad.md'
-          - Create Domain Trust: 'reinvent/win319/3_Trust.md'
-          - Create AWS Organization: 'reinvent/win319/4_Createorg.md'
-          - Connect AD to SSO: 'reinvent/win319/5_ConnectADtoSSO.md'
-          - Verify SSO: 'reinvent/win319/6_VerifyADSSO_MAD.md'
+          - Index: 'reinvent2018/win319/win319index.md'
+          - Pre-Requisite: 'reinvent2018/win319/prereq.md'
+          - Create Directory: 'reinvent2018/win319/1_DeployAd.md'
+          - Deploy Managed AD: 'reinvent2018/win319/2_DeployMad.md'
+          - Create Domain Trust: 'reinvent2018/win319/3_Trust.md'
+          - Create AWS Organization: 'reinvent2018/win319/4_Createorg.md'
+          - Connect AD to SSO: 'reinvent2018/win319/5_ConnectADtoSSO.md'
+          - Verify SSO: 'reinvent2018/win319/6_VerifyADSSO_MAD.md'
   - re:Invent 2019:
-    - Directory: 'reinvent/index2019.md'
+    - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:
     - Directory: 'builder-sessions/index.md'
   - Full Day Workshops: 
