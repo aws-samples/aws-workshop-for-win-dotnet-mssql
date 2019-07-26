@@ -73,6 +73,16 @@ nav:
           - Home: 'reinvent2018/win309/win309index.md'
           - Prerequisites: 'reinvent2018/win309/prereq.md'
           - Lab Guide: 'reinvent2018/win309/resources.md'    
+    - Win314:
+          - Home: 'reinvent2018/win314/win314index.md'
+          - Let's Build: 'reinvent2018/win314/build.md'
+    - Win310:
+          - Home: 'reinvent2018/win310/win310index.md'
+          - Scenario: 'reinvent2018/win310/scenario.md'
+          - Rehost: 'reinvent2018/win310/rehost.md'
+          - Replatform: 'reinvent2018/win310/replatform.md'
+          - Refactor: 'reinvent2018/win310/refactor.md'
+          - Bonus: 'reinvent2018/win310/bonus.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:

@@ -68,13 +68,13 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" href="http://win310.reinvent-session.com/"><strong>Hands-on building a migration strategy for SQL Server on AWS</strong></a></td>
-                <td align="left">TBD
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win310/win310index/"><strong>Hands-on building a migration strategy for SQL Server on AWS</strong></a></td>
+                <td align="left">In this workshop you will work in teams to develop a strategy to migrate a SQL Server 2008R2 environment to AWS.
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>
                         <li><strong>Duration</strong>: 1 hour</li>
-                        <li><strong>Service</strong>: TBD</li>
-                        <li><strong>Focus</strong>: TBD</li>
+                        <li><strong>Service</strong>: DMS</li>
+                        <li><strong>Focus</strong>: SQL Server Migration</li>
                     </ul>
                 </td>
             </tr>
