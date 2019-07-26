@@ -54,6 +54,14 @@ nav:
           - Create AWS Organization: 'reinvent2018/win319/4_Createorg.md'
           - Connect AD to SSO: 'reinvent2018/win319/5_ConnectADtoSSO.md'
           - Verify SSO: 'reinvent2018/win319/6_VerifyADSSO_MAD.md'
+    - Win313:
+           - Index: 'reinvent2018/win313/win313index.md'
+           - Lab Setup: 'reinvent2018/win313/setup.md'
+           - Challenges:
+             - Amazon EC2: 'reinvent2018/win313/ec2.md'
+             - AWS Lambda: 'reinvent2018/win313/lambda.md'
+             - Amazon ECS Fargate: 'reinvent2018/win313/fargate.md'
+             - Resources: 'reinvent2018/win313/resources.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:

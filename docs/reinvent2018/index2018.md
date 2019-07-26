@@ -12,7 +12,7 @@
         </thead>
         <tbody>
             <tr>
-                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent/win319/win319index/"><strong>Active Directory Domain Trusts and AWS SSO Jumpstart</strong></a></td>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win319/win319index/"><strong>Active Directory Domain Trusts and AWS SSO Jumpstart</strong></a></td>
                 <td align="left">Join us for this builders session where you and a small group work with an AWS subject matter expert to build a domain trust between on-premises Active Directory and AWS Managed AD in AWS. As a bonus, learn how to connect AWS Managed AD to AWS SSO.
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>
@@ -23,7 +23,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" href="http://win313.reinvent-session.com/"><strong>Building a .NET CI/CD Pipeline with AWS & AWS Tools for Visual Studio Team Services</strong></a></td>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win313/win313index/"><strong>Building a .NET CI/CD Pipeline with AWS & AWS Tools for Visual Studio Team Services</strong></a></td>
                 <td align="left">You will learn how to target AWS resources from your Azure DevOps build and release pipelines, deployment options for targeting different types of AWS compute services, and tricks and tips for enhancing your CI/CD pipelines.
 
                     <ul>
