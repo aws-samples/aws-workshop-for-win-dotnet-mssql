@@ -29,6 +29,15 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/PowerShellDSCinAWS/"><strong>**Managing Windows Workloads at Scale** </strong></a></td>
+                <td align="left"> "Managing Windows Workloads at Scale"
+                    <ul>
+                        <li><strong>Level</strong>: 200</li>
+                        <li><strong>Duration</strong>: Each sub-section is one hour, totaling eight hours. </li>
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>
