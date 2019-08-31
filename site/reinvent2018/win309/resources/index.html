@@ -1,0 +1,2309 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A collection of Windows on AWS workshops">
+      
+      
+        <link rel="canonical" href="https://awsentworkshops.com/reinvent2018/win309/resources/">
+      
+      
+        <meta name="author" content="aws-ent-workshops@amazon.com">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/aws-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>Lab Guide - Windows on AWS Workshops</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.3020aac5.css">
+      
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#lab-a-active-directory-running-on-ec2" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+    <!-- Top-level navigation -->
+    <nav class="md-header-nav md-grid">
+      <div class="md-flex">
+  
+        <!-- Link to home -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <a href="https://aws.amazon.com/"
+              title="Amazon Web Services"
+              class="md-header-nav__button md-logo">
+            
+              <img src="../../../assets/images/aws_smile_logo.png" width="40" height="24" />
+            
+          </a>
+        </div>
+  
+        <!-- Button to toggle drawer -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <label class="md-icon md-icon--menu md-header-nav__button"
+              for="__drawer"></label>
+        </div>
+  
+        <!-- Header title -->
+        <div class="md-flex__cell md-flex__cell--stretch">
+          <div class="md-flex__ellipsis md-header-nav__title"
+              data-md-component="title">
+            
+              
+                <span class="md-header-nav__topic">
+                  Windows on AWS Workshops
+                </span>
+                <span class="md-header-nav__topic">
+                  Lab Guide
+                </span>
+              
+            
+          </div>
+        </div>
+  
+        <!-- Button to open search dialogue -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          
+            
+              <label class="md-icon md-icon--search md-header-nav__button"
+                  for="__search"></label>
+  
+              <!-- Search interface -->
+              
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+          
+        </div>
+        
+        <!-- Repository containing source -->
+        
+        <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__lang">
+                <div class="md-lang-drop">
+                    <button onmouseover="langToggle()" class="md-lang-dropbtn fa fa-globe"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repository containing source -->
+        
+          <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__source">
+              
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+            </div>
+          </div>
+        
+      </div>
+    </nav>
+  </header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../index2018/" title="re:Invent 2018" class="md-tabs__link md-tabs__link--active">
+          re:Invent 2018
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../reinvent2019/index2019/" title="re:Invent 2019" class="md-tabs__link">
+          re:Invent 2019
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../builder-sessions/" title="Builder Sessions" class="md-tabs__link">
+          Builder Sessions
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../workshops/" title="Full Day Workshops" class="md-tabs__link">
+          Full Day Workshops
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://awsentworkshops.com" title="Windows on AWS Workshops" class="md-nav__button md-logo">
+      
+        <img src="../../../assets/images/aws_smile_logo.png" width="48" height="48">
+      
+    </a>
+    Windows on AWS Workshops
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      re:Invent 2018
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        re:Invent 2018
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index2018/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Win319
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Win319
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/win319index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/prereq/" title="Pre-Requisite" class="md-nav__link">
+      Pre-Requisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/1_DeployAd/" title="Create Directory" class="md-nav__link">
+      Create Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/2_DeployMad/" title="Deploy Managed AD" class="md-nav__link">
+      Deploy Managed AD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/3_Trust/" title="Create Domain Trust" class="md-nav__link">
+      Create Domain Trust
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/4_Createorg/" title="Create AWS Organization" class="md-nav__link">
+      Create AWS Organization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/5_ConnectADtoSSO/" title="Connect AD to SSO" class="md-nav__link">
+      Connect AD to SSO
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/6_VerifyADSSO_MAD/" title="Verify SSO" class="md-nav__link">
+      Verify SSO
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Win313
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Win313
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/win313index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/setup/" title="Lab Setup" class="md-nav__link">
+      Lab Setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-3" type="checkbox" id="nav-3-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/ec2/" title="Amazon EC2" class="md-nav__link">
+      Amazon EC2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/lambda/" title="AWS Lambda" class="md-nav__link">
+      AWS Lambda
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/fargate/" title="Amazon ECS Fargate" class="md-nav__link">
+      Amazon ECS Fargate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Win308
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Win308
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/win308index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/prereq/" title="Pre-requisites" class="md-nav__link">
+      Pre-requisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4-3" type="checkbox" id="nav-3-4-3">
+    
+    <label class="md-nav__link" for="nav-3-4-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-4-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/challenge1/" title="Challenge 1 Configuring resources using AWS Tools for Windows PowerShell" class="md-nav__link">
+      Challenge 1 Configuring resources using AWS Tools for Windows PowerShell
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/challenge2/" title="Challenge 2 Configure EC2 instances using Powershell and SSM" class="md-nav__link">
+      Challenge 2 Configure EC2 instances using Powershell and SSM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5" checked>
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Win309
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Win309
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../win309index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Lab Guide
+      </label>
+    
+    <a href="./" title="Lab Guide" class="md-nav__link md-nav__link--active">
+      Lab Guide
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" title="GOAL" class="md-nav__link">
+    GOAL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-25-create-an-iam-role" title="TASK 2.5 – Create an IAM role" class="md-nav__link">
+    TASK 2.5 – Create an IAM role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-45-create-a-new-dhcp-options-set" title="TASK 4.5 – Create a new DHCP Options set" class="md-nav__link">
+    TASK 4.5 – Create a new DHCP Options set
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-46-associate-the-new-dhcp-options-set-with-your-vpc" title="TASK 4.6 – Associate the new DHCP Options set with your VPC" class="md-nav__link">
+    TASK 4.6 – Associate the new DHCP Options set with your VPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-enter-each-line-individually" title="please enter each line individually" class="md-nav__link">
+    please enter each line individually
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Win314
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        Win314
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win314/win314index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win314/build/" title="Let's Build" class="md-nav__link">
+      Let's Build
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-7" type="checkbox" id="nav-3-7">
+    
+    <label class="md-nav__link" for="nav-3-7">
+      Win310
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-7">
+        Win310
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/win310index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/scenario/" title="Scenario" class="md-nav__link">
+      Scenario
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/rehost/" title="Rehost" class="md-nav__link">
+      Rehost
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/replatform/" title="Replatform" class="md-nav__link">
+      Replatform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/refactor/" title="Refactor" class="md-nav__link">
+      Refactor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/bonus/" title="Bonus" class="md-nav__link">
+      Bonus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8" type="checkbox" id="nav-3-8">
+    
+    <label class="md-nav__link" for="nav-3-8">
+      Dev334
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-8">
+        Dev334
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/dev334index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8-4" type="checkbox" id="nav-3-8-4">
+    
+    <label class="md-nav__link" for="nav-3-8-4">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-8-4">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/challenge1/" title="Powershell exercise" class="md-nav__link">
+      Powershell exercise
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      re:Invent 2019
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        re:Invent 2019
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../reinvent2019/index2019/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Builder Sessions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Builder Sessions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../builder-sessions/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Full Day Workshops
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Full Day Workshops
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../workshops/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../contribute/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#goal" title="GOAL" class="md-nav__link">
+    GOAL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-25-create-an-iam-role" title="TASK 2.5 – Create an IAM role" class="md-nav__link">
+    TASK 2.5 – Create an IAM role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-45-create-a-new-dhcp-options-set" title="TASK 4.5 – Create a new DHCP Options set" class="md-nav__link">
+    TASK 4.5 – Create a new DHCP Options set
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-46-associate-the-new-dhcp-options-set-with-your-vpc" title="TASK 4.6 – Associate the new DHCP Options set with your VPC" class="md-nav__link">
+    TASK 4.6 – Associate the new DHCP Options set with your VPC
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#please-enter-each-line-individually" title="please enter each line individually" class="md-nav__link">
+    please enter each line individually
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/edit/master/docs/reinvent2018/win309/resources.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="lab-a-active-directory-running-on-ec2"><strong>LAB A – Active Directory running on EC2</strong></h1>
+<h2 id="goal">GOAL</h2>
+<p>In this lab you are going to extend an on-premise Active Directory into AWS. You will be using EC2, AWS AD Connector and AWS Systems Manager services to complete this Lab.</p>
+<p><strong>LAB A – TASKS 1 thru 9 – QUICKTASK</strong></p>
+<blockquote>
+<p>Familiarize yourself with the on-premise ACME.com domain via its management server’s public-IP address (named Management Server in the console). Then we would like you to create a Server 2016 instance in VPC01 Private Subnet, use the AWS AD Connector to join it to the ACME.com domain (residing in VPC02), and then promote it to a domain controller.</p>
+</blockquote>
+<p><strong>LAB A - TASK 1</strong></p>
+<p>Let’s familiarize ourselves with the environment. As we mentioned, VPC02 is a simulated on-premise environment. We are going to connect via Remote Desktop (RDP) to the Management Server using its external IP address. Once connected, we will verify that the settings are correct and that the AD management tools are installed.</p>
+<p>Go to the AWS Console you launched and complete the following steps:</p>
+<ul>
+<li>Click on <strong>EC2</strong></li>
+<li>In the center of the screen under Resources, click on <strong>Running Instances</strong></li>
+<li>Select the instance called <strong>Management Server</strong></li>
+<li>You’ll find the <strong>Public IP</strong> address on the bottom detail screen.</li>
+</ul>
+<p>Make a note of this address.</p>
+<p><strong>LAB A – TASK 2</strong></p>
+<p>Connect to the EC2 Instance from TASK 1-1 using Microsoft Remote Desktop</p>
+<p>You can either do this via launching the Microsoft Remote Desktop app and adding an entry for a new host or via the command line with the following</p>
+<blockquote>
+<p>MSTSC /v: <em>IP address of EC2 Instance</em></p>
+</blockquote>
+<p><strong>Please call out to one of the support team in the room if you are having issues.</strong></p>
+<p>Once connected, you’ll need account details to login</p>
+<blockquote>
+<p>Username = acme\administrator
+Password = @Pa55w0rd159@</p>
+</blockquote>
+<p>Let’s look at Administrative Tools which you will find in the Start menu. Locate <strong>Active Directory Users and Computers</strong> app, launch it.</p>
+<p>Take a look around the <strong>ACME.COM</strong> domain, you will see a Domain Controller called <strong>ADSERVER1</strong> but apart from that, it’s a brand new domain.</p>
+<p>Please close down the remote session to this server and continue with the next task.</p>
+<h2 id="task-25-create-an-iam-role">TASK 2.5 – Create an IAM role</h2>
+<p>IAM Roles are configured with permissions that allow a service, assuming the role, to perform actions permitted by that role. Amazon EC2 Roles allow Amazon EC2 instances to assume a role so that applications on the instance can make secure API calls to AWS.</p>
+<p>In this task, we will create an EC2 role which will be used by the SSM agent on our instance to perform the actions it requires with Directory Services.</p>
+<ol>
+<li>Back at the Home screen of the AWS Management Console, click <strong>IAM</strong></li>
+<li>Select <strong>Roles</strong> from the left side menu and click on <strong>Create role</strong></li>
+<li>Select <strong>AWS service</strong> and then <strong>EC2</strong></li>
+<li>Select <strong>EC2 Role for Simple Systems Manager</strong> as your use case and click <strong>Next:Permissions</strong></li>
+<li>The <strong>AmazonEC2RoleforSSM</strong> should be selected</li>
+<li>Click <strong>Next: Review</strong></li>
+<li>Enter <strong>EC2RoleforSSM</strong> as the name for the role</li>
+<li>Click <strong>Create Role</strong></li>
+</ol>
+<p><strong>LAB A – TASK 3</strong></p>
+<p>In this task we will create a new Windows 2016 EC2 Instance using the standard Amazon Machine Image (AMI) and then in later tasks we will configure this instance to be an AD Domain Controller.</p>
+<p>This new EC2 Instance will be on the AWS side in <strong>VPC01</strong>.  In later tasks we will extend the secondary domain into this EC2 Instance.</p>
+<ol>
+<li>In the AWS Console, click on <strong>EC2</strong></li>
+<li>Next click on Launch Instance</li>
+</ol>
+<p><img alt="create-instance" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/create-instance.png" /></p>
+<ol>
+<li>Scroll down the list of Amazon Machine Images until you find <strong>Microsoft Windows Server 2016 Base</strong> and then click <strong>Select</strong></li>
+</ol>
+<p><img alt="win-2016" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/win-2016.png" /></p>
+<ol>
+<li>On the Choose an Instance Type screen select T2.Large and click <strong>Next: Configure Instance Details</strong></li>
+</ol>
+<p><img alt="instance-type" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/instance-type.png" /></p>
+<ol>
+<li>You will need to make sure you select the following on the Configure Instance Details screen</li>
+</ol>
+<blockquote>
+<p>NETWORK = VPC01-VPC</p>
+<p>SUBNET = VPC01-SNEXTPUB1A</p>
+<p>AUTO-ASSIGN PUBLIC IP = Enable</p>
+<p>IAM Role = AmazonEC2RoleforSSM</p>
+</blockquote>
+<p>You can leave all other parameters at their default.</p>
+<ol>
+<li>Click <strong>Next: Add Storage</strong></li>
+<li>Click <strong>Next: Add Tags</strong></li>
+<li>Click <strong>Next: Add Security Groups</strong></li>
+<li>Click <strong>Add Rule</strong></li>
+<li>Make sure that an RDP rule for port 3389 with a Source of <strong>My IP</strong> is present
+<img alt="sg-rule" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/sg-rule.png" /><strong>NOTE: We advise that you restrict access of RDP Traffic to your own network</strong></li>
+<li>Click <strong>Review and Launch</strong></li>
+<li>On the Review Instance Launch screen click <strong>Launch</strong></li>
+<li>On the <strong>Select an existing key pair</strong> screen ensure that you select <strong>Create a new key pair</strong> , give it a Key Pair Name and ensure that you Download the file to your laptop.</li>
+<li>Then click <strong>Launch Instances</strong></li>
+</ol>
+<p><strong>LAB A – TASK 4</strong>
+In this task we are going to use the AWS AD Connector Service to allow us to connect our newly created EC2 Instance to the <strong>ACME.COM</strong> domain that resides in <strong>VPC02</strong>.</p>
+<ol>
+<li>In the AWS Console, click on <strong>Directory Service</strong></li>
+<li>On the Directories screen click on <strong>Set up directory</strong></li>
+<li>On the Select directory type screen select AD Connector and click <strong>Next</strong></li>
+<li>On the Enter AD Connector information screen select Directory size of <strong>Small</strong> and click Next</li>
+<li>On the <em>Choose VPC and subnets</em> screen enter the following:</li>
+</ol>
+<blockquote>
+<p>VPC – VPC01-VPC</p>
+<p>Subnets – VPC01-SNEXTPUB1A</p>
+<p>VPC01-SNEXTPUB1B</p>
+</blockquote>
+<p><img alt="AD Connector" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/A-4-5_cut.png" /></p>
+<ol>
+<li>Click <strong>Next</strong></li>
+<li>On the <em>Active Directory Information</em> screen enter the following details:</li>
+</ol>
+<blockquote>
+<p>Directory DNS name – acme.com</p>
+<p>Directory NetBIOS name – acme</p>
+<p>DNS IP Address – 10.1.16.5</p>
+<p>Service account username – administrator</p>
+<p>Service account password – @Pa55w0rd159@</p>
+</blockquote>
+<p><img alt="AD Connector2" src="https://s3.us-east-2.amazonaws.com/win309images/A-4-8.png" /></p>
+<ul>
+<li>Click <strong>Next</strong></li>
+<li>Finally, on the Review and Create screen, check all settings and then click <strong>Create directory</strong>
+<em>NOTE: It is best practice to reduce the permissions assigned to the Service Account used during the AWS AD Connector setup. The following link has best practice guidelines: https://docs.aws.amazon.com/directoryservice/latest/admin-guide/prereq_connector.html?icmpid=docs_ds_console_help_panel#connect_delegate_privileges</em></li>
+</ul>
+<h2 id="task-45-create-a-new-dhcp-options-set">TASK 4.5 – Create a new DHCP Options set</h2>
+<p>DHCP Option Sets cannot be modified. If you require your VPC to use a different set of DHCP options, you must create a new set and associate with your VPC. In this section, you will create a new DHCP Option Set which will be used by EC2 instances launched into VPC01.</p>
+<ol>
+<li>In the AWS Management Console on the services menu, go back to the home screen and then click on VPC</li>
+<li>Choose DHCP Option Sets from the side menu</li>
+<li>Choose Create DHCP options set
+<img alt="dhcp" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/dhcp.png" /></li>
+<li>Enter these values in to the relevant fields:</li>
+</ol>
+<blockquote>
+<p>Name Tag = <strong>dopt-acme</strong></p>
+<p>Domain name = acme.com</p>
+<p>Domain name servers = 10.1.16.5</p>
+<p>NTP servers = (leave blank)</p>
+<p>NetBIOS servers = (leave blank)</p>
+<p>NetBIOS node type = (leave blank)</p>
+</blockquote>
+<ol>
+<li>Choose Yes, Create</li>
+</ol>
+<h2 id="task-46-associate-the-new-dhcp-options-set-with-your-vpc">TASK 4.6 – Associate the new DHCP Options set with your VPC</h2>
+<p>The next step is to associate our newly created DHCP Option Set with our VPC.  After you associate a new set of DHCP options with a VPC, any existing instances and all new instances that you launch in the VPC use these options. You don't need to restart or relaunch the instances.</p>
+<ol>
+<li>Go back to the VPC services menu</li>
+<li>Select <strong>Your VPCs</strong> from the left menu and then select the VPC labelled <strong>VPC01-VPC</strong></li>
+<li>Click on Actions and Select <strong>Edit DHCP Options Set</strong></li>
+<li>From the list, select the DHCP Option Set with the name given in Task 4.5 <strong>dopt-acme</strong></li>
+<li>Click Save
+<img alt="DHCP Option Set" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-2-5.png" /></li>
+</ol>
+<p><strong>LAB A – TASK 5</strong>
+You can download the <a href="http://docs.aws.amazon.com/directoryservice/latest/admin-guide/samples/DirectoryServicePortTest.zip">Port Verification Tool</a> to troubleshoot AD Connector or Microsoft AD Trust setup issues from here: Directory Service Port Test
+The AD Connector Port Verification Tool does two things:</p>
+<ul>
+<li>Determines if the necessary ports are open from the VPC to your domain</li>
+<li>Verifies the minimum forest and domain functional levels.</li>
+</ul>
+<p>Usage:</p>
+<div class="codehilite"><pre><span></span>     DirectoryServicePortTest.exe -d &lt;domain_name&gt; -ip &lt;server_IP_address&gt; -tcp &quot;53,88,135,389,445,464,3268,3269,5722,9389&quot; -udp &quot;53,88,123,138,389,445&quot;
+</pre></div>
+
+
+<ol>
+<li>Start a Remote Desktop session with your newly created EC2 Instance.</li>
+<li>
+<p>Start Internet Explorer and browse to the following link.
+ https://docs.aws.amazon.com/directoryservice/latest/admin-guide/samples/DirectoryServicePortTest.zip</p>
+</li>
+<li>
+<p>If <strong>Internet Explorer Enhanced Security Configuration</strong> is enabled <graphic18.5) then follow the instructions below to disable it.
+         a. Click on start and click on **Server Manager**
+         b. On the left hand side of Server Manager click on Local Server
+         c. On the large Properties pane find IE Enhanced Security Configuration and confirm it’s set to ON
+         d. Click on the ON link
+         e. <Graphic18.6> Click OFF for Administrators option. Click ok.
+         f. Restart Internet Explorer.</p>
+</li>
+<li>Download the tool, and extract the .zip file to the <strong>C:\TEMP</strong> folder.</li>
+<li>Start a Command Prompt prompt via the Start Menu.</li>
+<li>Change to the <strong>C:\TEMP</strong> folder via CD C:\TEMP  </li>
+<li>Enter the following –</li>
+</ol>
+<div class="codehilite"><pre><span></span>  directoryserviceporttest -d acme.com – ip “10.1.16.5”
+</pre></div>
+
+
+<ol>
+<li>You should see the following confirmation</li>
+</ol>
+<p><img alt="Port Test" src="https://s3.us-east-2.amazonaws.com/win309images/A-5-8.png" /></p>
+<p><strong>LAB A – TASK 6</strong></p>
+<p>In this task we will perform the simple task of joining our newly created EC2 Instance to the ACME.COM domain.  </p>
+<p>There are numerous ways of doing this such as
+-   Adding a Powershell script to the USERDATA section when launching the EC2 Instance
+-   Using the AWS Systems Manager ‘Run Command’ service to run a Powershell script
+-   Use the new AWS Systems Manager ‘Session Manager’ to create a session with the instance</p>
+<p>Since you may not have had the chance to use Session Manager yet, lets choose this option.</p>
+<ol>
+<li>In the AWS Console search for Systems Manager under Management Tools and select.</li>
+<li>AWS Systems Manager gives you a lot of functionality that will help you manage your long-running AWS EC2 Instances.  On the left hand side menu choose Session Manager</li>
+<li>This screen gives you details of previous used sessions and also you can configure session-logging in the Preferences tab.  Click Start Session</li>
+</ol>
+<p><img alt="start Session" src="https://s3.us-east-2.amazonaws.com/win309images/A-6-3.png" /></p>
+<ol>
+<li>There should be three EC2 instances viable in the Target Instances screen. Select the Instance ID that corresponds to your newly created instance and select using the radio-button on the left and then click the Start Session button.</li>
+<li>A Powershell Prompt will appear in your browser.</li>
+<li>Type or paste the following –</li>
+</ol>
+<h2 id="please-enter-each-line-individually"><strong>please enter each line individually</strong></h2>
+<div class="codehilite"><pre><span></span>  Set-DNSClientServerAddress -InterfaceAlias “Ethernet” -ServerAddresses (“10.1.16.5”)
+
+  $domain = &quot;acme.com&quot;
+
+  $password = &quot;@Pa55w0rd159@” | ConvertTo-SecureString -asPlainText -Force
+
+  $username = &quot;$domain\administrator&quot;
+
+  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+
+  Add-Computer -DomainName $domain -Credential $credential -restart
+</pre></div>
+
+
+<ol>
+<li>You should get the following response</li>
+</ol>
+<p><img alt="Join Domain" src="https://s3.us-east-2.amazonaws.com/win309images/A-6-7.png" /></p>
+<ol>
+<li>The EC2 Instance restarts and joins the domain ACME.COM.</li>
+<li>After the restart see if you can connect it using the ACME.COM credentials.</li>
+</ol>
+<p><strong>LAB A – TASK 7</strong></p>
+<p>In this task we will promote our newly created instance to become a Domain Controller in the <strong>ACME.COM</strong> domain.
+We will use AWS Systems Manager’s Session Manager service once again.</p>
+<ol>
+<li>Back to the AWS Console, find and select AWS Systems Manager</li>
+<li>In the AWS Systems Manager screen, select Session Manager on the left.</li>
+<li>Click Start Session</li>
+<li>Select the EC2 we created in TASK 3 and click Start Session</li>
+<li>Type or cut and paste the following Powershell into the Session. Please enter the commands Line by Line</li>
+</ol>
+<div class="codehilite"><pre><span></span>  Add-WindowsFeature AD-Domain-Services, RSAT-AD-AdminCenter,RSAT-ADDS-Tools
+
+  $domain = &quot;acme.com&quot;
+
+  $password = &quot;@Pa55w0rd159@” | ConvertTo-SecureString -asPlainText -Force
+
+  $username = &quot;$domain\administrator&quot;
+
+  $credential = New-Object System.Management.Automation.PSCredential($username,$password)
+
+  install-addsdomaincontroller -installdns -Credential $credential -domainname acme.com
+</pre></div>
+
+
+<p>You’ll be asked to provide a SafeMode Administrator Password. Type the following  ReInvent2018
+You’ll receive the following message – enter Y (for Yes)
+<img alt="DCPromo" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/A-7-5.png" /></p>
+<p><strong>Congratulations !</strong>
+<strong><em>We’ve used AWS AD Connector to extend on on-premise Active Directory into AWS and then created a domain controller in the ACME.COM domain</em></strong></p>
+<h1 id="lab-b-using-the-aws-directory-service-for-active-directory">LAB B – Using the AWS Directory Service for Active Directory</h1>
+<h2 id="goal_1">GOAL</h2>
+<p>In this lab you are going to configure the instance of AWS Directory Services that has already been created for you. You will then create EC2 Instances which are automatically domain joined when they start.</p>
+<h2 id="stretch-goal">STRETCH GOAL</h2>
+<p>You will configure federated Single Sign on to the AWS Console for Active Directory users.  We will also Share our AWS Directory Services domain into a separate VPC.</p>
+<h2 id="quicktask">QUICKTASK</h2>
+<p>In this next lab you will complete the configuration of <strong><em>AWS Directory Services for Active Directory</em></strong>
+This includes setting DHCP Option Sets in VPC01 and configuring a AWS Systems Manager role that will enable an EC2 Instance to Auto-Join the <strong>corp.example.com</strong> domain when it launches. After that is complete we will configure a Domain Trust with ACME.COM</p>
+<h2 id="gathering-information">Gathering information</h2>
+<p>Before we begin, we need to gather some information that will be required throughout the tasks ahead.</p>
+<p>In the AWS Console, select <strong>Directory Service</strong> from the Security, Identity &amp; Compliance section of services. Or just type <strong><em>Directory</em></strong> in the Console search bar and select the Directory Service.</p>
+<p>You will see a single Directory already created for you.  Click on the <strong>Directory ID</strong> link.</p>
+<p>On the next screen, you'll find details of the Directory.  Make a note of the following items...</p>
+<ul>
+<li>Directory ID</li>
+<li>DNS Address (x2)</li>
+</ul>
+<p>The DNS addresses (x2) are the individual IP addresses of each domain controller pre-created in separate Availability Zones inside a single VPC.</p>
+<h2 id="task-1-configuring-a-vpc-to-use-your-dns-servers">TASK 1 - Configuring a VPC to use your DNS servers</h2>
+<p>The Dynamic Host Configuration Protocol (DHCP) provides a standard for passing configuration information to hosts on a TCP/IP network. The options field of a DHCP message contains the configuration parameters. Some of those parameters are the domain name, domain name server, and the NetBIOS-node-type.</p>
+<p>DHCP Option Sets are associated with your virtual private cloud (VPC).</p>
+<p>The default DHCP Option Set resolves DNS requests via Route 53. With Windows we need our instances to resolve their DNS via our Domain Controllers. In this lab we will create a new DHCP Option Set and redirect DNS requests to our AWS Directory Service.</p>
+<h2 id="task-2-create-a-new-dhcp-options-set">TASK 2 – Create a new DHCP Options set</h2>
+<p>DHCP Option Sets cannot be modified. If you require your VPC to use a different set of DHCP options, you must create a new set and associate with your VPC. In this section, you will create a new DHCP Option Set which will be used by EC2 instances launched into VPC01.</p>
+<ol>
+<li>In the AWS Management Console on the services menu, go back to the home screen and then click on VPC</li>
+<li>Choose DHCP Option Sets from the side menu</li>
+<li>Choose Create DHCP options set
+<img alt="dhcp" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/dhcp.png" /></li>
+<li>Enter these values in to the relevant fields:</li>
+</ol>
+<blockquote>
+<p>Name Tag = <strong>dopt-corp</strong></p>
+<p>Domain name = corp.example.com</p>
+<p>Domain name servers = (The two IP addresses for your AWS Directory Services DNS Servers that you noted earlier. Use a comma to separate them)</p>
+<p>NTP servers = (leave blank)</p>
+<p>NetBIOS servers = (leave blank)</p>
+<p>NetBIOS node type = (leave blank)</p>
+</blockquote>
+<p><img alt="DHCP Option Set" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-2-4.png" /></p>
+<ol>
+<li>Choose Yes, Create</li>
+</ol>
+<h2 id="task-3-associate-the-new-dhcp-options-set-with-your-vpc">TASK 3 – Associate the new DHCP Options set with your VPC</h2>
+<p>The next step is to associate our newly created DHCP Option Set with our VPC.  After you associate a new set of DHCP options with a VPC, any existing instances and all new instances that you launch in the VPC use these options. You don't need to restart or relaunch the instances.</p>
+<ol>
+<li>Go back to the VPC services menu</li>
+<li>Select <strong>Your VPCs</strong> from the left menu and then select the VPC labelled <strong>VPC01-VPC</strong></li>
+<li>Click on Actions and Select <strong>Edit DHCP Options Set</strong></li>
+<li>From the list, select the DHCP Option Set with the name given in Task 1 <strong>dopt-corp</strong></li>
+<li>Click Save
+<img alt="DHCP Option Set" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-2-5.png" /></li>
+</ol>
+<h2 id="task-4-domain-join-part-1">TASK 4 - Domain Join Part 1</h2>
+<p><strong>Overview</strong>
+For our second task, we are going to configure AD domain auto-join. This requires the creation of an SSM Document and IAM role. The process is simplified as AWS will automatically create the SSM document for you when you first launch an instance.</p>
+<p>The steps below take you through the creation of the IAM role, and then finally we launch an Amazon EC2 instance that will automatically join the <strong>corp.example.com</strong> domain running on AWS Directory Services.</p>
+<h2 id="task-5-create-an-iam-role">TASK 5 – Create an IAM role</h2>
+<h3 id="if-you-worked-through-lab-a-first-then-you-will-have-already-created-an-iam-role-called-ec2roleforssm-you-can-then-skip-this-task-if-not-please-follow-the-instructions-below">If you worked through LAB A first then you will have already created an IAM role called EC2RoleforSSM.  You can then skip this task.  If not, please follow the instructions below.</h3>
+<p>IAM Roles are configured with permissions that allow a service, assuming the role, to perform actions permitted by that role. Amazon EC2 Roles allow Amazon EC2 instances to assume a role so that applications on the instance can make secure API calls to AWS.</p>
+<p>In this task, we will create an EC2 role which will be used by the SSM agent on our instance to perform the actions it requires with Directory Services.</p>
+<ol>
+<li>Back at the Home screen of the AWS Management Console, click <strong>IAM</strong></li>
+<li>Select <strong>Roles</strong> from the left side menu and click on <strong>Create role</strong></li>
+<li>Select <strong>AWS service</strong> and then <strong>EC2</strong>
+<img alt="SSM Role" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-1-3.png" /></li>
+<li>Select <strong>EC2 Role for Simple Systems Manager</strong> as your use case and click <strong>Next:Permissions</strong></li>
+<li>The <strong>AmazonEC2RoleforSSM</strong> should be selected</li>
+<li>Click <strong>Next: Review</strong></li>
+<li>Enter <strong>EC2RoleforSSM</strong> as the name for the role</li>
+<li>Click <strong>Create Role</strong></li>
+</ol>
+<h2 id="task-6-launch-an-instance">TASK 6 – Launch an Instance</h2>
+<p>In this task, we will launch a new instance into VPC01 and attach the IAM role that we created in the previous task.</p>
+<ol>
+<li>On the Services menu, click <strong>EC2</strong></li>
+<li>Select <strong>Launch Instance</strong></li>
+<li>Select <strong>Microsoft Windows Server 2016 Base</strong> as the AMI</li>
+<li>Choose <strong>t2. medium</strong> as the instance type</li>
+<li>Click <strong>Next:Configure Instance Details</strong></li>
+<li>In the Configure Instance Details Screen, ensure the following settings:</li>
+</ol>
+<blockquote>
+<p>Network VPC, select VPC01</p>
+<p>Subnet, select VPC01-SNEXTPUB1A</p>
+<p>Auto-Assign Public-IP should be set to ENABLE</p>
+<p>Domain join directory should be set to <strong>corp.example.com</strong></p>
+<p>I AM role should be set to EC2RoleforSSM  (which we previously created in TASK 5)</p>
+</blockquote>
+<p><img alt="SSM Role" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-6-6.png" /></p>
+<ol>
+<li>Click <strong>Advanced Details</strong> at the bottom of the screen which will show the Userdata section</li>
+<li>Copy and Paste the following PowerShell code into the Userdata section which will install the required management tools</li>
+</ol>
+<div class="codehilite"><pre><span></span><span class="nt">&lt;powershell&gt;</span>
+Import-Module Servermanager
+Install-WindowsFeature RSAT, RSAT-DNS-Server
+<span class="nt">&lt;/powershell&gt;</span>
+</pre></div>
+
+
+<p><img alt="User Data" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-6-8.png" /></p>
+<ol>
+<li>Select <strong>Review and Launch</strong></li>
+<li>You'll receive a security warning that we are not using Free Usage Tier. Click <strong>Launch</strong>.</li>
+<li>Select the existing Key Pair from LAB A. Acknowledge via the check-box and click Launch Instances</li>
+</ol>
+<p><strong><em>NOTE: Make a note of the Instance-ID of the new EC2 instance you've just launched</em></strong></p>
+<p>Whilst our Amazon EC2 instance is launching, let's complete another task before returning to the instance.</p>
+<h2 id="task-7-aws-directory-service-event-notification">TASK 7 – AWS Directory Service Event Notification</h2>
+<p>As a Windows server administrator, understanding when you have an issue with a domain controller is vital. Windows Server has a built-in logging system via Event Viewer, but to be notified when the AWS Directory Service itself has a problem we create a notification using SNS.</p>
+<p>Configure SNS
+1. Go to the Home screen of the AWS console</p>
+<ol>
+<li>
+<p>Select <strong>Directory Service</strong></p>
+</li>
+<li>
+<p>On the Directories page, choose the directory ID for the <strong>corp.example.com</strong> domain</p>
+</li>
+<li>
+<p>Choose <strong>Monitoring</strong> and then <strong>Create Notification</strong></p>
+</li>
+<li>
+<p>Choose <strong>Create a new notification</strong></p>
+</li>
+<li>
+<p>Choose <strong>Recipient Type</strong> as Email and enter an email address that is accessible to you during the workshop</p>
+</li>
+<li>
+<p>Choose <strong>Advanced Options</strong> and ensure your SNS topic starts with DirectoryMonitoring</p>
+</li>
+<li>
+<p>Choose Add</p>
+</li>
+</ol>
+<p><img alt="SNS" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-7-8.png" /></p>
+<h2 id="task-8-confirm-subscription">TASK 8 – Confirm Subscription</h2>
+<p>You will receive an email asking you to confirm your subscription to the SNS notification.  Click the link to confirm the subscription.</p>
+<h2 id="task-9-domain-join-part-2">TASK 9 – Domain Join Part 2</h2>
+<p><strong>Verify your instance is joined to the domain</strong></p>
+<p>Switching back to the Amazon EC2 instance we previously launched in Task 2. Let's find the Instance-ID in Amazon EC2 Services and note the Public IP of the instance.</p>
+<ol>
+<li>Using the Remote Desktop client for your machine, connect to the EC2 instance Public IP address
+<em>NOTE: You will receive a Certificate error when connecting to the instance, select continue</em></li>
+<li>Login to the server using the <strong>corp.example.com</strong> domain account using the details below:</li>
+</ol>
+<blockquote>
+<p>Username: <strong>corp.example.com\admin</strong></p>
+<p>Password: <strong>@Pa55w0rd159@  (case-sensitive)</strong></p>
+</blockquote>
+<ol>
+<li>This will demonstrate that your EC2 instance is joined to the <strong>corp.example.com</strong>  domain
+<em>NOTE: If you fail to connect, check the status of the EC2 instance in the console to ensure it has finished launching.</em></li>
+</ol>
+<h2 id="task-10-configuring-dns-resolution">TASK 10 – Configuring DNS resolution</h2>
+<p>In the first task, we created a new DHCP options set and associated it with VPC01. This option set will allow instances launched into VPC01 to resolve DNS hostnames for <strong>corp.example.com</strong>  .</p>
+<p>In this task, we will configure DNS to allow our AWS resources to resolve DNS hostnames for acme.com  domain as well as vice versa.</p>
+<p>We need to make changes to the existing security group attached to the Directory Services domain controllers, this will allow the outbound connectivity required between the Directory Services located in VPC01 and resources in VPC02.</p>
+<ol>
+<li>On the Services menu, click <strong>EC2</strong></li>
+<li>On the sidebar, select <strong>Security Groups</strong></li>
+<li>You should see a number of security groups already created.  One will have the Group Name that will have a suffix of controllers. This is the security group automatically created when we launched AWS Directory Services</li>
+<li>Select this Security Group and select the <strong>Outbound</strong> tab</li>
+<li>Click Edit and add a new Security group rule as per the following:</li>
+</ol>
+<blockquote>
+<p>Type = ALL Traffic</p>
+<p>Protocol = ALL</p>
+<p>Destination = 10.1.0.0/16</p>
+</blockquote>
+<ol>
+<li>Click <strong>Save</strong></li>
+</ol>
+<h2 id="task-11-continuing-dns-configuration">TASK 11 - Continuing DNS Configuration</h2>
+<ol>
+<li>If you have closed your existing remote desktop connection, using the Remote Desktop client for your machine, connect to the EC2 instance public IP address you previously created in task 2.2</li>
+<li>Login to the server using the <strong>corp.example.com</strong> domain account using the details below:</li>
+</ol>
+<blockquote>
+<p>Username: <strong>corp.example.com\admin</strong></p>
+<p>Password: <strong>@Pa55w0rd159@  (case-sensitive)</strong></p>
+</blockquote>
+<ol>
+<li>Once successfully logged in, go to Windows Administrative Tools on the Start Menu and select DNS to launch the Windows DNS Manager
+<em>NOTE: Ensure that the DNS server you connect to is one of the AWS Directory Services instances which you noted at the start of the lab.</em>
+<img alt="DNS Config" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-11-3.png" /></li>
+<li>In the left-hand side navigation window make sure that you have selected the DNS Server</li>
+<li>We are going to add an entry for a Conditional Forwarder that will point to the VPC02 Domain Controller and DNS server</li>
+<li>Right-click Conditional Forwarders, and select New Conditional Forwarder</li>
+<li>Enter a domain of acme.com and the IP address of the master server 10.1.16.5
+<em>NOTE: Ignore any errors in the DNS console reporting "cannot resolve FQDN"</em></li>
+</ol>
+<p><img alt="DNS confirmation" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-11-7.png" /></p>
+<h2 id="task-12-setting-a-dns-conditional-forwarder">TASK 12 Setting a DNS Conditional Forwarder</h2>
+<p>We now add a Conditional Forwarder on the acme.com Domain Controller located in VPC02.</p>
+<ol>
+<li>Using the Remote Desktop client for your machine, connect to the VPC02 Management Server using the IP address shown in the Qwiklabs Connection Settings on the Left Hand Side of the screen</li>
+<li>Login to the server using the acme.com domain account using the details below:</li>
+</ol>
+<blockquote>
+<p>Username: <strong>acme.com\Administrator</strong></p>
+<p>Password: <strong>@Pa55w0rd159@  (case-sensitive)</strong></p>
+</blockquote>
+<ol>
+<li>
+<p>Once successfully logged in, go to Windows Administrative Tools on the Start Menu and select DNS to launch the Windows DNS Manager
+<em>NOTE: Ensure that the DNS server you are connected to is ADSERVER1</em>
+<img alt="SSM Role" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-12-3.png" /></p>
+</li>
+<li>
+<p>In the left-hand side navigation window make sure that you have selected DNS</p>
+</li>
+<li>We are going to add an entry for a Conditional Forwarder that will point to the AWS Directory Services instances in VPC01</li>
+<li>Right-click Conditional Forwarders, and select New Conditional Forwarder</li>
+<li>Enter a domain of <strong>corp.example.com</strong>  and the IP address of both AWS Directory Services instances you noted at the start of the lab. Ignore the 'Unable to resolve' message and click OK</li>
+</ol>
+<h2 id="task-13-configuring-a-domain-trust">TASK 13 – Configuring a Domain Trust</h2>
+<p>One of the most common configurations for AWS Directory Services is adding AWS resources to AWS Directory Services and configuring a trust between AWS Directory Services and an existing Active Directory domain.</p>
+<p>This configuration isolates AWS resources into a separate, AWS hosted domain, while allowing Single Sign On from your on premise domain.</p>
+<p>In this task, we will create a Domain Trust to support this configuration.</p>
+<p><em>NOTE: Trusts can either be one of three things. Incoming, Outgoing and Bi-directional.  It is important to understand that permissions are granted in the opposite direction to where the trust is.</em></p>
+<p><img alt="AD Trusts" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/DIAGRAM.png" />
+<em>corp.example.com</em> creates an outgoing trust to <em>acme.com</em> This allows <em>acme.com</em> access to <em>corp.example.com</em> resources</p>
+<p>Think of it as, <em>corp.example.com</em> trusts <em>acme.com</em> to access its resources.</p>
+<h2 id="task-14-creating-a-trust-vpc02-side">TASK 14 – Creating a Trust - VPC02 side</h2>
+<ol>
+<li>Using the Remote Desktop client for your machine, connect to the VPC02 Management Server using an IP address that you can find via the EC2 Console by selecting the EC2 Instance called <strong>VPC02 Management Server</strong></li>
+<li>Open Active Directory Domains and Trusts which you will find in the Start Menu under Windows Administrative Tools</li>
+<li>In the left-hand navigation pane right-click our domain acme.com and select Properties</li>
+<li>In the <em>acme.com</em> Properties screen, select the middle tab Trusts</li>
+<li>At the bottom of the screen click New Trust and the New Trust Wizard appears</li>
+<li>Click Next on the Welcome Screen</li>
+<li>Next, we are going to give our trust a name, name it <strong>corp.example.com</strong> and click Next</li>
+<li>In the Trust Type screen select Forest trust and click Next</li>
+<li>In the Direction of Trust screen select One-Way Incoming and click Next</li>
+<li>In the Sides of Trust screen select This domain only and click Next</li>
+<li>In the Trust Password screen provide a password of <em>@Pa55w0rd159@</em> and click Next</li>
+<li>Click Next, Next</li>
+<li>Select No, do not confirm the incoming trust</li>
+<li>Click Next, Finish</li>
+</ol>
+<h2 id="task-15-creating-a-trust-aws-side">TASK 15 - Creating a Trust - AWS side</h2>
+<ol>
+<li>Go to the AWS Management Console and select Directory Service</li>
+<li>With the Directories tab selected click on the directoryID for the <strong>corp.example.com</strong> domain</li>
+<li>Select the Trust Relationship tab in the middle of the page</li>
+</ol>
+<p><img alt="SSM Role" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-15-3.png" /></p>
+<ol>
+<li>Click on the Add trust relationship button</li>
+<li>The Add a trust relationship detail page appears. Enter the following</li>
+</ol>
+<blockquote>
+<p>Remote domain name = acme.com</p>
+<p>Trust password = @Pa55w0rd159@</p>
+<p>Trust direction = One-Way: Outgoing</p>
+<p>Conditional forwarder = 10.1.16.5  (The IP address of acme.com Domain Controller)</p>
+</blockquote>
+<ol>
+<li>Click Add</li>
+<li>Back at the Directory page you'll see a message stating that the One-Way: Outgoing trust is being created</li>
+<li>The Status of the trust relationship should be Verified in a few minutes</li>
+</ol>
+<p><img alt="Trust Verified" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-15-8.png" /></p>
+<h2 id="task-16-stretch-goal-share-the-corpexamplecom-domain-to-another-account">TASK 16 - STRETCH GOAL - Share the CORP.EXAMPLE.COM domain to another Account</h2>
+<p>In this task we will show one of the very recent additions to AWS Directory Services functionality.  It is now possible to share an AWS Directory Service domain across VPC and also across different accounts.</p>
+<ol>
+<li>Go to the AWS Console, find and select <strong>Directory Services</strong></li>
+<li>You will see a number of directories already created including one for <strong>corp.example.co</strong></li>
+<li>Click on the Directory ID hyperlink of the Corp.Example.com domain. <strong>d-########</strong>
+<img alt="Directory ID" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-16-3.png" /></li>
+<li>Scroll down the page where you can see a new tab called <strong>Scale &amp; Share</strong> click that tab
+<img alt="Scale &amp; Share" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-16-4.png" /></li>
+<li>Click on <strong>Create new shared directory</strong></li>
+<li>You have two options which are <strong>Share this directory with AWS Accounts inside your organization</strong> and Option B which is <strong>Share this directory with other AWS Accounts</strong>
+You need to be running AWS Organizations in order to do the first, but we can test out the second option by asking the student next to you for their account ID and adding it during this task.</li>
+<li>You then have the option of adding a note as part of the Directory sharing process. Add a note if you like and then click SHARE at the bottom of the page.</li>
+</ol>
+<p><strong>Work with your partner to check that Directory Sharing works</strong></p>
+<ol>
+<li>In your partners account, make sure you are using the correct region and then go to the <strong>Directory Services</strong> screen.  In the <strong>Directories Shared with me</strong> link on the left hand side you see a notification.
+<img alt="Shared with me" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-16-8.png" /></li>
+<li>Select the Directory and click <strong>Review</strong></li>
+<li>The Pending Shared Directory Invitation screen appears.  Select the agreement and click <strong>Accept</strong>
+<img alt="Pending Invite" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/B-16-10.png" />
+You can test this out by launching an EC2 Instance and adding it to the <strong>Corp.Example.com</strong> domain</li>
+</ol>
+<p>Congratulations you have completed this lab.</p>
+<h2 id="lab-c-federating-single-sign-on-for-aws-console">LAB C – Federating Single Sign On for AWS Console</h2>
+<p><strong>Overview</strong></p>
+<p>In this final exercise, we implement federation to the AWS Console from the Active Directory domain (acme.com).  We will create users, groups and configure mapping between these and IAM roles.</p>
+<p><strong>Objectives</strong></p>
+<p>We are going to configure the AWS Console single-sign-on (SSO) to acme.com Active Directory domain.</p>
+<p><strong>Task 1 – Creating Users &amp; Groups</strong></p>
+<ol>
+<li>Firstly, we need to create some users and groups in the <strong>corp.example.com</strong> domain.  Remote Desktop into the VPC01 Management Server, Go to the Start Menu and launch PowerShell.</li>
+<li>Copy and paste the following PowerShell commands.</li>
+</ol>
+<p>Create AD Groups</p>
+<div class="codehilite"><pre><span></span>New-ADGroup -Name AWSDevelopers -GroupScope DomainLocal
+
+New-ADGroup -Name AWSAdmins -GroupScope DomainLocal
+</pre></div>
+
+
+<p>Create Users</p>
+<div class="codehilite"><pre><span></span><span class="n">New</span><span class="o">-</span><span class="n">Aduser</span> <span class="o">-</span><span class="n">Name</span> <span class="s">&quot;Williams&quot;</span> <span class="o">-</span><span class="n">GivenName</span> <span class="n">William</span> <span class="o">-</span><span class="n">Surname</span> <span class="n">Gates</span> <span class="o">-</span><span class="n">SamAccountName</span> <span class="n">William</span> <span class="o">-</span><span class="n">UserPrincipalName</span> <span class="n">william</span><span class="p">@</span><span class="n">acme</span><span class="p">.</span><span class="n">com</span> <span class="o">-</span><span class="n">accountPassword</span>
+
+<span class="p">(</span><span class="n">ConvertTo</span><span class="o">-</span><span class="n">SecureString</span> <span class="o">-</span><span class="n">AsPlainText</span> <span class="s">&quot;@Passw0rd158@@&quot;</span> <span class="o">-</span><span class="n">Force</span><span class="p">)</span> <span class="o">-</span><span class="n">PassThru</span> <span class="o">-</span><span class="n">enable</span> <span class="err">$</span><span class="n">True</span>
+
+<span class="n">New</span><span class="o">-</span><span class="n">Aduser</span> <span class="o">-</span><span class="n">Name</span> <span class="s">&quot;Alex&quot;</span> <span class="o">-</span><span class="n">GivenName</span> <span class="n">Alex</span> <span class="o">-</span><span class="n">Surname</span> <span class="n">Summer</span> <span class="o">-</span><span class="n">SamAccountName</span> <span class="n">Alex</span> <span class="o">-</span><span class="n">UserPrincipalName</span> <span class="n">alex</span><span class="p">@</span><span class="n">acme</span><span class="p">.</span><span class="n">com</span> <span class="o">-</span><span class="n">accountPassword</span> <span class="p">(</span><span class="n">ConvertTo</span><span class="o">-</span><span class="n">SecureString</span>
+
+<span class="o">-</span><span class="n">AsPlainText</span> <span class="s">&quot;@Passw0rd158@@&quot;</span> <span class="o">-</span><span class="n">Force</span><span class="p">)</span> <span class="o">-</span><span class="n">PassThru</span> <span class="o">-</span><span class="n">enable</span> <span class="err">$</span><span class="n">True</span>
+</pre></div>
+
+
+<p>Add Users to Groups</p>
+<div class="codehilite"><pre><span></span>Add-ADGroupMember AWSDevelopers William
+
+Add-ADGroupMember AWSAdmins Alex
+</pre></div>
+
+
+<p><strong>Task 2 – Creating an EC2 Developer IAM role</strong></p>
+<ol>
+<li>In the AWS console, select the <strong>IAM</strong>  service</li>
+<li>In the IAM service screen select <strong>Roles</strong> in the Navigation pane</li>
+<li>Select <strong>Create role</strong></li>
+<li>In the Create Role screen select <strong>AWS Service</strong>, choose <strong>Directory Service</strong> and click <strong>Next: Permissions</strong></li>
+<li>In the Attach permissions policies screen find the following policy <strong>AmazonEC2ReadOnlyAccess</strong> make sure you tick the box to select it and then choose <strong>Next:Review</strong></li>
+<li>In the review screen enter a role name of <strong>EC2Developer</strong> and click <strong>Create role</strong></li>
+</ol>
+<p><strong>Task 3 – Creating an EC2 Administrator IAM role</strong></p>
+<ol>
+<li>In the AWS console, select the <strong>IAM</strong> service</li>
+<li>In the IAM service screen select <strong>Roles</strong> in the Navigation pane</li>
+<li>Select <strong>Create role</strong></li>
+<li>In the Create Role screen select <strong>AWS Service</strong>, choose <strong>Directory Service</strong> and click <strong>Next:Permissions</strong></li>
+<li>In the Attach permissions policies screen find the following policy <strong>AmazonEC2FullAccess</strong> make sure you tick the box to select it and then choose <strong>Next:Review</strong></li>
+<li>In the review screen enter a Role Name of <strong>EC2Admin</strong> and click <strong>Create role</strong></li>
+</ol>
+<p><strong>Task 4 – Creating an Access URL</strong></p>
+<ol>
+<li>In the AWS Console , select the <strong>Directory Service</strong></li>
+<li>Select the directory ID for domain <strong>corp.example.com</strong></li>
+<li>Choose the <strong>Apps &amp; services</strong> tab where you'll see the Access URL box</li>
+<li>Select a unique name to add to the URL and click Create Access URL. This process may take a few minutes</li>
+<li>To Confirm - the directory Access URL would be https://uniquename.awsapps.com</li>
+</ol>
+<p><strong>Task 5 – Enabling AWS Management Console access</strong></p>
+<ol>
+<li>In the AWS Console, select the <strong>Directory Service</strong></li>
+<li>Further down the page you'll see a list of AWS Apps &amp; services</li>
+<li>Select <strong>AWS Management Console</strong> and choose <strong>Enable Access</strong></li>
+<li>You will see the console URL next to the newly Enabled AWS Management Console link</li>
+</ol>
+<p><strong>Task 6 – Assigning AD Users and Groups to IAM roles - Developers</strong></p>
+<ol>
+<li>From the Directory Service screen click <strong>AWS management Console</strong> on the Apps &amp; services tab</li>
+<li>You’ll be presented with a confirmation pop-up, click Continue to be redirected to the manage access screen</li>
+<li>On the Add Users and Groups to Roles screen you will see the two roles we created in Task 1.1 in this section</li>
+<li>Click on the EC2Developer role which will take you to the Role Detail: EC2Developer screen</li>
+<li>Click <strong>Add</strong> under Assigned Users and Groups</li>
+<li>Make sure that the <strong>corp.example.com</strong>  domain is selected and then choose the Group radio button</li>
+<li>In the search box type <strong>AWSDevelopers</strong>  and then <strong>Add</strong></li>
+</ol>
+<p><strong>Task 7 – Assigning AD Users and Groups to IAM roles – Administrators</strong></p>
+<ol>
+<li>Following on from the last task. From the Directory Service  screen, once again select <strong>AWS Management Console</strong></li>
+<li>Choose the <strong>EC2Admin</strong> role which takes you to the Role Detail: EC2Admin screen</li>
+<li>Click <strong>Add</strong></li>
+<li>Click Group and search for AWSAdmins in the search box and then click Add
+<em>NOTE: You can change the length of time allowed on the console by changing the Login Session Length number at the Add Users and Groups screen</em></li>
+</ol>
+<p><strong>Task 8 – Testing access - AWS Developers</strong></p>
+<ol>
+<li>In a new browser window, browse to the Access URL you configured in Task 1.2</li>
+</ol>
+<blockquote>
+<p>Username = <strong>corp.example.com\william</strong></p>
+<p>Password = <strong>@Passw0rd158@@</strong></p>
+</blockquote>
+<ol>
+<li>Go into EC2 and click Instances.  Now click Launch Instances and attempt to create an EC2 instance – you should receive an error message because Alex only has ReadOnly access</li>
+<li>Don't forget to Sign-out of the AWS Console and close the browser window</li>
+</ol>
+<p><strong>Task 9 – Testing access - AWS Admins</strong></p>
+<ol>
+<li>In a new browser window, browse to the Access URL you configured in Task 1.2</li>
+</ol>
+<blockquote>
+<p>Username = <strong>corp.example.com\alex</strong></p>
+<p>Password = <strong>@Passw0rd158@@</strong></p>
+</blockquote>
+<ol>
+<li>Go into EC2 and click Instances.  Now click Launch Instances and attempt to create an EC2 instance - you should be able to successfully launch an instance because William has Full Access</li>
+<li>Sign out of the console, and close down the browser window</li>
+</ol>
+<h2 id="lab-d-bonus-lab-aws-systems-manager">LAB D - BONUS LAB – AWS Systems Manager</h2>
+<p><strong>Overview</strong></p>
+<p>AWS Systems Manager provides a number of critical services that will help you manage and maintain long running EC2 instances in AWS.    If you have EC2 Instances that are immutable then you’ll need a way of managing those instances and AWS Systems Manager is the best way of doing that.
+During this Bonus Lab we will give you a quick run through of some critical AWS Systems Manager services that you might use.</p>
+<p><strong>Objectives</strong></p>
+<p>After completing this lab, you will be able to:</p>
+<ul>
+<li>Remotely execute a command using Run Command</li>
+<li>Configure and use the Inventory service to collect configuration and instance information</li>
+<li>Create a Parameter store value</li>
+<li>Use State Manager to create a task and apply to your instances</li>
+<li>Define a Maintenance Window for disruptive tasks</li>
+<li>Configure and Schedule Patch Management</li>
+</ul>
+<p><strong>LAB D – TASK 1 -  Running a command remotely</strong></p>
+<p>In this task, you will use Run Command to remotely and securely execute a PowerShell command on your Windows instance to verify the instance name and domain membership.</p>
+<p>Execute the command</p>
+<ol>
+<li>On the   Services   menu, click   EC2  </li>
+<li>Scroll down to   SYSTEMS MANAGER SERVICES  , click   Run Command  </li>
+</ol>
+<p><img alt="Run Command" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman12.png" /></p>
+<ol>
+<li>Click   Run a command  </li>
+<li>On the   Command document   page, click   <strong>AWS-RunPowerShellScript</strong>  you’ll find it on the third page along.</li>
+<li>For <strong>Select Targets by</strong>, choose one of the EC2 instances that you previously created</li>
+<li>In the <strong>commands</strong> detail, type the following text:</li>
+</ol>
+<div class="codehilite"><pre><span></span> (Get-WmiObject Win32_ComputerSystem).Name
+
+(Get-WmiObject Win32_ComputerSystem).Domain
+</pre></div>
+
+
+<ol>
+<li>Leave the fields   Working Directory   and   Execution Timeout   as defaults</li>
+<li>For   Comment  , add a comment to help you identify this command</li>
+<li>Click   Run   to execute the command</li>
+</ol>
+<p>LAB D – TASK 2 - View the results
+1.  Once the command is complete, choose   View result<br />
+2.  You will be returned to the Run Command windows where the job details will be displayed, Click   Output   from the bottom pane</p>
+<p><img alt="Output" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman22.png" /></p>
+<ol>
+<li>Click   View Output   to display the output from the PowerShell command</li>
+<li>You will now see the results of the PowerShell command that was executed on your instance, it should display the instance name and domain information</li>
+<li>Click   Close   to return to the previous screen</li>
+</ol>
+<p>LAB D – TASK 3 - Bonus Task
+1. [1]Try running some other familiar PowerShell commands on the instance(s) and viewing the output, for example can you verify the trust relationship between the domains?</p>
+<p><strong>LAB D – TASK 4 - Inventory</strong></p>
+<p>In this task, you will setup the Inventory service to collect configuration and inventory information of all instances in VPC02 to identify which version of the SSM Agent is installed on your instances.</p>
+<p>Configure Inventory
+1.  Click <strong>Managed Instances</strong> from the <strong>SYSTEMS MANAGER SHARED RESOURCES</strong> menu</p>
+<p><img alt="Inventory" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman31.png" /></p>
+<ol>
+<li>Click <strong>Setup Inventory</strong></li>
+<li>In <strong>Targets</strong>, Click Select Targets by <strong>Specifying a Tag</strong> and in the selection box choose <strong>Tag Name – Environment</strong>,   Tag Value – VPC02  </li>
+<li>We will leave the Schedule to execute   Every 30 Minutes  </li>
+<li>We will ensure all the <strong>Parameters</strong> are <strong>Enabled</strong></li>
+</ol>
+<p><img alt="Inventory Scheduling" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman35.png" /></p>
+<ol>
+<li>Click <strong>Setup Inventory</strong></li>
+</ol>
+<p><img alt="Setup Inventory" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman36.png" /></p>
+<ol>
+<li>Click <strong>Close</strong></li>
+</ol>
+<p><strong>LAB D – TASK 5 - Execute Inventory</strong>
+1.  As the task may not execute for 30 minutes, Click <strong>State Manager</strong> from the <strong>SYSTEMS MANAGER SERVICES</strong> menu</p>
+<p><img alt="ExecuteInventory" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman38.png" /></p>
+<ol>
+<li>Click on the <strong>AWS-GatherSoftwareInventory</strong> Document Name</li>
+<li>Click on <strong>Instances</strong> to view the targeted instances, you should see your instance</li>
+</ol>
+<p><img alt="Targeted Instances" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman39.png" /></p>
+<ol>
+<li>Click <strong>Apply Association Now</strong> to force the inventory task to execute immediately</li>
+</ol>
+<p><img alt="Setup Inventory" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman40.png" /></p>
+<p><strong>LAB D – TASK 6 - View Inventory Results</strong>
+1.  Return to   Managed Instances   from the <strong>SYSTEMS MANAGER SHARED RESOURCES</strong> menu
+2.  Click on <strong>your instance</strong> and Click <strong>Inventory</strong>
+3.  From   Inventory Type  , Select   AWS:Application  </p>
+<p><img alt="View Inventory" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman41.png" /></p>
+<ol>
+<li>This will now display the installed AWS Applications including the SSM Agent version</li>
+</ol>
+<p><strong>LAB D – TASK 7 - Bonus Task</strong>
+Using the inventory data, can you identify the following?</p>
+<ol>
+<li>[1]What roles are installed on the server?</li>
+<li>[2]Is IIS installed and running?</li>
+</ol>
+<hr />
+<p><strong>LAB D – TASK 8 - Parameter Store</strong></p>
+<p>The Parameter store provides a centralized location to store, provide access control, and easily reference your configuration data, whether plain-text data such as database strings or secrets such as passwords, encrypted through AWS Key Management Service (KMS).  In this task, we will create an administrator password parameter which we will later use to apply to Windows instances.</p>
+<p>Create Parameter in the Store
+1.  Click   Parameter Store   from the   SYSTEMS MANAGER SHARED RESOURCES   menu</p>
+<p><img alt="Parameter Store" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman42.png" /></p>
+<ol>
+<li>Click Get Started Now  </li>
+<li>For Name type WindowsAdministratorPassword  </li>
+<li>For Description type Windows local administrator password  </li>
+<li>For Type select String  </li>
+<li>For Value type</li>
+</ol>
+<p><strong>L0calAdm1nPa55word@</strong></p>
+<ol>
+<li>Click   Create Parameter  </li>
+</ol>
+<p><img alt="Setting a Parameter" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman43.png" /></p>
+<ol>
+<li>Click   Close  </li>
+</ol>
+<hr />
+<p><strong>LAB D – TASK 9 - State Manager</strong></p>
+<p>Systems Manager State Manager is a secure and scalable configuration management service that ensures your Amazon EC2 and hybrid infrastructure is in a desired or consistent state, which you define. In this task, we will create an association to apply to the Windows servers with a job that will regularly update the local administrator password to the value previously created in the parameter store.</p>
+<p>Create Association
+1.  Click State Manager from the SYSTEMS MANAGER SERVICES menu
+2.  Click Create Association<br />
+3.  For Association Name, Type SetWindowsLocalAdminPassword<br />
+4.  For Document select AWS-RunPowerShellScript<br />
+5.  Click Select Targets by Specifying a Tag and in the selection box choose Tag Name – Platform, Tag Value – Windows<br />
+6.  We will leave the Schedule to execute Every 30 Minutes<br />
+7.  In the commands detail, use the following values:</p>
+<div class="codehilite"><pre><span></span><span class="x">Net.exe user administrator </span><span class="cp">{{</span><span class="nv">ssm</span><span class="o">:</span><span class="nv">WindowsAdministratorPassword</span><span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<ol>
+<li>Leave the default values for the Working Directory and Execution Timeout and Click   Create Association  </li>
+</ol>
+<p><img alt="State Manager" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman45.png" /></p>
+<ol>
+<li>After the Association has been successfully created, Click   Close  </li>
+</ol>
+<p><strong>LAB D – TASK 10 - Execute Association</strong>
+1.  As the task may not execute for 30 minutes, Click   State Manager   from the   SYSTEMS MANAGER SERVICES   menu
+2.  Click on the <strong>SetWindowsLocalAdminPassword</strong> Association
+3.  Click   Instances   to view the targeted instances and the status
+4.  To force the association, Click   Apply Association Now  </p>
+<p><img alt="State Manager" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman40.png" /></p>
+<p><strong>LAB D – TASK 11 - Test Association</strong>
+1.  To test that the local administrator password has been successfully changed on your Windows instances, ensure you are logged out of any remote desktop sessions.
+2.  Connect using remote desktop to your existing Windows instance using the local computer administrator account with the new password:
+- User:   .\administrator<br />
+- Password:   L0calAdm1nPa55word@  </p>
+<hr />
+<p><strong>LAB D – TASK 12 -  Maintenance Windows</strong></p>
+<p>In this task, we will define a maintenance window for patches to be applied at 4 PM on every Tuesday for 4 hours.</p>
+<p>Create a Maintenance Window
+1.  Click Maintenance Windows from the SYSTEMS MANAGER SHARED RESOURCES menu
+2.  Click Create a Maintenance Window<br />
+3.  For Name Type MyNightlyMaintenanceWindow<br />
+4.  Click CRON/Rate expression<br />
+5.  For CRON/Rate expression  , Type</p>
+<p><strong>cron(0 16 ?   TUE  )</strong></p>
+<ol>
+<li>For Duration, Type   4  </li>
+<li>For Stop initiating tasks, Type   1  </li>
+<li>This will create a maintenance Window that runs at 4 PM on every Tuesday for 4 hours, with a 1 hour cutoff</li>
+<li>Click Create maintenance window  </li>
+</ol>
+<p><img alt="Maintainance Windows " src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman46.png" /></p>
+<p><strong>LAB D – TASK 13 - Register targets with a Maintenance Window</strong>
+1.  Click <strong>Maintenance Windows</strong> from the   SYSTEMS MANAGER SHARED RESOURCES   menu
+2.  Click <strong>MyNightlyMaintenanceWindow</strong> from the maintenance windows
+3.  Click <strong>Actions</strong>, <strong>Register targets</strong> from the drop-down menu
+4.  For <strong>Target Name</strong> Type <strong>MyWindowsInstances</strong>
+5.  Click Select Targets by <strong>Specifying a Tag</strong> and in the selection box choose <strong>Tag Name – Platform</strong>,   Tag Value – Windows  </p>
+<p><img alt="Register Targets" src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman47.png" /></p>
+<ol>
+<li>Click <strong>Register targets</strong></li>
+<li>Once target registration has been successful, Click   Close  </li>
+</ol>
+<p><strong>LAB D – TASK 14 - Patch Manager</strong></p>
+<p>In this task, we will configure Patch Manager to help you select and deploy operating system and software patches automatically to your instances by using the default patch baseline.</p>
+<p>Register the patch manager task with the maintenance windows
+1.  Click <strong>Maintenance Windows</strong> from the <strong>SYSTEMS MANAGER SHARED RESOURCES</strong> menu
+2.  Click <strong>MyNightlyMaintenanceWindow</strong> from the maintenance windows
+3.  Click <strong>Actions</strong>,   Register run command task from the drop-down menu
+4.  For <strong>Name</strong>, Type <strong>WindowsPatching</strong>
+5.  In the <strong>Document</strong> section, choose <strong>AWS-RunPatchBaseline</strong>
+6.  In <strong>Strict targets</strong> ensure your Maintenance Window target is selected, this may be identified by a unique ID rather than by name</p>
+<p><strong>LAB D – TASK 15 - Create the required IAM role</strong>
+1.  For <strong>Role</strong>, click <strong>Add new custom role</strong>
+2.  Click <strong>Create role</strong>
+3.  Select <strong>EC2</strong>, and click <strong>Next: Permissions</strong>
+4.  In <strong>Policy type</strong>, Type</p>
+<p><strong>AmazonSSMMaintenanceWindowRole</strong></p>
+<ol>
+<li>Select the <strong>AmazonSSMMaintenanceWindowRole</strong> policy and click   Next: Review  </li>
+<li>For <strong>Role name</strong> type *<em>ec2_AmazonSSMMaintenanceWindowRole</em></li>
+</ol>
+<p><img alt="Maintainance Windows " src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman48.png" /></p>
+<ol>
+<li>Click <strong>Create role</strong></li>
+</ol>
+<p><strong>LAB D – TASK 16 - Complete the configuration</strong>
+1.  Return to your AWS Console windows and click the Refresh icon next to the Role<br />
+2.  You should now be able to select the newly created role within the Role drop-down</p>
+<p><img alt="Maintainance Windows " src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman49.png" /></p>
+<ol>
+<li>For Execute on enter   5  </li>
+<li>For Stop after enter   5  </li>
+<li>For Operation, change to Install  </li>
+<li>Leave all other fields as default and click Register task  </li>
+<li>Once the task has been successfully registered, click Close  </li>
+<li>Select your Maintenance Window task and check the associated tasks and targets to check its setup correctly</li>
+</ol>
+<p>Congratulations you have now successfully configured a Maintenance Window to execute at 4 PM on every Tuesday for 4 hours that will patch all your Windows instances 5 at a time  </p>
+<p><strong>LAB D – TASK 17 - Run Patch Baseline</strong>
+  Bonus Task  </p>
+<p>As we won't be around next Tuesday at 4PM, execute a patch baseline against our Windows instances to view the patch status immediately</p>
+<ol>
+<li>Execute a Run command on your instances using AWS-RunPatchBaseline, Note: it can take &gt;10 minutes to execute on the instances</li>
+<li>Once complete select your instances in Patch Compliance and view the compliance status</li>
+<li>From Managed Instances click Filter by attributes and select AWS:ComplianceItem.Classification : equals : SecurityUpdates and AWS:PatchSummary.MissingCount : greater-than : 0  </li>
+</ol>
+<p><img alt="Maintainance Windows " src="https://win309-reinvent.s3.us-east-2.amazonaws.com/Images/ec2sysman50.png" /></p>
+<ol>
+<li>Try some more advanced search filters, can you identify any missing security updates on your instances?</li>
+</ol>
+<p>Congratulations, you have now completed all Lab activities  </p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../prereq/" title="Prerequisites" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Prerequisites
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../win314/win314index/" title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Home
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://awsentworkshops.com" class="md-footer-social__link fa fa-home"></a>
+    
+      <a href="https://aws.amazon.com/windows/" class="md-footer-social__link fa fa-globe"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

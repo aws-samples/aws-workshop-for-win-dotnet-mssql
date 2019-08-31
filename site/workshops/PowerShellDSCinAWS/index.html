@@ -1,0 +1,1624 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A collection of Windows on AWS workshops">
+      
+      
+        <link rel="canonical" href="https://awsentworkshops.com/workshops/PowerShellDSCinAWS/">
+      
+      
+        <meta name="author" content="aws-ent-workshops@amazon.com">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/aws-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>**Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager** - Windows on AWS Workshops</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#managing-windows-workloads-at-scale-with-powershell-dsc-and-aws-systems-manager" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+    <!-- Top-level navigation -->
+    <nav class="md-header-nav md-grid">
+      <div class="md-flex">
+  
+        <!-- Link to home -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <a href="https://aws.amazon.com/"
+              title="Amazon Web Services"
+              class="md-header-nav__button md-logo">
+            
+              <img src="../../assets/images/aws_smile_logo.png" width="40" height="24" />
+            
+          </a>
+        </div>
+  
+        <!-- Button to toggle drawer -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <label class="md-icon md-icon--menu md-header-nav__button"
+              for="__drawer"></label>
+        </div>
+  
+        <!-- Header title -->
+        <div class="md-flex__cell md-flex__cell--stretch">
+          <div class="md-flex__ellipsis md-header-nav__title"
+              data-md-component="title">
+            
+              
+                <span class="md-header-nav__topic">
+                  Windows on AWS Workshops
+                </span>
+                <span class="md-header-nav__topic">
+                  **Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager**
+                </span>
+              
+            
+          </div>
+        </div>
+  
+        <!-- Button to open search dialogue -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          
+            
+              <label class="md-icon md-icon--search md-header-nav__button"
+                  for="__search"></label>
+  
+              <!-- Search interface -->
+              
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+          
+        </div>
+        
+        <!-- Repository containing source -->
+        
+        <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__lang">
+                <div class="md-lang-drop">
+                    <button onmouseover="langToggle()" class="md-lang-dropbtn fa fa-globe"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repository containing source -->
+        
+          <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__source">
+              
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+            </div>
+          </div>
+        
+      </div>
+    </nav>
+  </header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../reinvent2018/index2018/" title="re:Invent 2018" class="md-tabs__link">
+          re:Invent 2018
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../reinvent2019/index2019/" title="re:Invent 2019" class="md-tabs__link">
+          re:Invent 2019
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../builder-sessions/" title="Builder Sessions" class="md-tabs__link">
+          Builder Sessions
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../" title="Full Day Workshops" class="md-tabs__link">
+          Full Day Workshops
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://awsentworkshops.com" title="Windows on AWS Workshops" class="md-nav__button md-logo">
+      
+        <img src="../../assets/images/aws_smile_logo.png" width="48" height="48">
+      
+    </a>
+    Windows on AWS Workshops
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      re:Invent 2018
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        re:Invent 2018
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/index2018/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Win319
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Win319
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/win319index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/prereq/" title="Pre-Requisite" class="md-nav__link">
+      Pre-Requisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/1_DeployAd/" title="Create Directory" class="md-nav__link">
+      Create Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/2_DeployMad/" title="Deploy Managed AD" class="md-nav__link">
+      Deploy Managed AD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/3_Trust/" title="Create Domain Trust" class="md-nav__link">
+      Create Domain Trust
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/4_Createorg/" title="Create AWS Organization" class="md-nav__link">
+      Create AWS Organization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/5_ConnectADtoSSO/" title="Connect AD to SSO" class="md-nav__link">
+      Connect AD to SSO
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/6_VerifyADSSO_MAD/" title="Verify SSO" class="md-nav__link">
+      Verify SSO
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Win313
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Win313
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/win313index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/setup/" title="Lab Setup" class="md-nav__link">
+      Lab Setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-3" type="checkbox" id="nav-3-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/ec2/" title="Amazon EC2" class="md-nav__link">
+      Amazon EC2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/lambda/" title="AWS Lambda" class="md-nav__link">
+      AWS Lambda
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/fargate/" title="Amazon ECS Fargate" class="md-nav__link">
+      Amazon ECS Fargate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Win308
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Win308
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/win308index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/prereq/" title="Pre-requisites" class="md-nav__link">
+      Pre-requisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4-3" type="checkbox" id="nav-3-4-3">
+    
+    <label class="md-nav__link" for="nav-3-4-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-4-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/challenge1/" title="Challenge 1 Configuring resources using AWS Tools for Windows PowerShell" class="md-nav__link">
+      Challenge 1 Configuring resources using AWS Tools for Windows PowerShell
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/challenge2/" title="Challenge 2 Configure EC2 instances using Powershell and SSM" class="md-nav__link">
+      Challenge 2 Configure EC2 instances using Powershell and SSM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Win309
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Win309
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win309/win309index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win309/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win309/resources/" title="Lab Guide" class="md-nav__link">
+      Lab Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Win314
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        Win314
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win314/win314index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win314/build/" title="Let's Build" class="md-nav__link">
+      Let's Build
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-7" type="checkbox" id="nav-3-7">
+    
+    <label class="md-nav__link" for="nav-3-7">
+      Win310
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-7">
+        Win310
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/win310index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/scenario/" title="Scenario" class="md-nav__link">
+      Scenario
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/rehost/" title="Rehost" class="md-nav__link">
+      Rehost
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/replatform/" title="Replatform" class="md-nav__link">
+      Replatform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/refactor/" title="Refactor" class="md-nav__link">
+      Refactor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/bonus/" title="Bonus" class="md-nav__link">
+      Bonus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8" type="checkbox" id="nav-3-8">
+    
+    <label class="md-nav__link" for="nav-3-8">
+      Dev334
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-8">
+        Dev334
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/dev334index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8-4" type="checkbox" id="nav-3-8-4">
+    
+    <label class="md-nav__link" for="nav-3-8-4">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-8-4">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/challenge1/" title="Powershell exercise" class="md-nav__link">
+      Powershell exercise
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      re:Invent 2019
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        re:Invent 2019
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2019/index2019/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Builder Sessions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Builder Sessions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../builder-sessions/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Full Day Workshops
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Full Day Workshops
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../contribute/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#step-1-deploy-lab-pre-req-components" title="Step 1 - Deploy Lab Pre-Req Components" class="md-nav__link">
+    Step 1 - Deploy Lab Pre-Req Components
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-2-create-powershell-script-that-generates-mof-files" title="Step 2 - Create Powershell Script that generates MOF Files" class="md-nav__link">
+    Step 2 - Create Powershell Script that generates MOF Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-3-create-a-state-manager-association-using-aws-applydscmofs-document" title="Step 3 - Create a State Manager Association using AWS-ApplyDSCMofs Document" class="md-nav__link">
+    Step 3 - Create a State Manager Association using AWS-ApplyDSCMofs Document
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-4-deploy-a-windows-ec2-instances" title="Step 4 - Deploy a Windows EC2 Instances" class="md-nav__link">
+    Step 4 - Deploy a Windows EC2 Instances
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#step-5-lets-try-an-auto-scaling-group" title="Step 5 - Let's Try an Auto-Scaling Group" class="md-nav__link">
+    Step 5 - Let's Try an Auto-Scaling Group
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/edit/master/docs/workshops/PowerShellDSCinAWS.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="managing-windows-workloads-at-scale-with-powershell-dsc-and-aws-systems-manager"><strong>Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager</strong></h1>
+<p>This lab will demonstrate one way to use PowerShell Desired State Configuration with AWS Systems Manager (SSM) to configure Windows workloads and maintain compliance. </p>
+<h2 id="step-1-deploy-lab-pre-req-components">Step 1 - Deploy Lab Pre-Req Components</h2>
+<p><a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&amp;stackName=PsDscSSMLab&amp;templateURL=https://alpublic.s3.amazonaws.com/psdsclabprereq.yml"><strong>Click here To Deploy Lab into your Account</strong></a></p>
+<p>This CloudFormation Template will deploy the following resources:</p>
+<ul>
+<li>S3 Bucket to store MOF Files</li>
+<li>SSM Parameter for Logon Message</li>
+<li>IAM Instance Role that allows Instances to use the AWS Systems Manager Service</li>
+</ul>
+<p>Please examine the the cloudformation template below. Once deployed go to the Output section and note the S3 Bucket Name and PsDscSSMInstanceProfile, we will need this info for later steps. </p>
+<div class="codehilite"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span> <span class="s">&quot;2010-09-09&quot;</span>
+<span class="nt">Description</span><span class="p">:</span>
+ <span class="l l-Scalar l-Scalar-Plain">This is a Cloudformation that setups Lab Components for PowerShell DSC Lab</span>
+<span class="nt">Resources</span><span class="p">:</span>
+  <span class="nt">MofBucket</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::S3::Bucket</span>
+    <span class="nt">DeletionPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Delete</span>
+  <span class="nt">LogonMessageParam</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::SSM::Parameter</span>
+    <span class="nt">Properties</span><span class="p">:</span> 
+      <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Logon Message for Interactive Logon</span>
+      <span class="nt">Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LogonMessage</span>
+      <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+      <span class="nt">Value</span><span class="p">:</span> <span class="s">&quot;&#39;This</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Test</span><span class="nv"> </span><span class="s">System.,Testing</span><span class="nv"> </span><span class="s">how</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Logon</span><span class="nv"> </span><span class="s">Message</span><span class="nv"> </span><span class="s">with.,PowerShell</span><span class="nv"> </span><span class="s">DSC</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">AWS</span><span class="nv"> </span><span class="s">Systems</span><span class="nv"> </span><span class="s">Manager.,Parameter</span><span class="nv"> </span><span class="s">Store&#39;&quot;</span>
+  <span class="nt">PsDscSSMLabRole</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::IAM::Role</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">Policies</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">PolicyDocument</span><span class="p">:</span>
+            <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+            <span class="nt">Statement</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">Action</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:GetObject</span>
+                <span class="nt">Resource</span><span class="p">:</span> 
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::aws-ssm-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::aws-windows-downloads-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::amazon-ssm-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::amazon-ssm-packages-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::${AWS::Region}-birdwatcher-prod/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::patch-baseline-snapshot-${AWS::Region}/*&#39;</span>
+                <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">PolicyName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm-custom-s3-policy</span>
+        <span class="p p-Indicator">-</span> <span class="nt">PolicyDocument</span><span class="p">:</span>
+            <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+            <span class="nt">Statement</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">Action</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ssm:GetParameter</span>
+                <span class="nt">Resource</span><span class="p">:</span> 
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${LogonMessageParam}&#39;</span>
+                <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">PolicyName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm-param-policy</span>
+        <span class="p p-Indicator">-</span> <span class="nt">PolicyDocument</span><span class="p">:</span>
+            <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+            <span class="nt">Statement</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">Action</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:GetObject</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:PutObject</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:PutObjectAcl</span>
+                <span class="nt">Resource</span><span class="p">:</span> 
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:${AWS::Partition}:s3:::${MofBucket}/*&#39;</span>
+                <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">PolicyName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm-mof-bucket-policy</span>
+      <span class="nt">AssumeRolePolicyDocument</span><span class="p">:</span>
+        <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+        <span class="nt">Statement</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">Principal</span><span class="p">:</span>
+            <span class="nt">Service</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ec2.amazonaws.com</span>
+          <span class="nt">Action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sts:AssumeRole</span>
+      <span class="nt">ManagedPolicyArns</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy&#39;</span>
+  <span class="nt">PsDscSSMLabProfile</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::IAM::InstanceProfile</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">Roles</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Ref</span> <span class="s">&#39;PsDscSSMLabRole&#39;</span>
+      <span class="nt">Path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="nt">Outputs</span><span class="p">:</span>
+  <span class="nt">MofBucketName</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">S3 Bucket where MOF File will be uploaded to.</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">MofBucket</span>
+</pre></div>
+
+
+<h2 id="step-2-create-powershell-script-that-generates-mof-files">Step 2 - Create Powershell Script that generates MOF Files</h2>
+<p>Copy the script below and run it on your local machine. This will generate a MOF File in <strong><em>C:\MofFiles</em></strong> directory and is named localhost.mof, we will rename it to winworkshop.mof. This MOF File will configure the following items:</p>
+<ul>
+<li>Sets the Interative Logon Message</li>
+<li>Installs IIS Web Services</li>
+</ul>
+<p>Before running the script be sure to install the DSC modules on the machine you execute the script. Below are the commands that will install these from the PowerShell Gallery. There are many DSC Resources that can be used to perform things like Domain Join, or ensure local administrator groups have specific AD Users or Groups. </p>
+<div class="codehilite"><pre><span></span><span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">PSDscResources</span>
+<span class="nb">Install-Module</span> <span class="n">-Name</span> <span class="n">SecurityPolicyDsc</span>
+</pre></div>
+
+
+<p><strong>Take Note</strong> of the use of SSM Parameter Tokens <strong><em>{ssm:/WinWorkshop/LogonMessage}</em></strong> in the script. In this lab we will be using the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-using-mof-file.html">AWS-ApplyDSCMofs</a> command document. When using this command document we can use tokens in the MOF file to grab config data from AWS Systems Manager Parameter Store, information from Tags assigned to the instance or a combination of both. In this case we are pulling the Logon Message string from SSM Parameter Store. This script will grab the Logon Message text from the parameter deployed in the Cloudformation template. </p>
+<div class="codehilite"><pre><span></span><span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
+<span class="k">param</span><span class="p">()</span>
+
+<span class="nv">$ConfigurationData</span> <span class="p">=</span> <span class="p">@{</span>
+    <span class="n">AllNodes</span> <span class="p">=</span> <span class="p">@(</span>
+        <span class="p">@{</span>
+            <span class="n">NodeName</span><span class="p">=</span><span class="s2">&quot;*&quot;</span>
+            <span class="n">PSDscAllowPlainTextPassword</span> <span class="p">=</span> <span class="nv">$true</span>
+            <span class="n">PSDscAllowDomainUser</span> <span class="p">=</span> <span class="nv">$true</span>
+        <span class="p">},</span>
+        <span class="p">@{</span>
+            <span class="n">NodeName</span> <span class="p">=</span> <span class="s1">&#39;localhost&#39;</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+<span class="c"># PowerShell DSC Configuration Function</span>
+<span class="n">configuration</span> <span class="n">ssmlab</span> <span class="p">{</span>
+    <span class="c"># Importing DSC Resource used in the Configuration </span>
+    <span class="nb">Import-DscResource</span> <span class="n">-ModuleName</span> <span class="n">PSDscResources</span>
+    <span class="nb">Import-DscResource</span> <span class="n">-ModuleName</span> <span class="n">SecurityPolicyDsc</span>
+
+    <span class="n">Node</span> <span class="s1">&#39;localhost&#39;</span><span class="p">{</span>
+        <span class="c"># Configures the Interactive Logon Message</span>
+        <span class="n">SecurityOption</span> <span class="n">LogonMessage</span> <span class="p">{</span>
+            <span class="n">Name</span> <span class="p">=</span> <span class="s2">&quot;LogonMessage&quot;</span>
+            <span class="n">Interactive_logon_Message_title_for_users_attempting_to_log_on</span> <span class="p">=</span> <span class="s1">&#39;Logon policy From SSM&#39;</span>
+            <span class="n">Interactive_logon_Message_text_for_users_attempting_to_log_on</span> <span class="p">=</span> <span class="s1">&#39;{ssm:LogonMessage}&#39;</span>
+        <span class="p">}</span>
+        <span class="c"># Installs IIS</span>
+        <span class="n">WindowsFeature</span> <span class="n">WebServer</span> <span class="p">{</span>
+            <span class="n">Ensure</span> <span class="p">=</span> <span class="s2">&quot;Present&quot;</span>
+            <span class="n">Name</span>   <span class="p">=</span> <span class="s2">&quot;Web-Server&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c"># Create the MOF File from the Configuration Function</span>
+<span class="n">ssmlab</span> <span class="n">-OutputPath</span> <span class="s1">&#39;C:\MofFiles&#39;</span> <span class="n">-ConfigurationData</span> <span class="nv">$ConfigurationData</span>
+</pre></div>
+
+
+<p>Rename the MOF File to winworkshop.mof and upload it to the S3 Bucket that was created by the CloudFormation template, the name you can find in the output section of cloudformation.</p>
+<h2 id="step-3-create-a-state-manager-association-using-aws-applydscmofs-document">Step 3 - Create a State Manager Association using AWS-ApplyDSCMofs Document</h2>
+<p>Now that we have our pre-reqs and our MOF File let's configure a State Manager Association. You can use the AWS-ApplyDSCMofs Document with Run Command or Automation. However, using it with state manager allows us to report on compliance regularly and allows us to automatically pick up and configure new instances to our desired state. </p>
+<p>Here we are demonstrating State Manager Association creation via the web console, but this can be done via SDK, CLI or CloudFormation. We will only be focusing on the parameters we will we be changing, or important to note when setting up an association for this document. </p>
+<ol>
+<li>First Let's navigate to the AWS Systems Manager Web Console, and Click on State Manager on the left side of the web page under Nodes and Instances. 
+  <img alt="" src="/assets/images/StateManager1.png" /></li>
+<li>Once we are in the State Manager Console, we click on the Create Association Button
+  <img alt="" src="/assets/images/createassociationstart2.png" /></li>
+<li>We want to name the Association as well as select the AWS-ApplyDSCMof Document. 
+  <img alt="" src="/assets/images/associationnametarget3.png" /></li>
+<li>We want to point the document to the location of our MOF Files, this can be a file location, HTTP Location or S3 Bucket. In this example we are going to use the MOF File we uploaded to our S3 Bucket. <strong><em>Note</em></strong> the way we are specifying the S3 Bucket, this naming style if unique to this document. 
+  <img alt="" src="/assets/images/moflocation4.png" />
+Take notice of the <strong>*MOF Operation mode</strong>, here we are leaving it to apply which will apply configuration if our instance does not match the desired state. This can also be set to Report Only, which will not apply configuration but only report when an instance has drifted from a desired state. </li>
+<li>Next we will review the PS Gallery Setting and the Reboot Behavior. With the PS Gallery parameter set to true, the AWS-ApplyDSCMof document will automatically install the DSC modules specified in our MOF File. This combines what would be multiple steps into one. The Reboot Behavor setting has three option, After Mof, Immediately or Never. Reboot will occur if it is required for certain configurations such as joining a Domain. After MOF will apply all configurations in the MOF and the Reboot, Immediately will perform the reboot after applying the config that requires it, and Never will surpress reboot completely. 
+  <img alt="" src="/assets/images/PSGallery5.png" /></li>
+<li>Under Compliance Type we are going to create a Custom Compliance Type for this association. Targets are the instances we want to target with this association. We can manually select instances, select all instances managed in this region, or select by tag. In this case we want to target a specific Tag with the Name <strong><em>Build</em></strong> and the value of <strong><em>Base</em></strong>. In a subsquent step we will be deploying instance with these tag values and ensuring they meet our configuration. 
+  <img alt="" src="/assets/images/associationtarget6.png" /></li>
+<li>Now lets specify a schedule we want the Association to evaluate compliance. Since we are doing this during a workshop, lets set this to 30 Minutes. The compliance severity parameter controls what level we want the reflected for this association in the dashboard. 
+  <img alt="" src="/assets/images/associationcron7.png" /> </li>
+<li>Finally, we can specify an S3 Bucket to write all command output to S3, if we do not output in the console is truncated to 2500 characters. You can also leave this unchecked and click on Create Association. 
+  <img alt="" src="/assets/images/createassociation8.png" /> </li>
+</ol>
+<p>We will leave this association perculating and come back to it once we have deployed a few instances. </p>
+<h2 id="step-4-deploy-a-windows-ec2-instances">Step 4 - Deploy a Windows EC2 Instances</h2>
+<p>Let's test out what our MOF File and Association does. If you have the AWS Cli installed and configured you can copy the command below, other wise use the web console to launch an instance. In the command below substitute the <strong><em>InstanceProfile</em></strong> after <strong>--iam-instance-profile</strong> with the name in the output of PsDscSSMInstanceProfile in the CloudFormation we deployed in Step 1. 
+If you deploy via the web console be sure to select the Instance Profile with PsDSC in the name from the drop down as demonstrated in the next screenshot. This will allow the instance to communicate with AWS Systems Manager service. </p>
+<p><img alt="" src="/assets/images/instanceprofilewebconsole.png" /></p>
+<p><strong>Note</strong> the use of the of AWS Systems Parameter Store in  the CLI command to get the latest AMI ID for Windows 2019. AWS Systems Manager provides these parameters so you can get the latest AMI IDs in every region. </p>
+<div class="codehilite"><pre><span></span>aws ec2 run-instances --image-id $(aws ssm get-parameters --names /aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base --query &#39;Parameters[0].[Value]&#39; --output text) --count 1 --instance-type t3.large --iam-instance-profile InstanceProfile --tag-specifications &#39;ResourceType=instance,Tags=[{Key=Name,Value=WinWorkShop},{Key=Build,Value=Base}]&#39;
+</pre></div>
+
+
+<p>Once we have the Instance deployed lets go back to our Association in State Manager and click into it.</p>
+<p><img alt="" src="/assets/images/clickintoassociation.png" /></p>
+<p>Then click the resources tab, we can see that our instance was picked up by the association based on the Build tag.</p>
+<p><img alt="" src="/assets/images/ResourceAssociation.png" /></p>
+<p>Once the association applies successfully, let's click into Compliance. </p>
+<p><img alt="" src="/assets/images/Compliance.png" /></p>
+<p>When the association first applies, it reports that the instance is non-compliant and the applies the configuration. </p>
+<p><img alt="" src="/assets/images/noncompliant1st.png" /></p>
+<p>We will need to go back to the association, and click on Apply Association Now to run it manually before the next cron schedule. </p>
+<p><img alt="" src="/assets/images/ApplyAssociationNow.png" /></p>
+<p>Once we do so and it completes we can go back to Compliance, and see that it is now reporting as compliant. </p>
+<p><img alt="" src="/assets/images/Compliant.png" /></p>
+<p>Let's test this by RDPing to the Instance, we should see the following interactive message before we login. </p>
+<p><img alt="" src="/assets/images/LogonMessage.png" /></p>
+<p>Then grab the IP or Public DNS Name of the instance and throw into a Web Browser and see the IIS Splash Screen. </p>
+<p><img alt="" src="/assets/images/IISWebServer.png" /></p>
+<p>Here we demonstrated how we can Generate a MOF file, use it with AWS Systems Manager to configure instances and report on compliance. Next we will see how we can do this at scale with an auto-scaling group. </p>
+<h2 id="step-5-lets-try-an-auto-scaling-group">Step 5 - Let's Try an Auto-Scaling Group</h2>
+<p><a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&amp;stackName=PsDscSSMLab&amp;templateURL=https://alpublic.s3.amazonaws.com/windows-autoscaling.yml"><strong>Click here To Deploy a Windows Auto-Scaling Group into your Account</strong></a></p>
+<p><strong>Note</strong> the use of the of AWS Systems Parameter Store in the LatestAmiId Parameter and the Parameter type. You can use SSM Parameter Store integration with Cloudformation and not use AMI Mappings to get the latest AMI ID for Windows 2019. AWS Systems Manager provides these parameters so you can get the latest AMI IDs in every region. </p>
+<p>Please examine the the cloudformation template below. Once deployed test as you did in Step 5. </p>
+<div class="codehilite"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span> <span class="s">&#39;2010-09-09&#39;</span>
+<span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">This Template Deploys a Simple Windows Auto-Scaling Group</span>
+<span class="nt">Parameters</span><span class="p">:</span>
+  <span class="nt">KeyPairName</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Public/private key pairs allow you to securely connect to your instance</span>
+      <span class="l l-Scalar l-Scalar-Plain">after it launches</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::EC2::KeyPair::KeyName</span>
+  <span class="nt">LatestAmiId</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::SSM::Parameter::Value&lt;AWS::EC2::Image::Id&gt;</span>
+    <span class="nt">Default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base</span>
+  <span class="nt">HostInstanceProfile</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Grab the String from the Output name PsDscSSMInstanceProfile</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+  <span class="nt">NumberOfHosts</span><span class="p">:</span>
+    <span class="nt">AllowedValues</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="s">&#39;1&#39;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&#39;2&#39;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&#39;3&#39;</span>
+      <span class="p p-Indicator">-</span> <span class="s">&#39;4&#39;</span>
+    <span class="nt">Default</span><span class="p">:</span> <span class="s">&#39;2&#39;</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Enter the number of hosts to create</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+  <span class="nt">PublicSubnet1ID</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ID of the public subnet 1 that you want to provision into (e.g., subnet-a0246dcd)</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet::Id</span>
+  <span class="nt">PublicSubnet2ID</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ID of the public subnet 2 you want to provision into (e.g., subnet-e3246d8e)</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet::Id</span>
+  <span class="nt">MyInstanceType</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Amazon EC2 instance type for the first Remote Desktop Gateway instance</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">Default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">t3.large</span>
+    <span class="nt">AllowedValues</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">t3.small</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">t3.medium</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">t3.large</span>
+      <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">m5.large</span>
+  <span class="nt">RDPCIDR</span><span class="p">:</span>
+    <span class="nt">AllowedPattern</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\/([0-9]|[1-2][0-9]|3[0-2]))$</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allowed CIDR Block for external access to the Deployed Instances</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+  <span class="nt">VPCID</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ID of the VPC (e.g., vpc-0343606e)</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::EC2::VPC::Id</span>
+<span class="nt">Rules</span><span class="p">:</span>
+  <span class="nt">SubnetsInVPC</span><span class="p">:</span>
+    <span class="nt">Assertions</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">Assert</span><span class="p">:</span> <span class="kt">!EachMemberIn</span>
+          <span class="p p-Indicator">-</span> <span class="kt">!ValueOfAll</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">AWS::EC2::Subnet::Id</span>
+            <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">VpcId</span>
+          <span class="p p-Indicator">-</span> <span class="kt">!RefAll</span> <span class="s">&#39;AWS::EC2::VPC::Id&#39;</span>
+        <span class="nt">AssertDescription</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">All subnets must in the VPC</span>
+<span class="nt">Resources</span><span class="p">:</span>
+  <span class="nt">WinAutoScalingGroup</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::AutoScaling::AutoScalingGroup</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">LaunchConfigurationName</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;WinLaunchConfiguration&#39;</span>
+      <span class="nt">VPCZoneIdentifier</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Ref</span> <span class="s">&#39;PublicSubnet1ID&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Ref</span> <span class="s">&#39;PublicSubnet2ID&#39;</span>
+      <span class="nt">MinSize</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;NumberOfHosts&#39;</span>
+      <span class="nt">MaxSize</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;NumberOfHosts&#39;</span>
+      <span class="nt">Cooldown</span><span class="p">:</span> <span class="s">&#39;300&#39;</span>
+      <span class="nt">DesiredCapacity</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;NumberOfHosts&#39;</span>
+      <span class="nt">Tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">Key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Name</span>
+          <span class="nt">Value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">WinWorkshop</span>
+          <span class="nt">PropagateAtLaunch</span><span class="p">:</span> <span class="s">&#39;true&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">Key</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Build</span>
+          <span class="nt">Value</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Base</span>
+          <span class="nt">PropagateAtLaunch</span><span class="p">:</span> <span class="s">&#39;true&#39;</span>
+  <span class="nt">WinLaunchConfiguration</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::AutoScaling::LaunchConfiguration</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">ImageId</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;LatestAmiId&#39;</span>
+      <span class="nt">SecurityGroups</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Ref</span> <span class="s">&#39;WinWorkshopSG&#39;</span>
+      <span class="nt">IamInstanceProfile</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;HostInstanceProfile&#39;</span>
+      <span class="nt">InstanceType</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;MyInstanceType&#39;</span>
+      <span class="nt">BlockDeviceMappings</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">DeviceName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/dev/sda1</span>
+          <span class="nt">Ebs</span><span class="p">:</span>
+            <span class="nt">VolumeSize</span><span class="p">:</span> <span class="s">&#39;50&#39;</span>
+            <span class="nt">VolumeType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">gp2</span>
+      <span class="nt">KeyName</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;KeyPairName&#39;</span>
+  <span class="nt">WinWorkshopSG</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::EC2::SecurityGroup</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">GroupDescription</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Enable RDP access from the Internet</span>
+      <span class="nt">VpcId</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;VPCID&#39;</span>
+      <span class="nt">SecurityGroupIngress</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">IpProtocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tcp</span>
+          <span class="nt">FromPort</span><span class="p">:</span> <span class="s">&#39;3389&#39;</span>
+          <span class="nt">ToPort</span><span class="p">:</span> <span class="s">&#39;3389&#39;</span>
+          <span class="nt">CidrIp</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;RDPCIDR&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">IpProtocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tcp</span>
+          <span class="nt">FromPort</span><span class="p">:</span> <span class="s">&#39;80&#39;</span>
+          <span class="nt">ToPort</span><span class="p">:</span> <span class="s">&#39;80&#39;</span>
+          <span class="nt">CidrIp</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;RDPCIDR&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="nt">IpProtocol</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">tcp</span>
+          <span class="nt">FromPort</span><span class="p">:</span> <span class="s">&#39;443&#39;</span>
+          <span class="nt">ToPort</span><span class="p">:</span> <span class="s">&#39;443&#39;</span>
+          <span class="nt">CidrIp</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="s">&#39;RDPCIDR&#39;</span>
+</pre></div>
+
+
+<p>Once the Auto-Scaling Group is deployed using CloudFormation, lets run through the same steps as in Step 4, to review and test our configuration. </p>
+<p>Using this method we can configure Windows Workloads at scale, using tags, SSM State Manager, SSM Parameter Store and PowerShell DSC. </p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://awsentworkshops.com" class="md-footer-social__link fa fa-home"></a>
+    
+      <a href="https://aws.amazon.com/windows/" class="md-footer-social__link fa fa-globe"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
