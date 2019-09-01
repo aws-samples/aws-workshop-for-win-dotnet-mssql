@@ -1265,7 +1265,18 @@
                 
                 
                 <h1 id="managing-windows-workloads-at-scale-with-powershell-dsc-and-aws-systems-manager"><strong>Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager</strong></h1>
-<p>This lab will demonstrate one way to use PowerShell Desired State Configuration with AWS Systems Manager (SSM) to configure Windows workloads and maintain compliance. </p>
+<p>This lab will demonstrate one way to use PowerShell Desired State Configuration with AWS Systems Manager (SSM) to configure Windows workloads and maintain compliance. It's goal is to share a pattern and concepts that you can utilize within your own AWS Environment. In this lab we will do the following:</p>
+<ol>
+<li>Generate a MOF File</li>
+<li>Create an AWS Systems Manager Association</li>
+<li>Use AWS Systems Manager Parameter Store<ul>
+<li>To provide Config Data to our MOF Configuration</li>
+<li>To provide latest AMI IDs to deploy instances with CloudFormation and CLI</li>
+</ul>
+</li>
+<li>Verify the configuration of our EC2 Instances</li>
+<li>Check and update complaince information</li>
+</ol>
 <h2 id="step-1-deploy-lab-pre-req-components">Step 1 - Deploy Lab Pre-Req Components</h2>
 <p><a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&amp;stackName=PsDscSSMLab&amp;templateURL=https://alpublic.s3.amazonaws.com/psdsclabprereq.yml"><strong>Click here To Deploy Lab into your Account</strong></a></p>
 <p>This CloudFormation Template will deploy the following resources:</p>
@@ -1274,7 +1285,7 @@
 <li>SSM Parameter for Logon Message</li>
 <li>IAM Instance Role that allows Instances to use the AWS Systems Manager Service</li>
 </ul>
-<p>Please examine the the cloudformation template below. Once deployed go to the Output section and note the S3 Bucket Name and PsDscSSMInstanceProfile, we will need this info for later steps. </p>
+<p>Please examine the the cloudformation template below. Once deployed go to the Output section and note the MofBucketName and InstanceProfile, we will need this info for later steps. </p>
 <div class="codehilite"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span> <span class="s">&quot;2010-09-09&quot;</span>
 <span class="nt">Description</span><span class="p">:</span>
  <span class="l l-Scalar l-Scalar-Plain">This is a Cloudformation that setups Lab Components for PowerShell DSC Lab</span>
@@ -1347,6 +1358,12 @@
   <span class="nt">MofBucketName</span><span class="p">:</span>
     <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">S3 Bucket where MOF File will be uploaded to.</span>
     <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">MofBucket</span>
+  <span class="nt">InstanceProfile</span><span class="p">:</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">PsDscSSMLabProfile</span>
+  <span class="nt">InstanceRoleArn</span><span class="p">:</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!GetAtt</span> <span class="l l-Scalar l-Scalar-Plain">PsDscSSMLabRole.Arn</span>
+  <span class="nt">InstanceRoleName</span><span class="p">:</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">PsDscSSMLabRole</span>
 </pre></div>
 
 
@@ -1362,7 +1379,7 @@
 </pre></div>
 
 
-<p><strong>Take Note</strong> of the use of SSM Parameter Tokens <strong><em>{ssm:/WinWorkshop/LogonMessage}</em></strong> in the script. In this lab we will be using the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-using-mof-file.html">AWS-ApplyDSCMofs</a> command document. When using this command document we can use tokens in the MOF file to grab config data from AWS Systems Manager Parameter Store, information from Tags assigned to the instance or a combination of both. In this case we are pulling the Logon Message string from SSM Parameter Store. This script will grab the Logon Message text from the parameter deployed in the Cloudformation template. </p>
+<p><strong>Take Note</strong> of the use of SSM Parameter Tokens <strong><em>{ssm:LogonMessage}</em></strong> in the script. In this lab we will be using the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-using-mof-file.html">AWS-ApplyDSCMofs</a> command document. When using this command document we can use tokens in the MOF file to grab config data from AWS Systems Manager Parameter Store, information from Tags assigned to the instance or a combination of both. In this case we are pulling the Logon Message string from SSM Parameter Store. This script will grab the Logon Message text from the parameter deployed in the Cloudformation template. </p>
 <div class="codehilite"><pre><span></span><span class="p">[</span><span class="k">CmdletBinding</span><span class="p">()]</span>
 <span class="k">param</span><span class="p">()</span>
 
