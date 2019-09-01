@@ -1,5 +1,13 @@
 # **Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager**
-This lab will demonstrate one way to use PowerShell Desired State Configuration with AWS Systems Manager (SSM) to configure Windows workloads and maintain compliance. 
+This lab will demonstrate one way to use PowerShell Desired State Configuration with AWS Systems Manager (SSM) to configure Windows workloads and maintain compliance. It's goal is to share a pattern and concepts that you can utilize within your own AWS Environment. In this lab we will do the following:
+
+1. Generate a MOF File
+2. Create an AWS Systems Manager Association
+3. Use AWS Systems Manager Parameter Store
+    * To provide Config Data to our MOF Configuration
+    * To provide latest AMI IDs to deploy instances with CloudFormation and CLI
+4. Verify the configuration of our EC2 Instances
+5. Check and update complaince information
 
 ## Step 1 - Deploy Lab Pre-Req Components
 [**Click here To Deploy Lab into your Account**](https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&stackName=PsDscSSMLab&templateURL=https://alpublic.s3.amazonaws.com/psdsclabprereq.yml)
@@ -10,7 +18,7 @@ This CloudFormation Template will deploy the following resources:
 * SSM Parameter for Logon Message
 * IAM Instance Role that allows Instances to use the AWS Systems Manager Service
 
-Please examine the the cloudformation template below. Once deployed go to the Output section and note the S3 Bucket Name and PsDscSSMInstanceProfile, we will need this info for later steps. 
+Please examine the the cloudformation template below. Once deployed go to the Output section and note the MofBucketName and InstanceProfile, we will need this info for later steps. 
 ```YAML
 AWSTemplateFormatVersion: "2010-09-09"
 Description:
@@ -84,6 +92,12 @@ Outputs:
   MofBucketName:
     Description: S3 Bucket where MOF File will be uploaded to.
     Value: !Ref MofBucket
+  InstanceProfile:
+    Value: !Ref PsDscSSMLabProfile
+  InstanceRoleArn:
+    Value: !GetAtt PsDscSSMLabRole.Arn
+  InstanceRoleName:
+    Value: !Ref PsDscSSMLabRole
 ```
 
 ## Step 2 - Create Powershell Script that generates MOF Files
@@ -98,7 +112,7 @@ Install-Module -Name PSDscResources
 Install-Module -Name SecurityPolicyDsc
 ```
 
-**Take Note** of the use of SSM Parameter Tokens ***{ssm:/WinWorkshop/LogonMessage}*** in the script. In this lab we will be using the [AWS-ApplyDSCMofs](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-using-mof-file.html) command document. When using this command document we can use tokens in the MOF file to grab config data from AWS Systems Manager Parameter Store, information from Tags assigned to the instance or a combination of both. In this case we are pulling the Logon Message string from SSM Parameter Store. This script will grab the Logon Message text from the parameter deployed in the Cloudformation template. 
+**Take Note** of the use of SSM Parameter Tokens ***{ssm:LogonMessage}*** in the script. In this lab we will be using the [AWS-ApplyDSCMofs](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-state-manager-using-mof-file.html) command document. When using this command document we can use tokens in the MOF file to grab config data from AWS Systems Manager Parameter Store, information from Tags assigned to the instance or a combination of both. In this case we are pulling the Logon Message string from SSM Parameter Store. This script will grab the Logon Message text from the parameter deployed in the Cloudformation template. 
 ```PowerShell
 [CmdletBinding()]
 param()
