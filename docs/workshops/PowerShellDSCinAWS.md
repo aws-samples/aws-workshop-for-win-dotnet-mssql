@@ -10,7 +10,7 @@ This lab will demonstrate one way to use PowerShell Desired State Configuration 
 5. Check and update complaince information
 
 ## Step 1 - Deploy Lab Pre-Req Components
-[**Click here To Deploy Lab into your Account**](https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&stackName=PsDscSSMLab&templateURL=https://alpublic.s3.amazonaws.com/psdsclabprereq.yml)
+[**Click here To Deploy Lab into your Account**](https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&stackName=PsDscSSMLab&templateURL=https://alpublic.s3.amazonaws.com/ssmlabprereq.yml)
 
 This CloudFormation Template will deploy the following resources:
 
@@ -24,7 +24,7 @@ AWSTemplateFormatVersion: "2010-09-09"
 Description:
  This is a Cloudformation that setups Lab Components for PowerShell DSC Lab
 Resources:
-  MofBucket:
+  LabBucket:
     Type: AWS::S3::Bucket
     DeletionPolicy: Delete
   LogonMessageParam:
@@ -34,7 +34,7 @@ Resources:
       Name: LogonMessage
       Type: String
       Value: "'This is a Test System.,Testing how to Set a Logon Message with.,PowerShell DSC and AWS Systems Manager.,Parameter Store'"
-  PsDscSSMLabRole:
+  SSMLabRole:
     Type: AWS::IAM::Role
     Properties:
       Policies:
@@ -69,9 +69,9 @@ Resources:
                   - s3:PutObject
                   - s3:PutObjectAcl
                 Resource: 
-                  - !Sub 'arn:${AWS::Partition}:s3:::${MofBucket}/*'
+                  - !Sub 'arn:${AWS::Partition}:s3:::${LabBucket}/*'
                 Effect: Allow
-          PolicyName: ssm-mof-bucket-policy
+          PolicyName: ssm-bucket-policy
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -82,22 +82,22 @@ Resources:
       ManagedPolicyArns:
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore'
         - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
-  PsDscSSMLabProfile:
+  SSMLabProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
         - !Ref 'PsDscSSMLabRole'
       Path: /
 Outputs:
-  MofBucketName:
+  LabBucketName:
     Description: S3 Bucket where MOF File will be uploaded to.
-    Value: !Ref MofBucket
+    Value: !Ref LabBucket
   InstanceProfile:
-    Value: !Ref PsDscSSMLabProfile
+    Value: !Ref SSMLabProfile
   InstanceRoleArn:
-    Value: !GetAtt PsDscSSMLabRole.Arn
+    Value: !GetAtt SSMLabRole.Arn
   InstanceRoleName:
-    Value: !Ref PsDscSSMLabRole
+    Value: !Ref SSMLabRole
 ```
 
 ## Step 2 - Create Powershell Script that generates MOF Files
