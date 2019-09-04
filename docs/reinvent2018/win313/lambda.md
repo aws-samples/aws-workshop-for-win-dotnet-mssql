@@ -24,7 +24,7 @@
   <li>Click <b>Next: Review</b> and name the Role. Review the configuration and click <b>Create Role</b></li>
 </ol>
 
-![alt text](../images/lambda/vsts29.png "Lambda Role")
+![alt text](images/lambda/vsts29.png "Lambda Role")
 
 ## Create Azure DevOps project
 
@@ -34,7 +34,7 @@
 <li><a href="https://app.vssps.visualstudio.com">Log in</a> to your Azure DevOps account and create a project. It takes some time to complete.</li>
 </ol>
 
-<img src="../images/lambda/vsts1.png"> 
+<img src="images/lambda/vsts1.png"> 
 
 <ol start="2">
 <li>Create a Personal Access Token.</li>
@@ -52,9 +52,9 @@
     </ol>
 </ol>
 
-![alt text](../images/lambda/vsts21.png "VSTS Project")
+![alt text](images/lambda/vsts21.png "VSTS Project")
 
-![alt text](../images/lambda/vsts22.png "VSTS Project")
+![alt text](images/lambda/vsts22.png "VSTS Project")
 
 For more information see this [instruction](https://docs.aws.amazon.com/vsts/latest/userguide/getting-started.html#set-up-aws-credentials-for-the-aws-tools-for-vsts) to Add AWS service connection for this project.
 
@@ -62,7 +62,7 @@ For more information see this [instruction](https://docs.aws.amazon.com/vsts/lat
 <li>Click in the project and select Repos. Copy Git repo address.</li>
 </ol>
 
-![alt text](../images/lambda/vsts2.png "Git Repo")
+![alt text](images/lambda/vsts2.png "Git Repo")
 
 Select *Add ReadMe file* and add *gitignore* for VisualStudio.  Click *Initialize*.
 
@@ -90,7 +90,7 @@ Once the install is complete, verify if the Lambda templates are listed.
 dotnet new -all
 ```
 
-![alt text](../images/lambda/vsts3.png "Dotnet new")
+![alt text](images/lambda/vsts3.png "Dotnet new")
 
 <ol start="2">
 <li>Create a new Lambda project. Name function name <b>ReInventLambda</b>, choose your AWS profile and AWS region.</li>
@@ -112,7 +112,7 @@ cd ReInventLambda
 <li>Use your favorite text editor to open ..\ReInventLambda\src\ReInventLambda\aws-lambda-tools-defaults.json and resave it as UTF-8 (with no BOM) encoding. In this example, we use Visual Studio Code.</li>
 </ol>
 
-![alt text](../images/lambda/vsts30.png "VS Code")
+![alt text](images/lambda/vsts30.png "VS Code")
 
 <ol start="4">
 <li>Commit the new code to local and remote (Azure DevOps) repository.</li>
@@ -145,7 +145,7 @@ git push
 <li>Select start with an Empty job by clicking <b>Empty job</b>.</li>  
 </ol>
 
-![img](../images/lambda/vsts11.png)
+![img](images/lambda/vsts11.png)
 
 <ol start="5">
 <li>Under Tasks, Pipeline, name the Build pipeline and select <b>Hosted VS2017</b> as Agent pool.</li>  
@@ -198,7 +198,7 @@ $env:Path
 Write-Host "##vso[task.setvariable variable=PATH;]${env:PATH};$env:Path";
 ```
 
-![img](../images/lambda/vsts28.png)
+![img](images/lambda/vsts28.png)
 
 This task is necessary if you are using the new .NET Core Global tool (.NET Core SDK 2.1.300 and later versions). With this change, the csproj file no longer include DotNetCliToolReference (see below). That means dotnet restore will not automatically download the tool during the build time. This task downloads and saves the tool in the specified location. The tool will be referenced in the next step.
 
@@ -227,7 +227,7 @@ This task is necessary if you are using the new .NET Core Global tool (.NET Core
 
 Do not need to fill Lambda Function Properties, Advanced, Control Options and Output Variables.  
 
-![img](../images/lambda/vsts27.png)
+![img](images/lambda/vsts27.png)
 
 <ol start="10">
 <li>Click <b>+</b> to add a task. Select <b>Publish build Artifacts</b> and click <b>Add</b>. Configure task as seen below.</li>
@@ -239,7 +239,7 @@ Do not need to fill Lambda Function Properties, Advanced, Control Options and Ou
   </ul>  
 </ol>
 
-![img](../images/lambda/vsts26.png)
+![img](images/lambda/vsts26.png)
 
 Select **Save & queue**.
 
@@ -247,13 +247,13 @@ Select **Save & queue**.
 <li>Examine Build logs.
 </ol>
 
-![img](../images/lambda/vsts25.png)
+![img](images/lambda/vsts25.png)
 
 <ol start="12">
 <li>If you face this error, use your favorite text editor to re-save aws-lambda-tools-defaults.json with UTF-8 with no BOM file encoding.</li>
 </ol>
 
-![img](../images/lambda/vsts24.png)
+![img](images/lambda/vsts24.png)
 
 ## Create Release pipeline
 > In this section, we will use AWS Lambda Deploy Function task to deploy the output build artifact from the last section to AWS Lambda function.
@@ -272,7 +272,7 @@ Select **Save & queue**.
 
 Click **Add**.  
 
-![img](../images/lambda/vsts15.png)
+![img](images/lambda/vsts15.png)
 
 <ol start="3">
 <li>Click <b>Stage</b> and name the stage.</li>
@@ -280,7 +280,7 @@ Click **Add**.
 <li>At Agent job, click <b>+</b> to add a task. In the search box, type AWS. Select AWS Lambda Deploy Function and click Add.</li>
 </ol>
 
-![img](../images/lambda/vsts16.png)
+![img](images/lambda/vsts16.png)
 
 <ol start="6">
 <li>Configure Deploy Lambda Function task.</li>
@@ -303,14 +303,14 @@ Click **Add**.
 
 Leave everything else as default in other sections. Click **Save** (at the top) to save the pipeline.
 
-![img](../images/lambda/vsts17.png)
+![img](images/lambda/vsts17.png)
 
 <ol start="7">
 <li>At the top, click <b>Release</b> and select <b>Create a release</b>. Review the release and click <b>Create</b>.</li>
 <li>Select the release to view its status.</li>
 </ol>
 
-![img](../images/lambda/vsts19.png)
+![img](images/lambda/vsts19.png)
 
 <ol start="9">
 <li>Log in to AWS Lambda console to view the Function.</li>
@@ -327,4 +327,4 @@ dotnet tool install -g Amazon.Lambda.Tools
 dotnet lambda invoke-function ReInventLambda --payload "Just checking"
 ```
 
-![img](../images/lambda/vsts20.png)
+![img](images/lambda/vsts20.png)

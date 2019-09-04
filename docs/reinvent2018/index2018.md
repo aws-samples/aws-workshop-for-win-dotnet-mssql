@@ -79,8 +79,19 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" href="http://sqlfcs2d.reinvent-session.com/"><strong>Storage Spaces Direct for Windows 2016 Failover Cluster</strong></a></td>
-                <td align="left">TBD
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/sqlfcs2d/index/"><strong>Storage Spaces Direct for Windows 2016 Failover Cluster</strong></a></td>
+                <td align="left">This re:Invent builder session will provide the steps to configure Storage Spaces Direct on a Windows 2016 failover cluster as well as install and configure SQL Server 2016 in a failover cluster.
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: Managed AD, EC2</li>
+                        <li><strong>Focus</strong>: SQL 2016 Failover Clustering</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/mssql2rds/index/"><strong>Migrate your first SQL Server Database to Amazon RDS for SQL Server</strong></a></td>
+                <td align="left">With the approaching end of support for Microsoft SQL Server 2008, it is important to understand your options for upgrading the database layer of your existing applications. The fully managed Amazon Relational Database Service (Amazon RDS) for SQL Server makes it easy to upgrade, set up, operate, and scale your SQL Server business applications for high availability. Join us for this builders session where you and a small group work with an AWS subject matter expert to learn how to migrate a SQL Server database to Amazon RDS.
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>
                         <li><strong>Duration</strong>: 1 hour</li>
@@ -90,30 +101,8 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" href="http://mssql2rds.reinvent-session.com/"><strong>Migrate your first SQL Server Database to Amazon RDS for SQL Server</strong></a></td>
-                <td align="left">TBD
-                    <ul>
-                        <li><strong>Level</strong>: Intermediate</li>
-                        <li><strong>Duration</strong>: 1 hour</li>
-                        <li><strong>Service</strong>: TBD</li>
-                        <li><strong>Focus</strong>: TBD</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td align="left"><a class="table" href="http://vstoolkit-serverless.reinvent-session.com//"><strong>Building a Serverless .Net App on AWS using the AWS toolkit for Visual Studio</strong></a></td>
-                <td align="left">TBD
-                    <ul>
-                        <li><strong>Level</strong>: Intermediate</li>
-                        <li><strong>Duration</strong>: 1 hour</li>
-                        <li><strong>Service</strong>: TBD</li>
-                        <li><strong>Focus</strong>: TBD</li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td align="left"><a class="table" href="http://dev331.com/"><strong>DEV331 - Hands-On Building and Deploying .NET Applications on AWS</strong></a></td>
-                <td align="left">TBD
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/win315/index/"><strong>Building a Serverless .Net App on AWS using the AWS toolkit for Visual Studio</strong></a></td>
+                <td align="left">In this Builder Session, we will use Visual Studio and the AWS Toolkit for Visual Studio to create a Serverless application that hosts an ASP.NET Web application for managing blog articles uploaded to an S3 bucket. We will then deploy this application into your AWS environment using a CloudFormation template that describes how our application code is accessed from API Gateway and creates the Lambda function that hosts the code. Finally, we will make use of a cloud-native, fully-managed AWS service that automatically translates blog entries from the original English to Spanish, German, and French whenever new blog posts are uploaded to S3.
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>
                         <li><strong>Duration</strong>: 1 hour</li>

@@ -89,6 +89,39 @@ nav:
           - Resources: 'reinvent2018/dev334/resources.md'
           - Challenges: 
             - Powershell exercise : 'reinvent2018/dev334/challenge1.md'
+    - sqlfcs2d:
+           - Introduction: 'reinvent2018/sqlfcs2d/index.md'
+           - Prerequisites: 'reinvent2018/sqlfcs2d/Prerequisites.md'
+           - Connect and Verify: 'reinvent2018/sqlfcs2d/Connect.md'
+           - Enable S2D: 'reinvent2018/sqlfcs2d/EnableS2D.md'
+           - Create SQL Cluster Instance: 'reinvent2018/sqlfcs2d/SQLFCI.md'
+           - Add second node to SQLFCCI: 'reinvent2018/sqlfcs2d/node2.md'
+           - Connect to SQL and test Failover: 'reinvent2018/sqlfcs2d/SSMS.md'
+    - mssql2rds:
+           - Home: 'reinvent2018/mssql2rds/index.md'
+           - Prerequisites:
+             - CF Templates : 'reinvent2018/mssql2rds/cftemplates.md'
+           - User Instructions: 
+             - Get Source and Target Info: 
+               - Source SQL Server on EC2: 'reinvent2018/mssql2rds/SourceEC2Info.md'
+               - Target SQL Server on RDS: 'reinvent2018/mssql2rds/TargetRDSInfo.md'
+               - Target EC2 Jump Server: 'reinvent2018/mssql2rds/TargetEC2JumpInfo.md'
+             - Creating an S3 Bucket : 'reinvent2018/mssql2rds/S3Create.md'
+             - Source SQL Server 2008 on EC2: 
+               - Connecting to Source DB server via RDP : 'reinvent2018/mssql2rds/SourceConnect.md'
+               - Connecting to SQL 2008 via SSMS : 'reinvent2018/mssql2rds/SourceSSMS.md'
+               - Backing up a Database via SSMS : 'reinvent2018/mssql2rds/SSMSBackup.md'
+               - Transferring Backup Files to s3 : 'reinvent2018/mssql2rds/SourceS3Transfer.md'
+             - Target SQL Server on RDS:
+               - Prerequisites : 'reinvent2018/mssql2rds/TargetPrereqs.md'
+               - Creating an Option Group for RDS SQL Server : 'reinvent2018/mssql2rds/OptionGroupCreate.md'
+               - Configuring the Option Group for SQL Native Backup/Restore : 'reinvent2018/mssql2rds/ConfigureOptionGroup.md'
+               - Adding the Option Group to the RDS SQL Instance : 'reinvent2018/mssql2rds/AddOptionGroupRDS.md'
+               - Using an EC2 Jump Server to Access RDS : 'reinvent2018/mssql2rds/TargetConnect.md'
+               - Working with SQL Server on RDS via SSMS : 'reinvent2018/mssql2rds/TargetSSMS.md'
+               - Restoring a Database on RDS via SSMS : 'reinvent2018/mssql2rds/SSMSRestore.md'
+    - win315:
+           - Home: 'reinvent2018/win315/index.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:
