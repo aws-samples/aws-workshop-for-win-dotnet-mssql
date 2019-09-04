@@ -122,6 +122,17 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2018/dev329/index/"><strong>Empower Lean Teams with Centrally Crafted CI/CD Pipelines Using AWS CodePipeline & AWS CloudFormation</strong></a></td>
+                <td align="left">This session will describe how to centrally provide a pipeline product for Application team to deploy a serverless application. Similar pipeline products can be built for other deployment options such as container deployments.
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: CodePipeline, CloudFormation</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

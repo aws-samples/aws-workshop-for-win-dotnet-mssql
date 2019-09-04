@@ -38,6 +38,7 @@ markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.details
+  - sane_lists
 
 # Navigation
 nav:
@@ -120,8 +121,15 @@ nav:
                - Using an EC2 Jump Server to Access RDS : 'reinvent2018/mssql2rds/TargetConnect.md'
                - Working with SQL Server on RDS via SSMS : 'reinvent2018/mssql2rds/TargetSSMS.md'
                - Restoring a Database on RDS via SSMS : 'reinvent2018/mssql2rds/SSMSRestore.md'
-    - win315:
+    - Win315:
            - Home: 'reinvent2018/win315/index.md'
+    - Dev329:
+           - Session Introduction: 'reinvent2018/dev329/index.md'
+           - Prerequisites: 'reinvent2018/dev329/prereq.md'
+           - Admin - Deploy IAM policies, roles and KMS keys: 'reinvent2018/dev329/section1.md'
+           - Developer - Create and deploy centrally provide pipeline: 'reinvent2018/dev329/section2.md'
+           - Developer - Push sample code and check the pipeline activity: 'reinvent2018/dev329/section3.md'
+           - Resources: 'reinvent2018/dev329/resources.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:
