@@ -86,7 +86,7 @@ Resources:
     Type: AWS::IAM::InstanceProfile
     Properties:
       Roles:
-        - !Ref 'PsDscSSMLabRole'
+        - !Ref 'SSMLabRole'
       Path: /
 Outputs:
   LabBucketName:
