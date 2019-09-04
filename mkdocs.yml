@@ -130,11 +130,31 @@ nav:
            - Developer - Create and deploy centrally provide pipeline: 'reinvent2018/dev329/section2.md'
            - Developer - Push sample code and check the pipeline activity: 'reinvent2018/dev329/section3.md'
            - Resources: 'reinvent2018/dev329/resources.md'
+    - Dev332:
+           - Session Introduction: 'reinvent2018/dev332/index.md'
+           - Prerequisites: 'reinvent2018/dev332/prereq.md'
+           - Deploy IAM policies, roles and KMS keys: 'reinvent2018/dev332/section1_prereq.md'
+           - Admin - Centrally vend deployment pipelines: 'reinvent2018/dev332/section1.md'
+           - Developer - Deploy sample application: 'reinvent2018/dev332/section2.md'
+           - Developer - Push sample code and check the pipeline activity: 'reinvent2018/dev332/section3.md'
+           - Resources: 'reinvent2018/dev332/resources.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Builder Sessions:
     - Directory: 'builder-sessions/index.md'
   - Full Day Workshops: 
     - Directory: 'workshops/index.md'
+    - .NET Hackathon: 
+      - Home: 'workshops/dotnethackathon/index.md'
+      - Prerequisites: 'workshops/dotnethackathon/prereq.md'
+      - Resources: 'workshops/dotnethackathon/resources.md'
+      - Challenges: 
+        - 'AI Services' : 'workshops/dotnethackathon/ai.md'
+        - 'API Gateway' : 'workshops/dotnethackathon/webapi.md'
+        #- 'Database' : 'workshops/dotnethackathon/database.md'
+        - 'Eventing' : 'workshops/dotnethackathon/eventing.md'
+        #- 'Microservice' : 'workshops/dotnethackathon/microservice.md'
+        - 'Serverless' : 'workshops/dotnethackathon/serverless.md'
+        - 'WAF' : 'workshops/dotnethackathon/waf.md'
   - Contributing: 'contribute.md'
   - License: 'license.md'

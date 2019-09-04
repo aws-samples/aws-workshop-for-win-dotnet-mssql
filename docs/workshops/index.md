@@ -30,20 +30,29 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/PowerShellDSCinAWS/"><strong>**Managing Windows Workloads at Scale** </strong></a></td>
+                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/PowerShellDSCinAWS/"><strong>Managing Windows Workloads at Scale </strong></a></td>
                 <td align="left"> "Managing Windows Workloads at Scale"
                     <ul>
                         <li><strong>Level</strong>: 300</li>
-                        <li><strong>Duration</strong>: Each sub-section is one hour, totaling eight hours. </li>
+                        <li><strong>Duration</strong>: Two hours </li>
                     </ul>
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/AMIPipelineAutomation/"><strong>**Golden AMI Pipeline for Windows AMIs** </strong></a></td>
-                <td align="left"> "olden AMI Pipeline for Windows AMIs"
+                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/AMIPipelineAutomation/"><strong>Golden AMI Pipeline for Windows AMIs </strong></a></td>
+                <td align="left"> "Golden AMI Pipeline for Windows AMIs"
                     <ul>
                         <li><strong>Level</strong>: 400</li>
-                        <li><strong>Duration</strong>: Each sub-section is one hour, totaling eight hours. </li>
+                        <li><strong>Duration</strong>: Two hours </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/dotnethackathon/index"><strong>.NET Hackathon </strong></a></td>
+                <td align="left"> "The idea of the .NET workshop is to inspire development teams to think outside the box, get hands-on with AWS services and .NET integration with the AWS platform."
+                    <ul>
+                        <li><strong>Level</strong>: 400</li>
+                        <li><strong>Duration</strong>: Each sub-section is one hour, totaling four hours. </li>
                     </ul>
                 </td>
             </tr>
