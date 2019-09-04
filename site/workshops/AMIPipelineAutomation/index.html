@@ -1,0 +1,1954 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A collection of Windows on AWS workshops">
+      
+      
+        <link rel="canonical" href="https://awsentworkshops.com/workshops/AMIPipelineAutomation/">
+      
+      
+        <meta name="author" content="aws-ent-workshops@amazon.com">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/aws-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>**Windows Golden AMI Pipeline** - Windows on AWS Workshops</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.3020aac5.css">
+      
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#windows-golden-ami-pipeline" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+    <!-- Top-level navigation -->
+    <nav class="md-header-nav md-grid">
+      <div class="md-flex">
+  
+        <!-- Link to home -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <a href="https://aws.amazon.com/"
+              title="Amazon Web Services"
+              class="md-header-nav__button md-logo">
+            
+              <img src="../../assets/images/aws_smile_logo.png" width="40" height="24" />
+            
+          </a>
+        </div>
+  
+        <!-- Button to toggle drawer -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <label class="md-icon md-icon--menu md-header-nav__button"
+              for="__drawer"></label>
+        </div>
+  
+        <!-- Header title -->
+        <div class="md-flex__cell md-flex__cell--stretch">
+          <div class="md-flex__ellipsis md-header-nav__title"
+              data-md-component="title">
+            
+              
+                <span class="md-header-nav__topic">
+                  Windows on AWS Workshops
+                </span>
+                <span class="md-header-nav__topic">
+                  **Windows Golden AMI Pipeline**
+                </span>
+              
+            
+          </div>
+        </div>
+  
+        <!-- Button to open search dialogue -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          
+            
+              <label class="md-icon md-icon--search md-header-nav__button"
+                  for="__search"></label>
+  
+              <!-- Search interface -->
+              
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+          
+        </div>
+        
+        <!-- Repository containing source -->
+        
+        <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__lang">
+                <div class="md-lang-drop">
+                    <button onmouseover="langToggle()" class="md-lang-dropbtn fa fa-globe"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repository containing source -->
+        
+          <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__source">
+              
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+            </div>
+          </div>
+        
+      </div>
+    </nav>
+  </header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+<nav class="md-tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../.." title="Home" class="md-tabs__link md-tabs__link--active">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../reinvent2018/index2018/" title="re:Invent 2018" class="md-tabs__link">
+          re:Invent 2018
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../reinvent2019/index2019/" title="re:Invent 2019" class="md-tabs__link">
+          re:Invent 2019
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../builder-sessions/" title="Builder Sessions" class="md-tabs__link">
+          Builder Sessions
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../" title="Full Day Workshops" class="md-tabs__link">
+          Full Day Workshops
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://awsentworkshops.com" title="Windows on AWS Workshops" class="md-nav__button md-logo">
+      
+        <img src="../../assets/images/aws_smile_logo.png" width="48" height="48">
+      
+    </a>
+    Windows on AWS Workshops
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      re:Invent 2018
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        re:Invent 2018
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/index2018/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Win319
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Win319
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/win319index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/prereq/" title="Pre-Requisite" class="md-nav__link">
+      Pre-Requisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/1_DeployAd/" title="Create Directory" class="md-nav__link">
+      Create Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/2_DeployMad/" title="Deploy Managed AD" class="md-nav__link">
+      Deploy Managed AD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/3_Trust/" title="Create Domain Trust" class="md-nav__link">
+      Create Domain Trust
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/4_Createorg/" title="Create AWS Organization" class="md-nav__link">
+      Create AWS Organization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/5_ConnectADtoSSO/" title="Connect AD to SSO" class="md-nav__link">
+      Connect AD to SSO
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win319/6_VerifyADSSO_MAD/" title="Verify SSO" class="md-nav__link">
+      Verify SSO
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Win313
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Win313
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/win313index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/setup/" title="Lab Setup" class="md-nav__link">
+      Lab Setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-3" type="checkbox" id="nav-3-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/ec2/" title="Amazon EC2" class="md-nav__link">
+      Amazon EC2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/lambda/" title="AWS Lambda" class="md-nav__link">
+      AWS Lambda
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/fargate/" title="Amazon ECS Fargate" class="md-nav__link">
+      Amazon ECS Fargate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win313/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Win308
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Win308
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/win308index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/prereq/" title="Pre-requisites" class="md-nav__link">
+      Pre-requisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4-3" type="checkbox" id="nav-3-4-3">
+    
+    <label class="md-nav__link" for="nav-3-4-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-4-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/challenge1/" title="Challenge 1 Configuring resources using AWS Tools for Windows PowerShell" class="md-nav__link">
+      Challenge 1 Configuring resources using AWS Tools for Windows PowerShell
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win308/challenge2/" title="Challenge 2 Configure EC2 instances using Powershell and SSM" class="md-nav__link">
+      Challenge 2 Configure EC2 instances using Powershell and SSM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Win309
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Win309
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win309/win309index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win309/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win309/resources/" title="Lab Guide" class="md-nav__link">
+      Lab Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6">
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Win314
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        Win314
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win314/win314index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win314/build/" title="Let's Build" class="md-nav__link">
+      Let's Build
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-7" type="checkbox" id="nav-3-7">
+    
+    <label class="md-nav__link" for="nav-3-7">
+      Win310
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-7">
+        Win310
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/win310index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/scenario/" title="Scenario" class="md-nav__link">
+      Scenario
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/rehost/" title="Rehost" class="md-nav__link">
+      Rehost
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/replatform/" title="Replatform" class="md-nav__link">
+      Replatform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/refactor/" title="Refactor" class="md-nav__link">
+      Refactor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/win310/bonus/" title="Bonus" class="md-nav__link">
+      Bonus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8" type="checkbox" id="nav-3-8">
+    
+    <label class="md-nav__link" for="nav-3-8">
+      Dev334
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-8">
+        Dev334
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/dev334index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8-4" type="checkbox" id="nav-3-8-4">
+    
+    <label class="md-nav__link" for="nav-3-8-4">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-8-4">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2018/dev334/challenge1/" title="Powershell exercise" class="md-nav__link">
+      Powershell exercise
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      re:Invent 2019
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        re:Invent 2019
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../reinvent2019/index2019/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Builder Sessions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Builder Sessions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../builder-sessions/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Full Day Workshops
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Full Day Workshops
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../contribute/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#lab-pre-reqs" title="Lab Pre-Reqs" class="md-nav__link">
+    Lab Pre-Reqs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#set-automation-document-scaffolding" title="Set Automation Document Scaffolding" class="md-nav__link">
+    Set Automation Document Scaffolding
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#adding-in-parameters" title="Adding in Parameters" class="md-nav__link">
+    Adding in Parameters
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mainsteps-section-where-all-the-actions-happens" title="mainSteps Section - where all the actions happens." class="md-nav__link">
+    mainSteps Section - where all the actions happens.
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#step-1-get-latest-ami" title="Step 1 - Get Latest Ami" class="md-nav__link">
+    Step 1 - Get Latest Ami
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-launch-instance-and-tag" title="Step 2 - Launch Instance and Tag" class="md-nav__link">
+    Step 2 - Launch Instance and Tag
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-using-run-command-to-execute-scripts-in-line" title="Step 3 - Using Run Command to Execute Scripts in line" class="md-nav__link">
+    Step 3 - Using Run Command to Execute Scripts in line
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-4-using-run-command-to-execute-scripts-from-a-remote-location" title="Step 4 - Using Run Command to Execute Scripts from a Remote Location" class="md-nav__link">
+    Step 4 - Using Run Command to Execute Scripts from a Remote Location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-6-install-any-windows-os-updates" title="Step 6 - Install any Windows OS Updates" class="md-nav__link">
+    Step 6 - Install any Windows OS Updates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-7-sysprep-imagestop-instance" title="Step 7 - Sysprep Image\Stop Instance" class="md-nav__link">
+    Step 7 - Sysprep Image\Stop Instance
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-8-create-new-windows-amiterminate-instance" title="Step 8 - Create New Windows AMI\Terminate Instance" class="md-nav__link">
+    Step 8 - Create New Windows AMI\Terminate Instance
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#final-ssm-automation-document-create-automation-document" title="Final SSM Automation Document - Create Automation Document" class="md-nav__link">
+    Final SSM Automation Document - Create Automation Document
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#execute-automation-document" title="Execute Automation Document" class="md-nav__link">
+    Execute Automation Document
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resources" title="Resources" class="md-nav__link">
+    Resources
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/edit/master/docs/workshops/AMIPipelineAutomation.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="windows-golden-ami-pipeline"><strong>Windows Golden AMI Pipeline</strong></h1>
+<p>This lab will demonstrate creating a Windows AMI Pipeline using AWS Systems Manager (SSM) Automation. Most of this lab will be copying and pasting blocks of YAML code and explaining what each block does, a copy of the entire document will be included in step #8, if you would like to fast forward. In the end we will import the document to SSM Automation and fire it off to see what happens. This will help to drive the concepts of SSM Automation, and allow you to get comfortable building your own SSM Automation Worklflows. While this lab will focus on the AMI Pipeline use case, there are many other use cases and scenarios for SSM Automation.  </p>
+<p>The pipeline we will build will do the following: </p>
+<ol>
+<li>Get Current AMI ID</li>
+<li>Launch Current AMI\ Tag Instances</li>
+<li>Execute Scripts in Line</li>
+<li>Execute Scripts from Remote Location</li>
+<li>Update AWS Systems Manager Agent</li>
+<li>Install any Windows OS Updates</li>
+<li>Sysprep Image</li>
+<li>Create New Windows AMI</li>
+</ol>
+<h2 id="lab-pre-reqs">Lab Pre-Reqs</h2>
+<p><a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?region=us-east-1&amp;stackName=PsDscSSMLab&amp;templateURL=https://alpublic.s3.amazonaws.com/ssmlabprereq.yml"><strong>Click here To Deploy Lab Pre-Reqs into your Account</strong></a></p>
+<p>This CloudFormation Template will deploy the following resources:</p>
+<ul>
+<li>S3 Bucket to store files</li>
+<li>IAM Instance Role that allows Instances to use the AWS Systems Manager Service</li>
+</ul>
+<p>Please examine the the cloudformation template below in the resources section. Once deployed go to the Output section and note the LabBucketName and InstanceProfile, we will need this info for later steps. </p>
+<p>You will need a text or code editor of choice installed on the machine you will be using for this lab. Please ensure that the text\code editor can do syntax highlighting for YAML as that is the language we will be using in this lab. AWS Systems Manager Automation also supports JSON format. </p>
+<p>Also copy the powershell code below to a script called <strong>RemoteS3.ps1</strong> and upload it to the S3 Bucket created from the CloudFormation template. </p>
+<div class="codehilite"><pre><span></span><span class="nb">Write-Host</span> <span class="s2">&quot;Hello World!  This is an example script which was downloaded from S3 and then executed.&quot;</span>
+</pre></div>
+
+
+<h2 id="set-automation-document-scaffolding">Set Automation Document Scaffolding</h2>
+<p>Create a new text file and call it WindowsAMIPipeline.yaml, and copy in the scaffolding from the next code block. This represents the beginning of our Automation document. A Systems Manager Automation document defines the actions that Systems Manager performs on your managed instances and AWS resources. Documents use JavaScript Object Notation (JSON) or YAML, and they include steps and parameters that you specify. Steps run in sequential order.</p>
+<p>Automation documents are Systems Manager documents of type Automation, as opposed to Command documents. Automation documents currently support schema version 0.3. Command documents use schema version 1.2, 2.0, or 2.2. There are four sections that make up a Automation document, description (optional), schemaVersion (required), parameters (optional), mainSteps (required). </p>
+<div class="codehilite"><pre><span></span><span class="nn">---</span>
+<span class="nt">schemaVersion</span><span class="p">:</span> <span class="s">&quot;0.3&quot;</span>
+<span class="nt">description</span><span class="p">:</span> <span class="s">&#39;Sample</span><span class="nv"> </span><span class="s">Automation</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Windows</span><span class="nv"> </span><span class="s">AMI&#39;</span>
+<span class="nt">parameters</span><span class="p">:</span>
+<span class="nt">mainSteps</span><span class="p">:</span>
+</pre></div>
+
+
+<h2 id="adding-in-parameters">Adding in Parameters</h2>
+<p>Let's Add in some Parameters before we get started on our mainSteps section. Parameters in AWS Systems Manager Automation documents are used in a basic string replace. However, using parameters allows us to re-use Automation Documents instead of building them for single-use. </p>
+<div class="codehilite"><pre><span></span><span class="nn">---</span>
+<span class="nt">schemaVersion</span><span class="p">:</span> <span class="s">&quot;0.3&quot;</span>
+<span class="nt">description</span><span class="p">:</span> <span class="s">&#39;Sample</span><span class="nv"> </span><span class="s">Automation</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Windows</span><span class="nv"> </span><span class="s">AMI&#39;</span>
+<span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">SourceAmiId</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Required)</span><span class="nv"> </span><span class="s">SSM</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">Parameter.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base</span>
+  <span class="nt">IamInstanceProfileName</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Required)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">role</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">enables</span><span class="nv"> </span><span class="s">Systems</span><span class="nv"> </span><span class="s">Manager</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">manage</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">instance.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IAMInstanceProfile</span>
+  <span class="nt">InstanceType</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">Select</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">instance</span><span class="nv"> </span><span class="s">type.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">m5.large</span>
+  <span class="nt">SubnetId</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">Specify</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">SubnetId</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">launch</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">specific</span><span class="nv"> </span><span class="s">subnet.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;&#39;</span>
+  <span class="nt">NewImageName</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_Created_On_{{global:DATE_TIME}}&#39;</span>
+  <span class="nt">NewImageDescription</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_Created_On_{{global:DATE}}&#39;</span>
+  <span class="nt">S3BucketName</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;The</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">store</span><span class="nv"> </span><span class="s">logs</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">grab</span><span class="nv"> </span><span class="s">scripts.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;LabBucketName&#39;</span>
+<span class="nt">mainSteps</span><span class="p">:</span>
+</pre></div>
+
+
+<h2 id="mainsteps-section-where-all-the-actions-happens">mainSteps Section - where all the actions happens.</h2>
+<p>Systems Manager Automation runs steps defined in Automation documents. Each step is associated with a particular action. The action determines the inputs, behavior, and outputs of the step. Steps are defined in the mainSteps section of your Automation document.</p>
+<p>You don't need to specify the outputs of an action or step. The outputs are predetermined by the action associated with the step. When you specify step inputs in your Automation documents, you can reference one or more outputs from an earlier step. For example, you can make the output of aws:runInstances available for a subsequent aws:runCommand action. You can also reference outputs from earlier steps in the Output section of the Automation document. </p>
+<p><strong>Note:</strong> All of the subsequent code blocks you will need to copy and paste after the mainSteps section of our Automation Document. </p>
+<h3 id="step-1-get-latest-ami">Step 1 - Get Latest Ami</h3>
+<p>Each step has required properties that need to be defined, here we are highlighting the properties that are required. For a full list of common properties check <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-common">AWS Systems Manager Documentation</a>:</p>
+<ul>
+<li>name</li>
+<li>An identifier that <strong><strong>must be unique</strong></strong> across all step names in the document and is required</li>
+<li>action</li>
+<li>The name of the action the step is to run. aws:runCommand is an example of an action you can specify here. We will demonstrate several action types in this lab. </li>
+<li>input</li>
+<li>The properties specific to the action.</li>
+</ul>
+<p>As we go along we will note and highlight any additional properties, and a brief explaination of the actions we are using. For a full list of <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html">AWS Systems Manager Automation Actions</a>please reference the SSM Documentation. </p>
+<p>In this first step we are grabbing the latest AMI ID from SSM Parameter store and outputting its value for subsquent steps. SSM Automation has <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-variables.html">system variables</a>, SSM parameters being one of the system variables that can be used in a step definition. However, there are supported cases and unsupported cases and using SSM Parameters in the input of a action is an unsupported case. To work around this we use the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-action-executeAwsApi"><strong><em>aws:executeAwsApi</em></strong></a> action. </p>
+<p><strong><em>aws:executeAwsApi</em></strong> action calls and runs AWS API actions. Most API actions are supported, although not all API actions have been tested. For more information and examples of how to use this action, see <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-aws-apis-calling.html">Invoking Other AWS Services from a Systems Manager Automation Workflow</a>.</p>
+<p>As with many API Calls we get a response that we need to parse, to do that with SSM Automation we need to use <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-aws-apis-calling.html#automation-aws-apis-calling-json-path">JSONPath</a> to pull a specific value from a response. In the output section under Selector, you can see the JSONPath being used to grab the Latest AMI ID from the response of our GetParameter API call to SSM.  </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Optional Step: This step will grab the latest AMI ID using SSM Parameter Store  </span>
+  <span class="c1"># Doing this we can alway start with the latest AWS AMI and add our needed components. </span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;GetLatestAmi&quot;</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">aws:executeAwsApi</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">Service</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm</span>
+      <span class="nt">Api</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GetParameter</span>
+      <span class="nt">Name</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">SourceAmiId</span><span class="nv"> </span><span class="s">}}&#39;</span>
+    <span class="nt">outputs</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AMI</span>
+        <span class="nt">Selector</span><span class="p">:</span> <span class="s">&quot;$.Parameter.Value&quot;</span>
+        <span class="nt">Type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
+</pre></div>
+
+
+<h3 id="step-2-launch-instance-and-tag">Step 2 - Launch Instance and Tag</h3>
+<p>In this step we will launch an instance from the AMI ID that we grabbed in the previous step. To do this we will use the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-action-runinstance"><strong><em>aws:runInstances</em></strong></a> action. The action supports most API parameters of the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API. </p>
+<p>Not pointed out in our previous step is how the variables are being used in each step. If we look at the input parameters of the <strong><em>aws:runInstances</em></strong> action there are variables surrounded by double curly braces and in quotes, notice values for ImageId, InstanceType, IamInstanceProfileName and SubnetId. In the ImageId section we are referencing the output of the GetLatestAmi Step, in the other parameters we are passing in the parameters we defined at the beginning of the document. </p>
+<p>In these steps we have also defined the <strong><em>timeoutSeconds</em></strong> property which is being used in conjunction with the <strong><em>maxAttempts</em></strong> property. If the timeout is reached and the value of maxAttempts is greater than 1, then the step is not considered to have timed out until all retries have been attempted. There is no default value for this field. maxAttempts is the number of times the step should be retried in case of failure. If the value is greater than 1, the step is not considered to have failed until all retry attempts have failed. The default value is 1.</p>
+<p>Finally in these two steps we are also using the <strong><em>onFailure</em></strong> property which indicates whether the workflow should abort, continue,or go to a different step on failure. If you were to specify a step the format would be <strong><em>step:step_name</em></strong>. The default value for this option is abort. The tag step also demontrates use of another system variable in the tag value, you see we are appending the automation execuion ID to the tag using <strong><em>{{automation:EXECUTION_ID}}</em></strong>. </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Required Step: This step will launch an instance from the source AMI that you specified.  </span>
+  <span class="c1"># This step will return the instance id of the instance that was launched.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LaunchInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runInstances&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1800</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">ImageId</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">GetLatestAmi.AMI</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">InstanceType</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">InstanceType</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">MinInstanceCount</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">MaxInstanceCount</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">IamInstanceProfileName</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">IamInstanceProfileName</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">SubnetId</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">SubnetId</span><span class="nv"> </span><span class="s">}}&#39;</span>
+  <span class="c1"># Optional Step: This step will tag your instance. Why do this? </span>
+  <span class="c1"># Helps make it clear which instance is being used to create this AMI.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TagInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:createTags&#39;</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">ResourceType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EC2</span>
+      <span class="nt">ResourceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">Key</span><span class="p">:</span> <span class="s">&quot;Name&quot;</span>
+          <span class="nt">Value</span><span class="p">:</span> <span class="s">&quot;GoldenAMI__{{automation:EXECUTION_ID}}&quot;</span>
+</pre></div>
+
+
+<h3 id="step-3-using-run-command-to-execute-scripts-in-line">Step 3 - Using Run Command to Execute Scripts in line</h3>
+<p>Now on to the meat and potatoes, once we have an instance that has been launched and registered to AWS Systems Manager we can use the <strong><em>aws:runCommand</em></strong> action which will execute scripts and code on our instance. This action will most likely be the most used action in your automation workflows for Windows workloads. We can use this action to install software or configure the AMI to meet internal corporate standards. </p>
+<p>In this Step we are executing the <strong>AWS-RunPowerShellScript</strong> command document. This will give us access to PowerShell to run cmdlets and or script within the instance. In order to do this we need to provide an instance to the Command Document, notice how the instance ID is being grabbed from the LaunchInstance Step. You will also notice here we are outputing the result of the script to S3 so we can review the logs. In this step we are simply writing out the OS version to the console, which will appear in our S3 Log Output. </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Optional Step: This step shows you how to execute a script on the instance where the script code is inline to this document.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ExampleInlineScript</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/ExampleInlineScript/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-RunPowerShellScript</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">executionTimeout</span><span class="p">:</span> <span class="s">&#39;7200&#39;</span>
+        <span class="nt">commands</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="p p-Indicator">|</span>
+             <span class="no">$version = [System.Environment]::OSVersion.Version</span>
+             <span class="no">Write-Host &quot;$($version.ToString())&quot;</span>
+</pre></div>
+
+
+<h3 id="step-4-using-run-command-to-execute-scripts-from-a-remote-location">Step 4 - Using Run Command to Execute Scripts from a Remote Location</h3>
+<p>In this step we are again using the <strong><em>aws:runCommand</em></strong> action but using the <strong>AWS-RunRemoteScript</strong> document. This document will download a script from S3 or Github and execute them on the target instance. We can use these scripts to do custom configuration on the instance or install software. Also note that in this step we are not outputting logs to S3 but instead outputting them to CloudWatch Logs. </p>
+<p>```YAML
+  # Optional Step: This step shows you how to execute a powershell script that is located in S3.
+  - name: ExampleS3Script
+    action: 'aws:runCommand'
+    timeoutSeconds: 60
+    maxAttempts: 3
+    onFailure: step:TerminateInstance
+    inputs:
+      CloudWatchOutputConfig:
+        CloudWatchOutputEnabled: "true"
+        CloudWatchLogGroupName: '/GoldenAMILogs/{{automation:EXECUTION_ID}}/ExampleS3Script'
+      DocumentName: AWS-RunRemoteScript
+      InstanceIds: '{{ LaunchInstance.InstanceIds }}'
+      Parameters:
+        executionTimeout: '60'
+        sourceType: "S3"
+        commandLine: "./RemoteS3.ps1"
+        sourceInfo: '{"path": "https://{{S3BucketName}}.s3.amazonaws.com/RemoteS3.ps1"}'</p>
+<div class="codehilite"><pre><span></span><span class="x">### Step 5 - Updating SSM Agent</span>
+
+<span class="x">Again we are using the ***aws:runCommand*** action but this time using the **AWS-UpdateSSMAgent**, this will install the latest version of the SSM agent into the instance that will eventually become our AMI. </span>
+
+<span class="x">```YAML</span>
+<span class="x">  # Recommended Step: This step will update the SSM Agent on your instance.</span>
+<span class="x">  - name: UpdateSSMAgent</span>
+<span class="x">    action: &#39;aws:runCommand&#39;</span>
+<span class="x">    timeoutSeconds: 14400</span>
+<span class="x">    maxAttempts: 3</span>
+<span class="x">    onFailure: step:TerminateInstance</span>
+<span class="x">    inputs:</span>
+<span class="x">      OutputS3BucketName: &quot;</span><span class="cp">{{</span><span class="nv">S3BucketName</span><span class="cp">}}</span><span class="x">&quot;</span>
+<span class="x">      OutputS3KeyPrefix: &quot;GoldenAMILogs/</span><span class="cp">{{</span><span class="nv">automation</span><span class="o">:</span><span class="nv">EXECUTION_ID</span><span class="cp">}}</span><span class="x">/UpdateSSMAgent/&quot;</span>
+<span class="x">      DocumentName: AWS-UpdateSSMAgent</span>
+<span class="x">      InstanceIds: &#39;</span><span class="cp">{{</span> <span class="nv">LaunchInstance.InstanceIds</span> <span class="cp">}}</span><span class="x">&#39;</span>
+<span class="x">      Parameters:</span>
+<span class="x">        allowDowngrade: &#39;false&#39;</span>
+</pre></div>
+
+
+<h3 id="step-6-install-any-windows-os-updates">Step 6 - Install any Windows OS Updates</h3>
+<p>Again we are using the <strong><em>aws:runCommand</em></strong> action but this time using the <strong>AWS-InstallWindowsUpdates</strong>, this will install all available windows updates at the time of execution. We see that we have used several different AWS Managed Command Documents in our workflow for a complete list we can run the <strong><em>aws ssm list-documents</em></strong> cli command or peruse in via the AWS Systems Manager Web Console under Shared Resources --&gt; Documents. For a list of <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-documents-reference-details.html">AWS Managed Automation Documents</a> you can reference SSM Documentation. You can also call another Automation Document using the <strong><em>aws:executeAutomation</em></strong> action. </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Recommended Step: This step will install all available Windows updates that are available at the time of execution.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">InstallWindowsUpdates</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14400</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/InstallWindowsUpdates/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-InstallWindowsUpdates</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">Action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install</span>
+</pre></div>
+
+
+<h3 id="step-7-sysprep-imagestop-instance">Step 7 - Sysprep Image\Stop Instance</h3>
+<p>We are using the <strong><em>aws:runCommand</em></strong> action one last time to run the <strong>AWSEC2-RunSysprep</strong> document that will generalize our Instance so we can convert it an AMI. We then are running the <strong>*aws:changeInstanceState</strong> action which will stop our EC2 Instance so we can convert it to an AMI. </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Required Step: This step will perform sysprep on your instance using the recommended approach from AWS by using the public run command document AWSEC2-RunSysprep.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RunSysprepGeneralize</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/RunSysprepGeneralize/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWSEC2-RunSysprep</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">Id</span><span class="p">:</span> <span class="s">&#39;{{automation:EXECUTION_ID}}&#39;</span>
+  <span class="c1"># Required Step: The instance should be in the stopped state prior to creating your image and this step will stop your instance.  This previous sysprep step does not shutdown the OS.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">StopInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:changeInstanceState&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7200</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">CheckStateOnly</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+      <span class="nt">DesiredState</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">stopped</span>
+</pre></div>
+
+
+<h3 id="step-8-create-new-windows-amiterminate-instance">Step 8 - Create New Windows AMI\Terminate Instance</h3>
+<p>Now we are in the home stretch, we will use the <strong><em>aws:createImage</em></strong> action to create a new AMI. Once that is completed we will use the <strong><em>aws:changedInstanceState</em></strong> action to terminate the instance since we no longer need it. You will notice that in the last step we are using the <strong><em>isEnd</em></strong> option, this option stops an Automation execution at the end of a specific step. The Automation execution stops if the step execution failed or succeeded. The default value is false and is optional to use. </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Required Step:  This step will create a new image from the stopped instance.  It will return the new AMI id.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CreateImage</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:createImage&#39;</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">ImageName</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">NewImageName</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">ImageDescription</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">NewImageDescription</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">InstanceId</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">NoReboot</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="c1"># Recommended Step: This step will terminiate the instance that was used to create your new AMI.  AWS recommends terminiating it to free resources and saving you $.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TerminiateInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:changeInstanceState&#39;</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">isEnd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">DesiredState</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">terminated</span>
+</pre></div>
+
+
+<h2 id="final-ssm-automation-document-create-automation-document">Final SSM Automation Document - Create Automation Document</h2>
+<p>Once we have copied all sections in our final SSM Automation Document should look like the following code block. Please double check and make sure everything looks right.  </p>
+<div class="codehilite"><pre><span></span><span class="nn">---</span>
+<span class="nt">schemaVersion</span><span class="p">:</span> <span class="s">&quot;0.3&quot;</span>
+<span class="nt">description</span><span class="p">:</span> <span class="s">&#39;Sample</span><span class="nv"> </span><span class="s">Automation</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Create</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Windows</span><span class="nv"> </span><span class="s">AMI&#39;</span>
+<span class="nt">parameters</span><span class="p">:</span>
+  <span class="nt">SourceAmiId</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Required)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">source</span><span class="nv"> </span><span class="s">Amazon</span><span class="nv"> </span><span class="s">Machine</span><span class="nv"> </span><span class="s">Image</span><span class="nv"> </span><span class="s">ID.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/aws/service/ami-windows-latest/Windows_Server-2019-English-Full-Base</span>
+  <span class="nt">IamInstanceProfileName</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Required)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">role</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">enables</span><span class="nv"> </span><span class="s">Systems</span><span class="nv"> </span><span class="s">Manager</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">manage</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">instance.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">IAMInstanceProfile</span>
+  <span class="nt">InstanceType</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">Select</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">instance</span><span class="nv"> </span><span class="s">type.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">m5.large</span>
+  <span class="nt">SubnetId</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">Specify</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">SubnetId</span><span class="nv"> </span><span class="s">if</span><span class="nv"> </span><span class="s">you</span><span class="nv"> </span><span class="s">want</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">launch</span><span class="nv"> </span><span class="s">into</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">specific</span><span class="nv"> </span><span class="s">subnet.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">subnet-dc5f7884</span>
+  <span class="nt">NewImageName</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_CreatedFrom_{{SourceAmiId}}_On_{{global:DATE_TIME}}&#39;</span>
+  <span class="nt">NewImageDescription</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_CreatedFrom_{{SourceAmiId}}_On_{{global:DATE}}&#39;</span>
+  <span class="nt">S3BucketName</span><span class="p">:</span>
+    <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+    <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;The</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">store</span><span class="nv"> </span><span class="s">logs.&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;samples-us-east-1&#39;</span>
+<span class="nt">mainSteps</span><span class="p">:</span>
+  <span class="c1"># Optional Step: This step will grab the latest AMI ID using SSM Parameter Store  </span>
+  <span class="c1"># Doing this we can alway start with the latest AWS AMI and add our needed components. </span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="s">&quot;GetLatestAmi&quot;</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">aws:executeAwsApi</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">Service</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm</span>
+      <span class="nt">Api</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">GetParameter</span>
+      <span class="nt">Name</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">SourceAmiId</span><span class="nv"> </span><span class="s">}}&#39;</span>
+    <span class="nt">outputs</span><span class="p">:</span>
+      <span class="p p-Indicator">-</span> <span class="nt">Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AMI</span>
+        <span class="nt">Selector</span><span class="p">:</span> <span class="s">&quot;$.Parameter.Value&quot;</span>
+        <span class="nt">Type</span><span class="p">:</span> <span class="s">&quot;String&quot;</span>
+  <span class="c1"># Required Step: This step will launch an instance from the source AMI that you specified.  </span>
+  <span class="c1"># This step will return the instance id of the instance that was launched.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LaunchInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runInstances&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1800</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">ImageId</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">GetLatestAmi.AMI</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">InstanceType</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">InstanceType</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">MinInstanceCount</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">MaxInstanceCount</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">1</span>
+      <span class="nt">IamInstanceProfileName</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">IamInstanceProfileName</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">SubnetId</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">SubnetId</span><span class="nv"> </span><span class="s">}}&#39;</span>
+  <span class="c1"># Optional Step: This step will tag your instance. Why do this? </span>
+  <span class="c1"># Helps make it clear which instance is being used to create this AMI.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TagInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:createTags&#39;</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">ResourceType</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">EC2</span>
+      <span class="nt">ResourceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Tags</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">Key</span><span class="p">:</span> <span class="s">&quot;Name&quot;</span>
+          <span class="nt">Value</span><span class="p">:</span> <span class="s">&quot;GoldenAMI__{{automation:EXECUTION_ID}}&quot;</span>
+  <span class="c1"># Optional Step: This step shows you how to execute a script on the instance where the script code is inline to this document.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ExampleInlineScript</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/ExampleInlineScript/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-RunPowerShellScript</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">executionTimeout</span><span class="p">:</span> <span class="s">&#39;7200&#39;</span>
+        <span class="nt">commands</span><span class="p">:</span>
+          <span class="p p-Indicator">-</span> <span class="p p-Indicator">|</span>
+             <span class="no">$version = [System.Environment]::OSVersion.Version</span>
+             <span class="no">Write-Host &quot;$($version.ToString())&quot;</span>
+  <span class="c1"># Optional Step: This step shows you how to execute a powershell script that is located in S3.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ExampleS3Script</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">CloudWatchOutputConfig</span><span class="p">:</span>
+        <span class="nt">CloudWatchOutputEnabled</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+        <span class="nt">CloudWatchLogGroupName</span><span class="p">:</span> <span class="s">&#39;/GoldenAMILogs/{{automation:EXECUTION_ID}}/ExampleS3Script&#39;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-RunRemoteScript</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">executionTimeout</span><span class="p">:</span> <span class="s">&#39;60&#39;</span>
+        <span class="nt">sourceType</span><span class="p">:</span> <span class="s">&quot;S3&quot;</span>
+        <span class="nt">commandLine</span><span class="p">:</span> <span class="s">&quot;./RemoteS3.ps1&quot;</span>
+        <span class="nt">sourceInfo</span><span class="p">:</span> <span class="s">&#39;{&quot;path&quot;:</span><span class="nv"> </span><span class="s">&quot;https://{{S3BucketName}}.s3.amazonaws.com/RemoteS3.ps1&quot;}&#39;</span>
+  <span class="c1"># Recommended Step: This step will update the SSM Agent on your instance.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">UpdateSSMAgent</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14400</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/UpdateSSMAgent/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-UpdateSSMAgent</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">allowDowngrade</span><span class="p">:</span> <span class="s">&#39;false&#39;</span>
+  <span class="c1"># Recommended Step: This step will install all available Windows updates that are available at the time of execution.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">InstallWindowsUpdates</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14400</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/InstallWindowsUpdates/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-InstallWindowsUpdates</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">Action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Install</span>
+  <span class="c1"># Required Step: This step will perform sysprep on your instance using the recommended approach from AWS by using the public run command document AWSEC2-RunSysprep.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">RunSysprepGeneralize</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">600</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/RunSysprepGeneralize/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWSEC2-RunSysprep</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">Id</span><span class="p">:</span> <span class="s">&#39;{{automation:EXECUTION_ID}}&#39;</span>
+  <span class="c1"># Required Step: The instance should be in the stopped state prior to creating your image and this step will stop your instance.  This previous sysprep step does not shutdown the OS.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">StopInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:changeInstanceState&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">7200</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">CheckStateOnly</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+      <span class="nt">DesiredState</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">stopped</span>
+  <span class="c1"># Required Step:  This step will create a new image from the stopped instance.  It will return the new AMI id.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">CreateImage</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:createImage&#39;</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">ImageName</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">NewImageName</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">ImageDescription</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">NewImageDescription</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">InstanceId</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">NoReboot</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+  <span class="c1"># Recommended Step: This step will terminiate the instance that was used to create your new AMI.  AWS recommends terminiating it to free resources and saving you $.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">TerminateInstance</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:changeInstanceState&#39;</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Abort</span>
+    <span class="nt">isEnd</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">true</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">DesiredState</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">terminated</span>
+</pre></div>
+
+
+<p>Save it to a file named WindowsAMIPipeline.yaml and note the location. You can use the AWS Cli to create the document using the command in the next code block. </p>
+<div class="codehilite"><pre><span></span>aws ssm create-document --content &quot;file://PathtoFile/WindowsAMIPipeline.yaml&quot; --name &quot;WinWorkshopAMIPipeline&quot; --document-type &quot;Automation&quot; --document-format YAML
+</pre></div>
+
+
+<p>You can also create the document via the web console. First you will wanto navigate to the AWS Systems Manager Web Console. And the under Shared Resources, Click on Documents
+<img alt="" src="/assets/images/SharedResources1.png" /></p>
+<p>Then Click on Create Document. 
+<img alt="" src="/assets/images/createdocumentbutton.png" /></p>
+<p>Then name the document and select Document Type as Automation. 
+<img alt="" src="/assets/images/CreateDocumentName.png" /></p>
+<p>Then select YAML in this case, and copy the content of the document into the code window, and click create document. 
+<img alt="" src="/assets/images/DocumentContent.png" /></p>
+<h2 id="execute-automation-document">Execute Automation Document</h2>
+<p>Now that we have created the document and understand the steps, lets execute the document and see what happens. </p>
+<p>Under Actions and Changes, click on Automation
+<img alt="" src="/assets/images/ActionsChangesAutomation.png" /></p>
+<p>Then click on Execute Automation. 
+<img alt="" src="/assets/images/ExecuteAutomationButton.png" /></p>
+<p>Then lets Click on Owned by me and select our WinWorkshopAMIPipeline and click Next. 
+<img alt="" src="/assets/images/SelectAutomationDocument.png" /></p>
+<p>We can pick simple execution which will run the document, or Manual Execution where we would need to manually execute the documemt step by step.
+<img alt="" src="/assets/images/ExecuteAutomationChoice.png" /></p>
+<p>Finally lets enter the parameters, using the Iam Instance Profile Name and S3 Bucket from the Output of the Pre-Req CloudFormation and click Execute. 
+<img alt="" src="/assets/images/EnterParameterinAutomation.png" /></p>
+<p>You can then step through or watch the execution proceed. Click into each one of the steps and explore the inputs, outputs etc. Go to the S3 Bucket and check the logs, go to CloudWatch Logs and check those logs. 
+<img alt="" src="/assets/images/ExecutionProgress.png" /></p>
+<h2 id="resources">Resources</h2>
+<p><strong>Lab Pre-Req CloudFormation Template</strong></p>
+<div class="codehilite"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span> <span class="s">&quot;2010-09-09&quot;</span>
+<span class="nt">Description</span><span class="p">:</span>
+ <span class="l l-Scalar l-Scalar-Plain">This is a Cloudformation that setups Lab Components for PowerShell DSC Lab</span>
+<span class="nt">Resources</span><span class="p">:</span>
+  <span class="nt">LabBucket</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::S3::Bucket</span>
+    <span class="nt">DeletionPolicy</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Delete</span>
+  <span class="nt">LogonMessageParam</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::SSM::Parameter</span>
+    <span class="nt">Properties</span><span class="p">:</span> 
+      <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Logon Message for Interactive Logon</span>
+      <span class="nt">Name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LogonMessage</span>
+      <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
+      <span class="nt">Value</span><span class="p">:</span> <span class="s">&quot;&#39;This</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Test</span><span class="nv"> </span><span class="s">System.,Testing</span><span class="nv"> </span><span class="s">how</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">Set</span><span class="nv"> </span><span class="s">a</span><span class="nv"> </span><span class="s">Logon</span><span class="nv"> </span><span class="s">Message</span><span class="nv"> </span><span class="s">with.,PowerShell</span><span class="nv"> </span><span class="s">DSC</span><span class="nv"> </span><span class="s">and</span><span class="nv"> </span><span class="s">AWS</span><span class="nv"> </span><span class="s">Systems</span><span class="nv"> </span><span class="s">Manager.,Parameter</span><span class="nv"> </span><span class="s">Store&#39;&quot;</span>
+  <span class="nt">SSMLabRole</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::IAM::Role</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">Policies</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">PolicyDocument</span><span class="p">:</span>
+            <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+            <span class="nt">Statement</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">Action</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:GetObject</span>
+                <span class="nt">Resource</span><span class="p">:</span> 
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::aws-ssm-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::aws-windows-downloads-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::amazon-ssm-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::amazon-ssm-packages-${AWS::Region}/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::${AWS::Region}-birdwatcher-prod/*&#39;</span>
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:s3:::patch-baseline-snapshot-${AWS::Region}/*&#39;</span>
+                <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">PolicyName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm-custom-s3-policy</span>
+        <span class="p p-Indicator">-</span> <span class="nt">PolicyDocument</span><span class="p">:</span>
+            <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+            <span class="nt">Statement</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">Action</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">ssm:GetParameter</span>
+                <span class="nt">Resource</span><span class="p">:</span> 
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${LogonMessageParam}&#39;</span>
+                <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">PolicyName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm-param-policy</span>
+        <span class="p p-Indicator">-</span> <span class="nt">PolicyDocument</span><span class="p">:</span>
+            <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+            <span class="nt">Statement</span><span class="p">:</span>
+              <span class="p p-Indicator">-</span> <span class="nt">Action</span><span class="p">:</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:GetObject</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:PutObject</span>
+                  <span class="p p-Indicator">-</span> <span class="l l-Scalar l-Scalar-Plain">s3:PutObjectAcl</span>
+                <span class="nt">Resource</span><span class="p">:</span> 
+                  <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:${AWS::Partition}:s3:::${LabBucket}/*&#39;</span>
+                <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">PolicyName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ssm-mof-bucket-policy</span>
+      <span class="nt">AssumeRolePolicyDocument</span><span class="p">:</span>
+        <span class="nt">Version</span><span class="p">:</span> <span class="s">&#39;2012-10-17&#39;</span>
+        <span class="nt">Statement</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="nt">Effect</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Allow</span>
+          <span class="nt">Principal</span><span class="p">:</span>
+            <span class="nt">Service</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ec2.amazonaws.com</span>
+          <span class="nt">Action</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">sts:AssumeRole</span>
+      <span class="nt">ManagedPolicyArns</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore&#39;</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Sub</span> <span class="s">&#39;arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy&#39;</span>
+  <span class="nt">SSMLabProfile</span><span class="p">:</span>
+    <span class="nt">Type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS::IAM::InstanceProfile</span>
+    <span class="nt">Properties</span><span class="p">:</span>
+      <span class="nt">Roles</span><span class="p">:</span>
+        <span class="p p-Indicator">-</span> <span class="kt">!Ref</span> <span class="s">&#39;SSMLabRole&#39;</span>
+      <span class="nt">Path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/</span>
+<span class="nt">Outputs</span><span class="p">:</span>
+  <span class="nt">LabBucketName</span><span class="p">:</span>
+    <span class="nt">Description</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">S3 Bucket where MOF File will be uploaded to.</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">LabBucket</span>
+  <span class="nt">InstanceProfile</span><span class="p">:</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">SSMLabProfile</span>
+  <span class="nt">InstanceRoleArn</span><span class="p">:</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!GetAtt</span> <span class="l l-Scalar l-Scalar-Plain">SSMLabRole.Arn</span>
+  <span class="nt">InstanceRoleName</span><span class="p">:</span>
+    <span class="nt">Value</span><span class="p">:</span> <span class="kt">!Ref</span> <span class="l l-Scalar l-Scalar-Plain">SSMLabRole</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../assets/fonts/font-awesome.css">
+    
+      <a href="https://awsentworkshops.com" class="md-footer-social__link fa fa-home"></a>
+    
+      <a href="https://aws.amazon.com/windows/" class="md-footer-social__link fa fa-globe"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../.."}})</script>
+      
+        <script src="../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>

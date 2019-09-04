@@ -1,0 +1,1617 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+        <meta name="description" content="A collection of Windows on AWS workshops">
+      
+      
+        <link rel="canonical" href="https://awsentworkshops.com/reinvent2018/win314/build/">
+      
+      
+        <meta name="author" content="aws-ent-workshops@amazon.com">
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../../assets/images/aws-favicon.ico">
+      <meta name="generator" content="mkdocs-1.0.4, mkdocs-material-4.1.1">
+    
+    
+      
+        <title>Let's Build - Windows on AWS Workshops</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/application.3020aac5.css">
+      
+      
+    
+    
+      <script src="../../../assets/javascripts/modernizr.01ccdecf.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="../../../assets/fonts/material-icons.css">
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/custom.css">
+    
+    
+      
+    
+    
+  </head>
+  
+    <body dir="ltr">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448"
+    viewBox="0 0 416 448" id="__github">
+  <path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19-18.125
+        8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19 18.125-8.5
+        18.125 8.5 10.75 19 3.125 20.5zM320 304q0 10-3.125 20.5t-10.75
+        19-18.125 8.5-18.125-8.5-10.75-19-3.125-20.5 3.125-20.5 10.75-19
+        18.125-8.5 18.125 8.5 10.75 19 3.125 20.5zM360
+        304q0-30-17.25-51t-46.75-21q-10.25 0-48.75 5.25-17.75 2.75-39.25
+        2.75t-39.25-2.75q-38-5.25-48.75-5.25-29.5 0-46.75 21t-17.25 51q0 22 8
+        38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0
+        37.25-1.75t35-7.375 30.5-15 20.25-25.75 8-38.375zM416 260q0 51.75-15.25
+        82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5-41.75
+        1.125q-19.5 0-35.5-0.75t-36.875-3.125-38.125-7.5-34.25-12.875-30.25-20.25-21.5-28.75q-15.5-30.75-15.5-82.75
+        0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25
+        30.875q36.75-8.75 77.25-8.75 37 0 70 8 26.25-20.5
+        46.75-30.25t47.25-9.75q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34
+        99.5z" />
+</svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#modernize-your-first-windows-application-with-windows-containers" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <!--
+  Copyright (c) 2016-2018 Martin Donath <martin.donath@squidfunk.com>
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Application header -->
+<header class="md-header" data-md-component="header">
+
+    <!-- Top-level navigation -->
+    <nav class="md-header-nav md-grid">
+      <div class="md-flex">
+  
+        <!-- Link to home -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <a href="https://aws.amazon.com/"
+              title="Amazon Web Services"
+              class="md-header-nav__button md-logo">
+            
+              <img src="../../../assets/images/aws_smile_logo.png" width="40" height="24" />
+            
+          </a>
+        </div>
+  
+        <!-- Button to toggle drawer -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <label class="md-icon md-icon--menu md-header-nav__button"
+              for="__drawer"></label>
+        </div>
+  
+        <!-- Header title -->
+        <div class="md-flex__cell md-flex__cell--stretch">
+          <div class="md-flex__ellipsis md-header-nav__title"
+              data-md-component="title">
+            
+              
+                <span class="md-header-nav__topic">
+                  Windows on AWS Workshops
+                </span>
+                <span class="md-header-nav__topic">
+                  Let's Build
+                </span>
+              
+            
+          </div>
+        </div>
+  
+        <!-- Button to open search dialogue -->
+        <div class="md-flex__cell md-flex__cell--shrink">
+          
+            
+              <label class="md-icon md-icon--search md-header-nav__button"
+                  for="__search"></label>
+  
+              <!-- Search interface -->
+              
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+            
+          
+        </div>
+        
+        <!-- Repository containing source -->
+        
+        <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__lang">
+                <div class="md-lang-drop">
+                    <button onmouseover="langToggle()" class="md-lang-dropbtn fa fa-globe"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Repository containing source -->
+        
+          <div class="md-flex__cell md-flex__cell--shrink">
+            <div class="md-header-nav__source">
+              
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+            </div>
+          </div>
+        
+      </div>
+    </nav>
+  </header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+        
+
+  
+
+<nav class="md-tabs md-tabs--active" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  <li class="md-tabs__item">
+    
+      <a href="../../.." title="Home" class="md-tabs__link">
+        Home
+      </a>
+    
+  </li>
+
+      
+        
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../index2018/" title="re:Invent 2018" class="md-tabs__link md-tabs__link--active">
+          re:Invent 2018
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../reinvent2019/index2019/" title="re:Invent 2019" class="md-tabs__link">
+          re:Invent 2019
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../builder-sessions/" title="Builder Sessions" class="md-tabs__link">
+          Builder Sessions
+        </a>
+      
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+        <a href="../../../workshops/" title="Full Day Workshops" class="md-tabs__link">
+          Full Day Workshops
+        </a>
+      
+    </li>
+  
+
+      
+        
+      
+        
+      
+    </ul>
+  </div>
+</nav>
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="https://awsentworkshops.com" title="Windows on AWS Workshops" class="md-nav__button md-logo">
+      
+        <img src="../../../assets/images/aws_smile_logo.png" width="48" height="48">
+      
+    </a>
+    Windows on AWS Workshops
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+<a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/" title="Go to repository" class="md-source" data-md-source="github">
+  
+    <div class="md-source__icon">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <use xlink:href="#__github" width="24" height="24"></use>
+      </svg>
+    </div>
+  
+  <div class="md-source__repository">
+    aws-samples/aws-workshop-for-win-dotnet-mssql
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../getting-started/" title="Getting Started" class="md-nav__link">
+      Getting Started
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    
+    <label class="md-nav__link" for="nav-3">
+      re:Invent 2018
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        re:Invent 2018
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../index2018/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-2" type="checkbox" id="nav-3-2">
+    
+    <label class="md-nav__link" for="nav-3-2">
+      Win319
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-2">
+        Win319
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/win319index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/prereq/" title="Pre-Requisite" class="md-nav__link">
+      Pre-Requisite
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/1_DeployAd/" title="Create Directory" class="md-nav__link">
+      Create Directory
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/2_DeployMad/" title="Deploy Managed AD" class="md-nav__link">
+      Deploy Managed AD
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/3_Trust/" title="Create Domain Trust" class="md-nav__link">
+      Create Domain Trust
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/4_Createorg/" title="Create AWS Organization" class="md-nav__link">
+      Create AWS Organization
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/5_ConnectADtoSSO/" title="Connect AD to SSO" class="md-nav__link">
+      Connect AD to SSO
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win319/6_VerifyADSSO_MAD/" title="Verify SSO" class="md-nav__link">
+      Verify SSO
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3" type="checkbox" id="nav-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3">
+      Win313
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-3">
+        Win313
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/win313index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/setup/" title="Lab Setup" class="md-nav__link">
+      Lab Setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-3-3" type="checkbox" id="nav-3-3-3">
+    
+    <label class="md-nav__link" for="nav-3-3-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-3-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/ec2/" title="Amazon EC2" class="md-nav__link">
+      Amazon EC2
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/lambda/" title="AWS Lambda" class="md-nav__link">
+      AWS Lambda
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/fargate/" title="Amazon ECS Fargate" class="md-nav__link">
+      Amazon ECS Fargate
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win313/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4" type="checkbox" id="nav-3-4">
+    
+    <label class="md-nav__link" for="nav-3-4">
+      Win308
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-4">
+        Win308
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/win308index/" title="Index" class="md-nav__link">
+      Index
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/prereq/" title="Pre-requisites" class="md-nav__link">
+      Pre-requisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-4-3" type="checkbox" id="nav-3-4-3">
+    
+    <label class="md-nav__link" for="nav-3-4-3">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-4-3">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/challenge1/" title="Challenge 1 Configuring resources using AWS Tools for Windows PowerShell" class="md-nav__link">
+      Challenge 1 Configuring resources using AWS Tools for Windows PowerShell
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win308/challenge2/" title="Challenge 2 Configure EC2 instances using Powershell and SSM" class="md-nav__link">
+      Challenge 2 Configure EC2 instances using Powershell and SSM
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-5" type="checkbox" id="nav-3-5">
+    
+    <label class="md-nav__link" for="nav-3-5">
+      Win309
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-5">
+        Win309
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win309/win309index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win309/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win309/resources/" title="Lab Guide" class="md-nav__link">
+      Lab Guide
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-6" type="checkbox" id="nav-3-6" checked>
+    
+    <label class="md-nav__link" for="nav-3-6">
+      Win314
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-6">
+        Win314
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../win314index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Let's Build
+      </label>
+    
+    <a href="./" title="Let's Build" class="md-nav__link md-nav__link--active">
+      Let's Build
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-log-in-to-your-aws-account" title="Task 1. Log in to your AWS Account" class="md-nav__link">
+    Task 1. Log in to your AWS Account
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-build-the-amazon-elastic-container-service-ecs-cluster" title="Task 2. Build the Amazon Elastic Container Service (ECS) Cluster" class="md-nav__link">
+    Task 2. Build the Amazon Elastic Container Service (ECS) Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-configure-the-dev-server" title="Task 3. Configure the Dev Server" class="md-nav__link">
+    Task 3. Configure the Dev Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-4-containerize-net-app-in-visual-studio" title="Task 4. Containerize .NET App in Visual Studio" class="md-nav__link">
+    Task 4. Containerize .NET App in Visual Studio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-5-push-the-container-to-ecr" title="Task 5. Push the Container to ECR" class="md-nav__link">
+    Task 5. Push the Container to ECR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-6-deploy-and-run-the-container-on-ecs" title="Task 6. Deploy and Run the Container on ECS" class="md-nav__link">
+    Task 6. Deploy and Run the Container on ECS
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-7" type="checkbox" id="nav-3-7">
+    
+    <label class="md-nav__link" for="nav-3-7">
+      Win310
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-7">
+        Win310
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/win310index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/scenario/" title="Scenario" class="md-nav__link">
+      Scenario
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/rehost/" title="Rehost" class="md-nav__link">
+      Rehost
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/replatform/" title="Replatform" class="md-nav__link">
+      Replatform
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/refactor/" title="Refactor" class="md-nav__link">
+      Refactor
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../win310/bonus/" title="Bonus" class="md-nav__link">
+      Bonus
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8" type="checkbox" id="nav-3-8">
+    
+    <label class="md-nav__link" for="nav-3-8">
+      Dev334
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="2">
+      <label class="md-nav__title" for="nav-3-8">
+        Dev334
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/dev334index/" title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/prereq/" title="Prerequisites" class="md-nav__link">
+      Prerequisites
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/resources/" title="Resources" class="md-nav__link">
+      Resources
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-3-8-4" type="checkbox" id="nav-3-8-4">
+    
+    <label class="md-nav__link" for="nav-3-8-4">
+      Challenges
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="3">
+      <label class="md-nav__title" for="nav-3-8-4">
+        Challenges
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../dev334/challenge1/" title="Powershell exercise" class="md-nav__link">
+      Powershell exercise
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      re:Invent 2019
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        re:Invent 2019
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../reinvent2019/index2019/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-5" type="checkbox" id="nav-5">
+    
+    <label class="md-nav__link" for="nav-5">
+      Builder Sessions
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-5">
+        Builder Sessions
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../builder-sessions/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-6" type="checkbox" id="nav-6">
+    
+    <label class="md-nav__link" for="nav-6">
+      Full Day Workshops
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-6">
+        Full Day Workshops
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../../workshops/" title="Directory" class="md-nav__link">
+      Directory
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../contribute/" title="Contributing" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../../license/" title="License" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#task-1-log-in-to-your-aws-account" title="Task 1. Log in to your AWS Account" class="md-nav__link">
+    Task 1. Log in to your AWS Account
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-2-build-the-amazon-elastic-container-service-ecs-cluster" title="Task 2. Build the Amazon Elastic Container Service (ECS) Cluster" class="md-nav__link">
+    Task 2. Build the Amazon Elastic Container Service (ECS) Cluster
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-3-configure-the-dev-server" title="Task 3. Configure the Dev Server" class="md-nav__link">
+    Task 3. Configure the Dev Server
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-4-containerize-net-app-in-visual-studio" title="Task 4. Containerize .NET App in Visual Studio" class="md-nav__link">
+    Task 4. Containerize .NET App in Visual Studio
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-5-push-the-container-to-ecr" title="Task 5. Push the Container to ECR" class="md-nav__link">
+    Task 5. Push the Container to ECR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#task-6-deploy-and-run-the-container-on-ecs" title="Task 6. Deploy and Run the Container on ECS" class="md-nav__link">
+    Task 6. Deploy and Run the Container on ECS
+  </a>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/aws-samples/aws-workshop-for-win-dotnet-mssql/edit/master/docs/reinvent2018/win314/build.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="modernize-your-first-windows-application-with-windows-containers">Modernize Your First Windows Application with Windows Containers</h1>
+<p><strong>Duration: 45 minutes</strong></p>
+<h3 id="task-1-log-in-to-your-aws-account">Task 1. Log in to your AWS Account</h3>
+<p>Using the console URL and username/password information from the welcome page let's log in to your AWS account.</p>
+<p><br /></p>
+<h3 id="task-2-build-the-amazon-elastic-container-service-ecs-cluster">Task 2. Build the Amazon Elastic Container Service (ECS) Cluster</h3>
+<p>In this task we will build the Windows Server ECS cluster.  </p>
+<p>Step 1. In the AWS console change your AWS Region to "EU (Frankfurt)".</p>
+<p><a href="/images/1.png"><img alt="" src="/images/1.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 2. Now let's navigate to the ECS admin interface and then we'll select "Clusters" from the left nav.</p>
+<p><a href="/images/2.png"><img alt="" src="/images/2.png" /></a></p>
+<p><a href="/images/3.png"><img alt="" src="/images/3.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 3. Click on "Create Cluster" and then select "EC2 Windows + Networking" and then click "Next step"</p>
+<p><span style="color:white">a</span></p>
+<p>Step 4. Enter a Cluster name and then review the configuration options available (we will leave the default values as-is with the exception of the key pair).</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Because this is a new AWS account you will need to create a key pair in the Frankfurt Region. Follow the "EC2 Console link" to create a new key pair.</p>
+</div>
+<p><span style="color:white">a</span></p>
+<p>Step 5. Once the key pair has been created return to the ECS Cluster tab and click the refresh icon next to the Key pair and your new key pair should appear.</p>
+<p><a href="/images/4.png"><img alt="" src="/images/4.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 6. Review the remaining configuration options and click "Create" to build the ECS Windows cluster. While the ECS cluster is building we'll jump over to our dev server and get started with configuring Visual Studio.</p>
+<p><span style="color:white">a</span></p>
+<h3 id="task-3-configure-the-dev-server">Task 3. Configure the Dev Server</h3>
+<p>In this task we will RDP in to our dev server and configure Visual Studio and the AWS Toolkit for Visual Studio. </p>
+<p>Step 7. Let's RDP into your dev server. From the EC2 admin interface click on "Running instances" and then select the "WIN314 Dev Server", click on "Connect", then click on "Download Remote Desktop File" and finally launch the RDP file.</p>
+<p><a href="/images/5.png"><img alt="" src="/images/5.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 8. When you are prompted for credentials first click on "More choices", then click on "Use a different account" and then enter the following credentials:</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>username:  <strong>.\developer</strong>  </p>
+<p>password:  <strong>ILove.Net!</strong></p>
+</div>
+<p><a href="/images/6.png"><img alt="" src="/images/6.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 9. Once we have established an RDP connection to the dev server let's configure the AWS CLI with your AWS account information. Open a command prompt as an administrator (right-click the command prompt, select more and the select Run as administrator) and enter the command: "aws configure", when prompted enter you Access Key and Secret Access Key (included in the email sent by your instructor). </p>
+<p><a href="/images/7.png"><img alt="" src="/images/7.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 10. Now let's open Visual Studio (VS) 2017 Community edition and configure the AWS Toolkit for Visual Studio with your AWS account information. Launch Visual Studio and wait a few seconds for the AWS Explorer UI to appear. If it doesn't appear from the VS menu select View -&gt; AWS Explorer and enter your AWS account information if prompted. From the AWS Explorer let's change the AWS Region to Frankfurt.</p>
+<p><a href="/images/8.png"><img alt="" src="/images/8.png" /></a></p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Once you change the Region you can expand the ECS item and double-click your ECS cluster to see it's current status  </p>
+</div>
+<p><a href="/images/9.png"><img alt="" src="/images/9.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 11. Now let's open our sample .NET application. From the Start Page tab (or form the Visual Studio menu File -&gt; Open -&gt; Project/Solution) open the "MvsMusicStore-Wed-F2017" Solution (located at C:\Source)</p>
+<p><span style="color:white">a</span></p>
+<p>Step 12. Once the solution has loaded let's run it locally to make sure the application is working. You may receive some warnings regarding SSL, self-signed certificates, the current debug mode, etc. Simply accept those warnings and then the application should render:</p>
+<p><a href="/images/10.png"><img alt="" src="/images/10.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Now that have confirmed we have a running application let's start the process of containerizing our application.</p>
+<p><span style="color:white">a</span></p>
+<h3 id="task-4-containerize-net-app-in-visual-studio">Task 4. Containerize .NET App in Visual Studio</h3>
+<p>In this task we will containerize the application in Visual Studio using Docker compose. </p>
+<p>Step 13. Let's start by adding Docker support to our project. Right-click the project and select Add -&gt; Container Orchestrator Support. Leave the default value for "Docker Compose" and click OK.</p>
+<p><a href="/images/11.png"><img alt="" src="/images/11.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 14. Visual Studio has now added Docker Compose support to our project and a Docker file. If you read through the Output window you will notice that docker has also started a container and is running the application inside that container locally on the dev server.</p>
+<p><a href="/images/12.png"><img alt="" src="/images/12.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 15. Let's take a quick look at the docker container that is running locally and let's also browse to the application that's running inside the container to verify that it's working as expected. Open a Command Prompt as an administrator and enter the following docker command: "docker ps"</p>
+<p>The docker ps command lists the running Docker processes or containers. We should see that one container is running on the dev server. Now let's take a closer look at this container by entering the following command: docker inspect '<CONTAINER ID>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You only need to enter enough of the CONTAINER ID value for docker to be able to uniquely identify the container. In my case the commands looked like this:</p>
+</div>
+<p><a href="/images/13.png"><img alt="" src="/images/13.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 16. Near the bottom of the output form the docker inspect command will list the IP address of the container. Let's grab the IP address, open a browser and verify the application is running correctly from within the docker container. </p>
+<p><a href="/images/14.png"><img alt="" src="/images/14.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Congratulations you have containerized a .NET application using Visual Studio and Docker. In the next task we will push the container (containing our application) to your Elastic Container Registry (ECR) on AWS.</p>
+<p><span style="color:white">a</span></p>
+<h3 id="task-5-push-the-container-to-ecr">Task 5. Push the Container to ECR</h3>
+<p>In this task we will push the container from Visual Studio to ECR. </p>
+<p>Step 17. Let's start by opening the docker-compose.yml file and copy the image name.</p>
+<p><a href="/images/15.png"><img alt="" src="/images/15.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 18. Next let's create a new ECR repository. From the AWS Explorer menu expand the Amazon Elastic Container Service section and right-click Repositories and click on Create Repository... </p>
+<p><a href="/images/16.png"><img alt="" src="/images/16.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 19. Enter the Docker compose image name from step #17 above and click OK. </p>
+<p><a href="/images/17.png"><img alt="" src="/images/17.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 20. Once the new repository has been created you can expand the Repository section in the AWS Explorer and double-click on the new repository. You can see the repository metadata and that the repository is currently empty. Click on the "View Push Commands" link to see a list of helpful PowerShell and AWS CLI commands for interacting with this repository. Click on the "AWS CLI" tab.</p>
+<p><a href="/images/18.png"><img alt="" src="/images/18.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 21. From the AWS CLI tab copy the first command (1. Retrieve the docker login command that you can use to authenticate your Docker client to your registry). We will use the output of this command to allow Visual Studio to authenticate and push the container to our repository. </p>
+<p><a href="/images/19.png"><img alt="" src="/images/19.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 22. Copy the command from the previous step and run the command as an administrator. The output contains three values: -u for username, -p for password, and the URL of the repository. Leave this command prompt open and we'll copy these values to use in the next step. </p>
+<p><a href="/images/20.png"><img alt="" src="/images/20.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 23. Now let's configure the publish action on the project. We are going to configure a publish action to a custom container registry. Right-click the project and select Publish. </p>
+<p><a href="/images/21.png"><img alt="" src="/images/21.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 24. Select "New Profile...", then select "Container Registry", then "Custom" and click Publish. Now we can copy/paste the values from the previous command prompt window in to the Visual Studio Publish UI. </p>
+<p><a href="/images/22.png"><img alt="" src="/images/22.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 25. Once the values are entered and you click publish Visual Studio will begin to publish the container to your ECR repository on AWS. A Docker prompt will appear to indicate progress of the publish action. </p>
+<p><a href="/images/23.png"><img alt="" src="/images/23.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 26. Once the publish action is complete you can go back and refresh the repository view from the AWS Explorer and you should see that your repository now has one container image. </p>
+<p><a href="/images/24.png"><img alt="" src="/images/24.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Congratulations you now have a container image in AWS that you can deploy to your ECS environment. In the next task we will deploy your container as a task within ECS. </p>
+<h3 id="task-6-deploy-and-run-the-container-on-ecs">Task 6. Deploy and Run the Container on ECS</h3>
+<p>In this task we will create an ECS Task to run the container that has been pushed to ECR.</p>
+<p>Step 27. Let's jump back to your AWS console and navigate to the ECS admin interface. Once there let's verify again that our container image is in the repository. From the ECS interface under Amazon ECR select Repositories and then click on the repository that we created previously. You should see the container image that we created and pushed.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Make a note of Repository URI and the image tag. We will use those values in a future step to identify the container image.   </p>
+</div>
+<p><a href="/images/25.png"><img alt="" src="/images/25.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 28. Now let's create a Task Definition. Select Task Definitions from the left nav and click on Create a new Task Definition. Select EC2 and click next.</p>
+<p><a href="/images/255.png"><img alt="" src="/images/255.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 29.</p>
+<p>Enter a name for the task, review the configuration options available (we'll leave the default values as-is) and then scroll down and click on "Add container".  </p>
+<p><a href="/images/26.png"><img alt="" src="/images/26.png" /></a></p>
+<p><a href="/images/27.png"><img alt="" src="/images/27.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 30. In the "Add container" UI let's enter a Container name, and in the image field we'll use the values from our repository noted in step #TBD. Pay close attention to the format required here: repository-url/image:tag  </p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In my example the value for the Image field would be: 353497669637.dkr.ecr.ca-central-1.amazonaws.com/mvcmusicstorewedf2017:latest</p>
+</div>
+<p>Let's enter 1024 (1GB) for a Memory Limit, and for Port mappings let's enter 8080 for the Host port and 80 for the Container port. So far your form should look like the following:</p>
+<p><a href="/images/28.png"><img alt="" src="/images/28.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Let's scroll down and enter 1024 for "CPU units" and enter the following value for "Entry point": C:\ServiceMonitor.exe, w3svc and then click Add</p>
+<p><a href="/images/29.png"><img alt="" src="/images/29.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 31. You should now see your container under Container Definitions in the Task Definitions form, click on Create and you should see the "Created Task Definition Successfully" message. </p>
+<p><a href="/images/30.png"><img alt="" src="/images/30.png" /></a></p>
+<p><a href="/images/305.png"><img alt="" src="/images/305.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 32. The final step in the sequence is to run the task we just created on our ECS host. From the Task Definitions interface mark/select the Task Definition that we just created and click on the Actions button and select Run Task. </p>
+<p><a href="/images/31.png"><img alt="" src="/images/31.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 33. Select a launch type of EC2, enter a Task Group name and then click on Run Task.</p>
+<p><a href="/images/32.png"><img alt="" src="/images/32.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 34. You should receive a "Created tasks successfully" message and now let's refresh the ECS Cluster UI until we see that our task status is no longer PENDING and has turned to RUNNING. </p>
+<p><a href="/images/33.png"><img alt="" src="/images/33.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 35. At this point our container (and application) have been successfully deployed to our ECS Cluster. Now let's test the application to make sure it's running correctly. We'll first test the application locally from the ECS host server and then we'll test the application from the Internet.</p>
+<p>To do that we'll first need to modify the Security Group rules to allow us to RDP into our ECS host server. Click on the link for "Container" and then click on the EC2 Instance ID.</p>
+<p><a href="/images/34.png"><img alt="" src="/images/34.png" /></a></p>
+<p><a href="/images/35.png"><img alt="" src="/images/35.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 36. From the EC2 admin interface note down the public IP address for use later and then under "Security groups" click on the one security group link.</p>
+<p><a href="/images/36.png"><img alt="" src="/images/36.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 37. First select the "Inbound" tab, then select "Edit", then select "Add Rule", then select "RDP from the dropdown, then enter "0.0.0.0/0" for the CIDR and finally click Save.</p>
+<p><a href="/images/37.png"><img alt="" src="/images/37.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 38. Let's RDP into our ECS Host and run a docker ps command to verify that our task/container is running.</p>
+<p><a href="/images/38.png"><img alt="" src="/images/38.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 39. Now lets run a dicker inspect command on our running container and grab it's IP address.</p>
+<p><a href="/images/39.png"><img alt="" src="/images/39.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 40. And using the container's IP let's browse the site locally.</p>
+<p><a href="/images/40.png"><img alt="" src="/images/40.png" /></a></p>
+<p><span style="color:white">a</span></p>
+<p>Step 41. We've now confirmed that our ECS task/container is running correctly on our ECS host. The final step will be to browse to the site from the Internet using port 8080 per the task port mapping we created earlier. From your laptop open a browser and using the public IP address of the ECS host recorded in step #36 append port 8080 to the IP address and browse to the site.</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../win314index/" title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Home
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../win310/win310index/" title="Home" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Home
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            &copy; 2019, Amazon Web Services, Inc. or its affiliates. All rights reserved.
+          </div>
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+  <div class="md-footer-social">
+    <link rel="stylesheet" href="../../../assets/fonts/font-awesome.css">
+    
+      <a href="https://awsentworkshops.com" class="md-footer-social__link fa fa-home"></a>
+    
+      <a href="https://aws.amazon.com/windows/" class="md-footer-social__link fa fa-globe"></a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../../assets/javascripts/application.dc02f8ce.js"></script>
+      
+      <script>app.initialize({version:"1.0.4",url:{base:"../../.."}})</script>
+      
+        <script src="../../../javascripts/extra.js"></script>
+      
+    
+  </body>
+</html>
