@@ -44,6 +44,24 @@ markdown_extensions:
 nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
+  - Workshops: 
+    - Directory: 'workshops/index.md'
+    - .NET Hackathon: 
+      - Home: 'workshops/dotnethackathon/index.md'
+      - Prerequisites: 'workshops/dotnethackathon/prereq.md'
+      - Resources: 'workshops/dotnethackathon/resources.md'
+      - Challenges: 
+        - AI Services : 'workshops/dotnethackathon/ai.md'
+        - API Gateway : 'workshops/dotnethackathon/webapi.md'
+        #- Database : 'workshops/dotnethackathon/database.md'
+        - Eventing : 'workshops/dotnethackathon/eventing.md'
+        #- Microservice : 'workshops/dotnethackathon/microservice.md'
+        - Serverless : 'workshops/dotnethackathon/serverless.md'
+        - WAF : 'workshops/dotnethackathon/waf.md'
+  - Immersion Days:
+      - Directory : 'ImmersionDays/index.md'
+  - re:Invent 2019:
+    - Directory: 'reinvent2019/index2019.md'
   - Archived Content:
     - re:Invent 2018:
       - Directory: 'reinvent2018/index2018.md'
@@ -139,23 +157,5 @@ nav:
            - Developer - Deploy sample application: 'reinvent2018/dev332/section2.md'
            - Developer - Push sample code and check the pipeline activity: 'reinvent2018/dev332/section3.md'
            - Resources: 'reinvent2018/dev332/resources.md'
-  - re:Invent 2019:
-    - Directory: 'reinvent2019/index2019.md'
-  - Workshops: 
-    - Directory: 'workshops/index.md'
-    - .NET Hackathon: 
-      - Home: 'workshops/dotnethackathon/index.md'
-      - Prerequisites: 'workshops/dotnethackathon/prereq.md'
-      - Resources: 'workshops/dotnethackathon/resources.md'
-      - Challenges: 
-        - AI Services : 'workshops/dotnethackathon/ai.md'
-        - API Gateway : 'workshops/dotnethackathon/webapi.md'
-        #- Database : 'workshops/dotnethackathon/database.md'
-        - Eventing : 'workshops/dotnethackathon/eventing.md'
-        #- Microservice : 'workshops/dotnethackathon/microservice.md'
-        - Serverless : 'workshops/dotnethackathon/serverless.md'
-        - WAF : 'workshops/dotnethackathon/waf.md'
-  - Immersion Days:
-      - Directory : 'ImmersionDays/index.md'
   - Contributing: 'contribute.md'
   - License: 'license.md'
