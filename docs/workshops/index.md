@@ -12,24 +12,6 @@
         </thead>
         <tbody>
             <tr>
-                <td align="left"><a class="table" target="_blank" href="https://winimmersionday.awsentworkshops.com/"><strong>**Coming Soon - Windows Immersion Day** </strong></a></td>
-                <td align="left"> "Windows Immersion Day" The AWS for Microsoft Workloads Immersion Day is a customizable AWS experience designed to help customers build, deploy, and manage Microsoft applications quickly, easily and cost-effectively. During this Immersion Day customers are presented with AWS solutions to challenging real world Microsoft use cases that relate to their business and IT needs. This Immersion Day is a powerful tool for showing the art of what’s possible on AWS for Microsoft workloads. We have several topics that cover a broad range of Microsoft topics including Windows Server, SQL Server, and more.  
-                    <ul>
-                        <li><strong>Level</strong>: 200</li>
-                        <li><strong>Duration</strong>: Each sub-section is one hour, totaling eight hours. </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
-                <td align="left"><a class="table" target="_blank" href="https://netimmersionday.awsentworkshops.com/"><strong>**Coming Soon - .Net Immersion Day** </strong></a></td>
-                <td align="left"> ".Net Immersion Day" The AWS for .Net Workloads Immersion Day is a customizable AWS experience designed to help developers understand how to use AWS .Net tools to build and deploy on AWS. This Immersion Day allows hands on time with AWS services specific to developer workflows. We have several topics that cover a broad range of .Net development topics including Containers, Visual Studio Toolkit, .Net SDK, and more.  
-                    <ul>
-                        <li><strong>Level</strong>: 200</li>
-                        <li><strong>Duration</strong>: Each sub-section is one hour, totaling eight hours. </li>
-                    </ul>
-                </td>
-            </tr>
-            <tr>
                 <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/PowerShellDSCinAWS/"><strong>Managing Windows Workloads at Scale </strong></a></td>
                 <td align="left"> "Managing Windows Workloads at Scale"
                     <ul>
@@ -53,6 +35,160 @@
                     <ul>
                         <li><strong>Level</strong>: 400</li>
                         <li><strong>Duration</strong>: Each sub-section is one hour, totaling four hours. </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://mssql2aurora.awsdocs.net/"><strong>Migrating a SQL Server Database to Aurora (MySQL)</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/ElasticBeanstalkLab/"><strong>Using Visual Studio to Deploy an ASP.NET Web App to AWS with Elastic Beanstalk</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/APIGateway/"><strong>API Gateway and ASP.NET Web API with Elastic Beanstalk and CloudWatch Logs</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/DynamoSessionState/"><strong>Implement DynamoDB for ASP.NET Core Session State</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/Containers/"><strong>Modernize Your First Windows Application with Windows Containers</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/DMS/"><strong>Migrating from SQL Server to Aurora using AWS Database Migration Service</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/Lambda/"><strong>NET Core Serverless for resize images</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/CodeStar/"><strong>Deploying a .NET Core App with CodeStar</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="http://www.msonaws.com/LambdaLayers/"><strong>Using AWS Lambda Layers with .NET Core</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://github.com/awsimaya/Lambda-Layers"><strong>Creating Lambda Layers using .NET</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://github.com/awsimaya/DecoupledArchitecture"><strong>CreatingTraceable, Decoupled architecture using AWS Services</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://github.com/marciogmorales/awsmslabs"><strong>AWS Federated Authentication with ADFS </strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://github.com/marciogmorales/awsmslabs"><strong>Centralized Log Management for Windows using Amazon Elasticsearch Service and Kibana</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td align="left"><a class="table" href="https://github.com/marciogmorales/awsmslabs"><strong>Migrating Azure VMs to AWS using AWS SMS Connector for Azure</strong></a></td>
+                <td align="left">TBD
+                    <ul>
+                        <li><strong>Level</strong>: Intermediate</li>
+                        <li><strong>Duration</strong>: 1 hour</li>
+                        <li><strong>Service</strong>: TBD</li>
+                        <li><strong>Focus</strong>: TBD</li>
                     </ul>
                 </td>
             </tr>
