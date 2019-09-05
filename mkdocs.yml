@@ -38,14 +38,34 @@ markdown_extensions:
   - admonition
   - codehilite
   - pymdownx.details
+  - sane_lists
 
 # Navigation
 nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
-  - re:Invent 2018:
-    - Directory: 'reinvent2018/index2018.md'
-    - Win319:
+  - Workshops: 
+    - Directory: 'workshops/index.md'
+    - .NET Hackathon: 
+      - Home: 'workshops/dotnethackathon/index.md'
+      - Prerequisites: 'workshops/dotnethackathon/prereq.md'
+      - Resources: 'workshops/dotnethackathon/resources.md'
+      - Challenges: 
+        - AI Services : 'workshops/dotnethackathon/ai.md'
+        - API Gateway : 'workshops/dotnethackathon/webapi.md'
+        #- Database : 'workshops/dotnethackathon/database.md'
+        - Eventing : 'workshops/dotnethackathon/eventing.md'
+        #- Microservice : 'workshops/dotnethackathon/microservice.md'
+        - Serverless : 'workshops/dotnethackathon/serverless.md'
+        - WAF : 'workshops/dotnethackathon/waf.md'
+  - Immersion Days:
+      - Directory : 'ImmersionDays/index.md'
+  - re:Invent 2019:
+    - Directory: 'reinvent2019/index2019.md'
+  - Archived Content:
+    - re:Invent 2018:
+      - Directory: 'reinvent2018/index2018.md'
+      - Win319:
           - Index: 'reinvent2018/win319/win319index.md'
           - Pre-Requisite: 'reinvent2018/win319/prereq.md'
           - Create Directory: 'reinvent2018/win319/1_DeployAd.md'
@@ -54,7 +74,7 @@ nav:
           - Create AWS Organization: 'reinvent2018/win319/4_Createorg.md'
           - Connect AD to SSO: 'reinvent2018/win319/5_ConnectADtoSSO.md'
           - Verify SSO: 'reinvent2018/win319/6_VerifyADSSO_MAD.md'
-    - Win313:
+      - Win313:
           - Index: 'reinvent2018/win313/win313index.md'
           - Lab Setup: 'reinvent2018/win313/setup.md'
           - Challenges:
@@ -62,38 +82,80 @@ nav:
             - AWS Lambda: 'reinvent2018/win313/lambda.md'
             - Amazon ECS Fargate: 'reinvent2018/win313/fargate.md'
             - Resources: 'reinvent2018/win313/resources.md'
-    - Win308:
+      - Win308:
           - Index: 'reinvent2018/win308/win308index.md'
           - Pre-requisites: 'reinvent2018/win308/prereq.md'
           - Challenges:
             - Challenge 1 Configuring resources using AWS Tools for Windows PowerShell: 'reinvent2018/win308/challenge1.md'
             - Challenge 2 Configure EC2 instances using Powershell and SSM: 'reinvent2018/win308/challenge2.md'
             #- Challenge 3 Create a Lambda Using PowerShell: 'reinvent2018/win308/challenge3.md'
-    - Win309:
+      - Win309:
           - Home: 'reinvent2018/win309/win309index.md'
           - Prerequisites: 'reinvent2018/win309/prereq.md'
           - Lab Guide: 'reinvent2018/win309/resources.md'    
-    - Win314:
+      - Win314:
           - Home: 'reinvent2018/win314/win314index.md'
           - Let's Build: 'reinvent2018/win314/build.md'
-    - Win310:
+      - Win310:
           - Home: 'reinvent2018/win310/win310index.md'
           - Scenario: 'reinvent2018/win310/scenario.md'
           - Rehost: 'reinvent2018/win310/rehost.md'
           - Replatform: 'reinvent2018/win310/replatform.md'
           - Refactor: 'reinvent2018/win310/refactor.md'
           - Bonus: 'reinvent2018/win310/bonus.md'
-    - Dev334:
+      - Dev334:
           - Home: 'reinvent2018/dev334/dev334index.md'
           - Prerequisites: 'reinvent2018/dev334/prereq.md'
           - Resources: 'reinvent2018/dev334/resources.md'
           - Challenges: 
             - Powershell exercise : 'reinvent2018/dev334/challenge1.md'
-  - re:Invent 2019:
-    - Directory: 'reinvent2019/index2019.md'
-  - Builder Sessions:
-    - Directory: 'builder-sessions/index.md'
-  - Full Day Workshops: 
-    - Directory: 'workshops/index.md'
+      - sqlfcs2d:
+           - Introduction: 'reinvent2018/sqlfcs2d/index.md'
+           - Prerequisites: 'reinvent2018/sqlfcs2d/Prerequisites.md'
+           - Connect and Verify: 'reinvent2018/sqlfcs2d/Connect.md'
+           - Enable S2D: 'reinvent2018/sqlfcs2d/EnableS2D.md'
+           - Create SQL Cluster Instance: 'reinvent2018/sqlfcs2d/SQLFCI.md'
+           - Add second node to SQLFCCI: 'reinvent2018/sqlfcs2d/node2.md'
+           - Connect to SQL and test Failover: 'reinvent2018/sqlfcs2d/SSMS.md'
+      - mssql2rds:
+           - Home: 'reinvent2018/mssql2rds/index.md'
+           - Prerequisites:
+             - CF Templates : 'reinvent2018/mssql2rds/cftemplates.md'
+           - User Instructions: 
+             - Get Source and Target Info: 
+               - Source SQL Server on EC2: 'reinvent2018/mssql2rds/SourceEC2Info.md'
+               - Target SQL Server on RDS: 'reinvent2018/mssql2rds/TargetRDSInfo.md'
+               - Target EC2 Jump Server: 'reinvent2018/mssql2rds/TargetEC2JumpInfo.md'
+             - Creating an S3 Bucket : 'reinvent2018/mssql2rds/S3Create.md'
+             - Source SQL Server 2008 on EC2: 
+               - Connecting to Source DB server via RDP : 'reinvent2018/mssql2rds/SourceConnect.md'
+               - Connecting to SQL 2008 via SSMS : 'reinvent2018/mssql2rds/SourceSSMS.md'
+               - Backing up a Database via SSMS : 'reinvent2018/mssql2rds/SSMSBackup.md'
+               - Transferring Backup Files to s3 : 'reinvent2018/mssql2rds/SourceS3Transfer.md'
+             - Target SQL Server on RDS:
+               - Prerequisites : 'reinvent2018/mssql2rds/TargetPrereqs.md'
+               - Creating an Option Group for RDS SQL Server : 'reinvent2018/mssql2rds/OptionGroupCreate.md'
+               - Configuring the Option Group for SQL Native Backup/Restore : 'reinvent2018/mssql2rds/ConfigureOptionGroup.md'
+               - Adding the Option Group to the RDS SQL Instance : 'reinvent2018/mssql2rds/AddOptionGroupRDS.md'
+               - Using an EC2 Jump Server to Access RDS : 'reinvent2018/mssql2rds/TargetConnect.md'
+               - Working with SQL Server on RDS via SSMS : 'reinvent2018/mssql2rds/TargetSSMS.md'
+               - Restoring a Database on RDS via SSMS : 'reinvent2018/mssql2rds/SSMSRestore.md'
+      - Win315:
+           - Home: 'reinvent2018/win315/index.md'
+      - Dev329:
+           - Session Introduction: 'reinvent2018/dev329/index.md'
+           - Prerequisites: 'reinvent2018/dev329/prereq.md'
+           - Admin - Deploy IAM policies, roles and KMS keys: 'reinvent2018/dev329/section1.md'
+           - Developer - Create and deploy centrally provide pipeline: 'reinvent2018/dev329/section2.md'
+           - Developer - Push sample code and check the pipeline activity: 'reinvent2018/dev329/section3.md'
+           - Resources: 'reinvent2018/dev329/resources.md'
+      - Dev332:
+           - Session Introduction: 'reinvent2018/dev332/index.md'
+           - Prerequisites: 'reinvent2018/dev332/prereq.md'
+           - Deploy IAM policies, roles and KMS keys: 'reinvent2018/dev332/section1_prereq.md'
+           - Admin - Centrally vend deployment pipelines: 'reinvent2018/dev332/section1.md'
+           - Developer - Deploy sample application: 'reinvent2018/dev332/section2.md'
+           - Developer - Push sample code and check the pipeline activity: 'reinvent2018/dev332/section3.md'
+           - Resources: 'reinvent2018/dev332/resources.md'
   - Contributing: 'contribute.md'
   - License: 'license.md'
