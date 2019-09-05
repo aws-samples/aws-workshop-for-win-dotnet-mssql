@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/AMIPipelineAutomation/"><strong>**Golden AMI Pipeline for Windows AMIs** </strong></a></td>
-                <td align="left"> "olden AMI Pipeline for Windows AMIs"
+                <td align="left"> "Golden AMI Pipeline for Windows AMIs"
                     <ul>
                         <li><strong>Level</strong>: 400</li>
                         <li><strong>Duration</strong>: Each sub-section is one hour, totaling eight hours. </li>
