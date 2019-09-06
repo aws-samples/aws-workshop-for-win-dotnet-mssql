@@ -341,3 +341,6 @@ Once the Auto-Scaling Group is deployed using CloudFormation, lets run through t
 
 Using this method we can configure Windows Workloads at scale, using tags, SSM State Manager, SSM Parameter Store and PowerShell DSC. 
 
+## Review, Next Steps
+In this lab we generated a MOF File, we used that MOF File in an SSM State Manager association to enforce configuration, and report on configuration compliance. We also demonstrated configuring Windows Workloads by tag, allowing us to perform configuration management at greater scale, and greater consistency. We encourage you to continue to become familiar with this concept and patterns and experiment. Get comforatble enough were you use these tools to deploy Windows Workloads within AWS. 
+

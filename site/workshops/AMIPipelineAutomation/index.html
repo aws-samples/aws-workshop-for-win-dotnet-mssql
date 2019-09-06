@@ -1268,6 +1268,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#step-5-updating-ssm-agent" title="Step 5 - Updating SSM Agent" class="md-nav__link">
+    Step 5 - Updating SSM Agent
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#step-6-install-any-windows-os-updates" title="Step 6 - Install any Windows OS Updates" class="md-nav__link">
     Step 6 - Install any Windows OS Updates
   </a>
@@ -1303,6 +1310,13 @@
         <li class="md-nav__item">
   <a href="#execute-automation-document" title="Execute Automation Document" class="md-nav__link">
     Execute Automation Document
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#review-next-steps" title="Review, Next Steps" class="md-nav__link">
+    Review, Next Steps
   </a>
   
 </li>
@@ -1416,12 +1430,9 @@
 <h3 id="step-1-get-latest-ami">Step 1 - Get Latest Ami</h3>
 <p>Each step has required properties that need to be defined, here we are highlighting the properties that are required. For a full list of common properties check <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-common">AWS Systems Manager Documentation</a>:</p>
 <ul>
-<li>name</li>
-<li>An identifier that <strong><strong>must be unique</strong></strong> across all step names in the document and is required</li>
-<li>action</li>
-<li>The name of the action the step is to run. aws:runCommand is an example of an action you can specify here. We will demonstrate several action types in this lab. </li>
-<li>input</li>
-<li>The properties specific to the action.</li>
+<li>name - An identifier that <strong><strong>must be unique</strong></strong> across all step names in the document and is required</li>
+<li>action - The name of the action the step is to run. aws:runCommand is an example of an action you can specify here. We will demonstrate several action types in this lab. </li>
+<li>input - The properties specific to the action.</li>
 </ul>
 <p>As we go along we will note and highlight any additional properties, and a brief explaination of the actions we are using. For a full list of <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html">AWS Systems Manager Automation Actions</a>please reference the SSM Documentation. </p>
 <p>In this first step we are grabbing the latest AMI ID from SSM Parameter store and outputting its value for subsquent steps. SSM Automation has <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-variables.html">system variables</a>, SSM parameters being one of the system variables that can be used in a step definition. However, there are supported cases and unsupported cases and using SSM Parameters in the input of a action is an unsupported case. To work around this we use the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-action-executeAwsApi"><strong><em>aws:executeAwsApi</em></strong></a> action. </p>
@@ -1446,7 +1457,7 @@
 <p>In this step we will launch an instance from the AMI ID that we grabbed in the previous step. To do this we will use the <a href="https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-action-runinstance"><strong><em>aws:runInstances</em></strong></a> action. The action supports most API parameters of the <a href="https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_RunInstances.html">RunInstances</a> API. </p>
 <p>Not pointed out in our previous step is how the variables are being used in each step. If we look at the input parameters of the <strong><em>aws:runInstances</em></strong> action there are variables surrounded by double curly braces and in quotes, notice values for ImageId, InstanceType, IamInstanceProfileName and SubnetId. In the ImageId section we are referencing the output of the GetLatestAmi Step, in the other parameters we are passing in the parameters we defined at the beginning of the document. </p>
 <p>In these steps we have also defined the <strong><em>timeoutSeconds</em></strong> property which is being used in conjunction with the <strong><em>maxAttempts</em></strong> property. If the timeout is reached and the value of maxAttempts is greater than 1, then the step is not considered to have timed out until all retries have been attempted. There is no default value for this field. maxAttempts is the number of times the step should be retried in case of failure. If the value is greater than 1, the step is not considered to have failed until all retry attempts have failed. The default value is 1.</p>
-<p>Finally in these two steps we are also using the <strong><em>onFailure</em></strong> property which indicates whether the workflow should abort, continue,or go to a different step on failure. If you were to specify a step the format would be <strong><em>step:step_name</em></strong>. The default value for this option is abort. The tag step also demontrates use of another system variable in the tag value, you see we are appending the automation execuion ID to the tag using <strong><em>{{automation:EXECUTION_ID}}</em></strong>. </p>
+<p>Finally in these two steps we are also using the <strong><em>onFailure</em></strong> property which indicates whether the workflow should abort, continue,or go to a different step on failure. If you were to specify a step the format would be <strong><em>step:step_name</em></strong> as can be seen in Step 3. The default value for this option is abort. The tag step also demontrates use of another system variable in the tag value, you see we are appending the automation execuion ID to the tag using <strong><em>{{automation:EXECUTION_ID}}</em></strong>. </p>
 <div class="codehilite"><pre><span></span>  <span class="c1"># Required Step: This step will launch an instance from the source AMI that you specified.  </span>
   <span class="c1"># This step will return the instance id of the instance that was launched.</span>
   <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">LaunchInstance</span>
@@ -1501,42 +1512,41 @@
 
 <h3 id="step-4-using-run-command-to-execute-scripts-from-a-remote-location">Step 4 - Using Run Command to Execute Scripts from a Remote Location</h3>
 <p>In this step we are again using the <strong><em>aws:runCommand</em></strong> action but using the <strong>AWS-RunRemoteScript</strong> document. This document will download a script from S3 or Github and execute them on the target instance. We can use these scripts to do custom configuration on the instance or install software. Also note that in this step we are not outputting logs to S3 but instead outputting them to CloudWatch Logs. </p>
-<p>```YAML
-  # Optional Step: This step shows you how to execute a powershell script that is located in S3.
-  - name: ExampleS3Script
-    action: 'aws:runCommand'
-    timeoutSeconds: 60
-    maxAttempts: 3
-    onFailure: step:TerminateInstance
-    inputs:
-      CloudWatchOutputConfig:
-        CloudWatchOutputEnabled: "true"
-        CloudWatchLogGroupName: '/GoldenAMILogs/{{automation:EXECUTION_ID}}/ExampleS3Script'
-      DocumentName: AWS-RunRemoteScript
-      InstanceIds: '{{ LaunchInstance.InstanceIds }}'
-      Parameters:
-        executionTimeout: '60'
-        sourceType: "S3"
-        commandLine: "./RemoteS3.ps1"
-        sourceInfo: '{"path": "https://{{S3BucketName}}.s3.amazonaws.com/RemoteS3.ps1"}'</p>
-<div class="codehilite"><pre><span></span><span class="x">### Step 5 - Updating SSM Agent</span>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Optional Step: This step shows you how to execute a powershell script that is located in S3.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">ExampleS3Script</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">60</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">CloudWatchOutputConfig</span><span class="p">:</span>
+        <span class="nt">CloudWatchOutputEnabled</span><span class="p">:</span> <span class="s">&quot;true&quot;</span>
+        <span class="nt">CloudWatchLogGroupName</span><span class="p">:</span> <span class="s">&#39;/GoldenAMILogs/{{automation:EXECUTION_ID}}/ExampleS3Script&#39;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-RunRemoteScript</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">executionTimeout</span><span class="p">:</span> <span class="s">&#39;60&#39;</span>
+        <span class="nt">sourceType</span><span class="p">:</span> <span class="s">&quot;S3&quot;</span>
+        <span class="nt">commandLine</span><span class="p">:</span> <span class="s">&quot;./RemoteS3.ps1&quot;</span>
+        <span class="nt">sourceInfo</span><span class="p">:</span> <span class="s">&#39;{&quot;path&quot;:</span><span class="nv"> </span><span class="s">&quot;https://{{S3BucketName}}.s3.amazonaws.com/RemoteS3.ps1&quot;}&#39;</span>
+</pre></div>
 
-<span class="x">Again we are using the ***aws:runCommand*** action but this time using the **AWS-UpdateSSMAgent**, this will install the latest version of the SSM agent into the instance that will eventually become our AMI. </span>
 
-<span class="x">```YAML</span>
-<span class="x">  # Recommended Step: This step will update the SSM Agent on your instance.</span>
-<span class="x">  - name: UpdateSSMAgent</span>
-<span class="x">    action: &#39;aws:runCommand&#39;</span>
-<span class="x">    timeoutSeconds: 14400</span>
-<span class="x">    maxAttempts: 3</span>
-<span class="x">    onFailure: step:TerminateInstance</span>
-<span class="x">    inputs:</span>
-<span class="x">      OutputS3BucketName: &quot;</span><span class="cp">{{</span><span class="nv">S3BucketName</span><span class="cp">}}</span><span class="x">&quot;</span>
-<span class="x">      OutputS3KeyPrefix: &quot;GoldenAMILogs/</span><span class="cp">{{</span><span class="nv">automation</span><span class="o">:</span><span class="nv">EXECUTION_ID</span><span class="cp">}}</span><span class="x">/UpdateSSMAgent/&quot;</span>
-<span class="x">      DocumentName: AWS-UpdateSSMAgent</span>
-<span class="x">      InstanceIds: &#39;</span><span class="cp">{{</span> <span class="nv">LaunchInstance.InstanceIds</span> <span class="cp">}}</span><span class="x">&#39;</span>
-<span class="x">      Parameters:</span>
-<span class="x">        allowDowngrade: &#39;false&#39;</span>
+<h3 id="step-5-updating-ssm-agent">Step 5 - Updating SSM Agent</h3>
+<p>Again we are using the <strong><em>aws:runCommand</em></strong> action but this time using the <strong>AWS-UpdateSSMAgent</strong>, this will install the latest version of the SSM agent into the instance that will eventually become our AMI. </p>
+<div class="codehilite"><pre><span></span>  <span class="c1"># Recommended Step: This step will update the SSM Agent on your instance.</span>
+  <span class="p p-Indicator">-</span> <span class="nt">name</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">UpdateSSMAgent</span>
+    <span class="nt">action</span><span class="p">:</span> <span class="s">&#39;aws:runCommand&#39;</span>
+    <span class="nt">timeoutSeconds</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">14400</span>
+    <span class="nt">maxAttempts</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">3</span>
+    <span class="nt">onFailure</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">step:TerminateInstance</span>
+    <span class="nt">inputs</span><span class="p">:</span>
+      <span class="nt">OutputS3BucketName</span><span class="p">:</span> <span class="s">&quot;{{S3BucketName}}&quot;</span>
+      <span class="nt">OutputS3KeyPrefix</span><span class="p">:</span> <span class="s">&quot;GoldenAMILogs/{{automation:EXECUTION_ID}}/UpdateSSMAgent/&quot;</span>
+      <span class="nt">DocumentName</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">AWS-UpdateSSMAgent</span>
+      <span class="nt">InstanceIds</span><span class="p">:</span> <span class="s">&#39;{{</span><span class="nv"> </span><span class="s">LaunchInstance.InstanceIds</span><span class="nv"> </span><span class="s">}}&#39;</span>
+      <span class="nt">Parameters</span><span class="p">:</span>
+        <span class="nt">allowDowngrade</span><span class="p">:</span> <span class="s">&#39;false&#39;</span>
 </pre></div>
 
 
@@ -1635,11 +1645,11 @@
   <span class="nt">NewImageName</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
-    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_CreatedFrom_{{SourceAmiId}}_On_{{global:DATE_TIME}}&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_Created_On_{{global:DATE_TIME}}&#39;</span>
   <span class="nt">NewImageDescription</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;(Optional)</span><span class="nv"> </span><span class="s">The</span><span class="nv"> </span><span class="s">description</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">new</span><span class="nv"> </span><span class="s">AMI</span><span class="nv"> </span><span class="s">that</span><span class="nv"> </span><span class="s">is</span><span class="nv"> </span><span class="s">created.&#39;</span>
-    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_CreatedFrom_{{SourceAmiId}}_On_{{global:DATE}}&#39;</span>
+    <span class="nt">default</span><span class="p">:</span> <span class="s">&#39;NewAMI_Created_On_{{global:DATE}}&#39;</span>
   <span class="nt">S3BucketName</span><span class="p">:</span>
     <span class="nt">type</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">String</span>
     <span class="nt">description</span><span class="p">:</span> <span class="s">&#39;The</span><span class="nv"> </span><span class="s">S3</span><span class="nv"> </span><span class="s">bucket</span><span class="nv"> </span><span class="s">to</span><span class="nv"> </span><span class="s">store</span><span class="nv"> </span><span class="s">logs.&#39;</span>
@@ -1796,16 +1806,16 @@
 <p>You can also create the document via the web console. First you will wanto navigate to the AWS Systems Manager Web Console. And the under Shared Resources, Click on Documents
 <img alt="" src="/assets/images/SharedResources1.png" /></p>
 <p>Then Click on Create Document. 
-<img alt="" src="/assets/images/createdocumentbutton.png" /></p>
+<img alt="" src="/assets/images/createdocumentsbutton.png" /></p>
 <p>Then name the document and select Document Type as Automation. 
 <img alt="" src="/assets/images/CreateDocumentName.png" /></p>
 <p>Then select YAML in this case, and copy the content of the document into the code window, and click create document. 
 <img alt="" src="/assets/images/DocumentContent.png" /></p>
 <h2 id="execute-automation-document">Execute Automation Document</h2>
 <p>Now that we have created the document and understand the steps, lets execute the document and see what happens. </p>
-<p>Under Actions and Changes, click on Automation
-<img alt="" src="/assets/images/ActionsChangesAutomation.png" /></p>
-<p>Then click on Execute Automation. 
+<p>Under Actions and Changes, click on Automation.</p>
+<p><img alt="" src="/assets/images/ActionsChangesAutomation.png" /></p>
+<p>Then click on Execute Automation.
 <img alt="" src="/assets/images/ExecuteAutomationButton.png" /></p>
 <p>Then lets Click on Owned by me and select our WinWorkshopAMIPipeline and click Next. 
 <img alt="" src="/assets/images/SelectAutomationDocument.png" /></p>
@@ -1813,8 +1823,15 @@
 <img alt="" src="/assets/images/ExecuteAutomationChoice.png" /></p>
 <p>Finally lets enter the parameters, using the Iam Instance Profile Name and S3 Bucket from the Output of the Pre-Req CloudFormation and click Execute. 
 <img alt="" src="/assets/images/EnterParameterinAutomation.png" /></p>
-<p>You can then step through or watch the execution proceed. Click into each one of the steps and explore the inputs, outputs etc. Go to the S3 Bucket and check the logs, go to CloudWatch Logs and check those logs. 
+<p>You can then step through or watch the execution proceed. Click into each one of the steps and explore the inputs, outputs etc.<br />
 <img alt="" src="/assets/images/ExecutionProgress.png" /></p>
+<p>Go to the S3 Bucket and check the logs there, go to CloudWatch Logs and check those logs.
+<img alt="" src="/assets/images/CloudWatchLogOutput.png" /></p>
+<p>Finally, confirm if we have a new AMI named the way we specified. 
+<img alt="" src="/assets/images/NewAMIs.png" /></p>
+<h2 id="review-next-steps">Review, Next Steps</h2>
+<p>In this lab we created an SSM Automation Document to generate new updated AMIs. We learned about the various actions and command documents that could be used in an SSM Automation Document. This Automation can easily be scheduled via CloudWatch Events, Triggered by Lambda, Config Rules Remediation or any other numerous ways within the AWS Eco System. </p>
+<p>Hopefully you see the power and flexiblity SSM Automation gives AWS Customers and this lab helped you gain the confidence in using the Service. We encourage you to continue to learn the concepts around SSM Automation and look to utilize it for Self-Service Actions, Infrastructure Automation and Automated Operation workflows. </p>
 <h2 id="resources">Resources</h2>
 <p><strong>Lab Pre-Req CloudFormation Template</strong></p>
 <div class="codehilite"><pre><span></span><span class="nt">AWSTemplateFormatVersion</span><span class="p">:</span> <span class="s">&quot;2010-09-09&quot;</span>

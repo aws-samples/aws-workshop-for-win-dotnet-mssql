@@ -94,12 +94,9 @@ You don't need to specify the outputs of an action or step. The outputs are pred
 
 Each step has required properties that need to be defined, here we are highlighting the properties that are required. For a full list of common properties check [AWS Systems Manager Documentation](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html#automation-common):
 
-* name
-  - An identifier that **__must be unique__** across all step names in the document and is required
-* action
-  - The name of the action the step is to run. aws:runCommand is an example of an action you can specify here. We will demonstrate several action types in this lab. 
-* input
-  - The properties specific to the action.
+* name - An identifier that **__must be unique__** across all step names in the document and is required
+* action - The name of the action the step is to run. aws:runCommand is an example of an action you can specify here. We will demonstrate several action types in this lab. 
+* input - The properties specific to the action.
 
 As we go along we will note and highlight any additional properties, and a brief explaination of the actions we are using. For a full list of [AWS Systems Manager Automation Actions](https://docs.aws.amazon.com/systems-manager/latest/userguide/automation-actions.html)please reference the SSM Documentation. 
 
@@ -132,7 +129,7 @@ Not pointed out in our previous step is how the variables are being used in each
 
 In these steps we have also defined the ***timeoutSeconds*** property which is being used in conjunction with the ***maxAttempts*** property. If the timeout is reached and the value of maxAttempts is greater than 1, then the step is not considered to have timed out until all retries have been attempted. There is no default value for this field. maxAttempts is the number of times the step should be retried in case of failure. If the value is greater than 1, the step is not considered to have failed until all retry attempts have failed. The default value is 1.
 
-Finally in these two steps we are also using the ***onFailure*** property which indicates whether the workflow should abort, continue,or go to a different step on failure. If you were to specify a step the format would be ***step:step_name***. The default value for this option is abort. The tag step also demontrates use of another system variable in the tag value, you see we are appending the automation execuion ID to the tag using ***{{automation:EXECUTION_ID}}***. 
+Finally in these two steps we are also using the ***onFailure*** property which indicates whether the workflow should abort, continue,or go to a different step on failure. If you were to specify a step the format would be ***step:step_name*** as can be seen in Step 3. The default value for this option is abort. The tag step also demontrates use of another system variable in the tag value, you see we are appending the automation execuion ID to the tag using ***{{automation:EXECUTION_ID}}***. 
 
 ```YAML
   # Required Step: This step will launch an instance from the source AMI that you specified.  
@@ -191,7 +188,7 @@ In this Step we are executing the **AWS-RunPowerShellScript** command document. 
 
 In this step we are again using the ***aws:runCommand*** action but using the **AWS-RunRemoteScript** document. This document will download a script from S3 or Github and execute them on the target instance. We can use these scripts to do custom configuration on the instance or install software. Also note that in this step we are not outputting logs to S3 but instead outputting them to CloudWatch Logs. 
 
- ```YAML
+```YAML
   # Optional Step: This step shows you how to execute a powershell script that is located in S3.
   - name: ExampleS3Script
     action: 'aws:runCommand'
@@ -331,11 +328,11 @@ parameters:
   NewImageName:
     type: String
     description: '(Optional) The name of the new AMI that is created.'
-    default: 'NewAMI_CreatedFrom_{{SourceAmiId}}_On_{{global:DATE_TIME}}'
+    default: 'NewAMI_Created_On_{{global:DATE_TIME}}'
   NewImageDescription:
     type: String
     description: '(Optional) The description of the new AMI that is created.'
-    default: 'NewAMI_CreatedFrom_{{SourceAmiId}}_On_{{global:DATE}}'
+    default: 'NewAMI_Created_On_{{global:DATE}}'
   S3BucketName:
     type: String
     description: 'The S3 bucket to store logs.'
@@ -491,7 +488,7 @@ You can also create the document via the web console. First you will wanto navig
 ![](/assets/images/SharedResources1.png)
 
 Then Click on Create Document. 
-![](/assets/images/createdocumentbutton.png)
+![](/assets/images/createdocumentsbutton.png)
 
 Then name the document and select Document Type as Automation. 
 ![](/assets/images/CreateDocumentName.png)
@@ -502,10 +499,11 @@ Then select YAML in this case, and copy the content of the document into the cod
 ## Execute Automation Document
 Now that we have created the document and understand the steps, lets execute the document and see what happens. 
 
-Under Actions and Changes, click on Automation
+Under Actions and Changes, click on Automation.
+
 ![](/assets/images/ActionsChangesAutomation.png)
 
-Then click on Execute Automation. 
+Then click on Execute Automation.
 ![](/assets/images/ExecuteAutomationButton.png)
 
 Then lets Click on Owned by me and select our WinWorkshopAMIPipeline and click Next. 
@@ -517,8 +515,19 @@ We can pick simple execution which will run the document, or Manual Execution wh
 Finally lets enter the parameters, using the Iam Instance Profile Name and S3 Bucket from the Output of the Pre-Req CloudFormation and click Execute. 
 ![](/assets/images/EnterParameterinAutomation.png)
 
-You can then step through or watch the execution proceed. Click into each one of the steps and explore the inputs, outputs etc. Go to the S3 Bucket and check the logs, go to CloudWatch Logs and check those logs. 
+You can then step through or watch the execution proceed. Click into each one of the steps and explore the inputs, outputs etc.  
 ![](/assets/images/ExecutionProgress.png)
+
+Go to the S3 Bucket and check the logs there, go to CloudWatch Logs and check those logs.
+![](/assets/images/CloudWatchLogOutput.png)
+
+Finally, confirm if we have a new AMI named the way we specified. 
+![](/assets/images/NewAMIs.png)
+
+## Review, Next Steps
+In this lab we created an SSM Automation Document to generate new updated AMIs. We learned about the various actions and command documents that could be used in an SSM Automation Document. This Automation can easily be scheduled via CloudWatch Events, Triggered by Lambda, Config Rules Remediation or any other numerous ways within the AWS Eco System. 
+
+Hopefully you see the power and flexiblity SSM Automation gives AWS Customers and this lab helped you gain the confidence in using the Service. We encourage you to continue to learn the concepts around SSM Automation and look to utilize it for Self-Service Actions, Infrastructure Automation and Automated Operation workflows. 
 
 
 ## Resources

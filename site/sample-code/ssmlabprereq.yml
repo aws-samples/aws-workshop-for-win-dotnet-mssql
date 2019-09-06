@@ -47,8 +47,10 @@ Resources:
                   - s3:GetObject
                   - s3:PutObject
                   - s3:PutObjectAcl
+                  - s3:ListBucket
                 Resource: 
                   - !Sub 'arn:${AWS::Partition}:s3:::${LabBucket}/*'
+                  - !Sub 'arn:${AWS::Partition}:s3:::${LabBucket}'
                 Effect: Allow
           PolicyName: ssm-bucket-policy
       AssumeRolePolicyDocument:
