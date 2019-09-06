@@ -59,7 +59,9 @@ nav:
         - Serverless : 'workshops/dotnethackathon/serverless.md'
         - WAF : 'workshops/dotnethackathon/waf.md'
   - Immersion Days:
-      - Directory : 'ImmersionDays/index.md'
+      - Directory: 'ImmersionDays/index.md'
+        - Windows: 'ImmersionDays/windows/index.md'
+        - .Net: 'ImmersionDays/dotnet/index.md'
   - re:Invent 2019:
     - Directory: 'reinvent2019/index2019.md'
   - Archived Content:
