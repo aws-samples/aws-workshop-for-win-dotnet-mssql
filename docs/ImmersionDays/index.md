@@ -21,7 +21,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/"><strong>**Coming Soon - .Net Immersion Day** </strong></a></td>
+                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/ImmersionDays/dotnet/index/"><strong>**Coming Soon - .Net Immersion Day** </strong></a></td>
                 <td align="left"> ".Net Immersion Day" The AWS for .Net Workloads Immersion Day is a customizable AWS experience designed to help developers understand how to use AWS .Net tools to build and deploy on AWS. This Immersion Day allows hands on time with AWS services specific to developer workflows. We have several topics that cover a broad range of .Net development topics including Containers, Visual Studio Toolkit, .Net SDK, and more.  
                     <ul>
                         <li><strong>Level</strong>: 200</li>
