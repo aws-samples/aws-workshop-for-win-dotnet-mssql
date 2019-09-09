@@ -60,7 +60,7 @@
                 <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/ImmersionDays/windows/EC2WindowsHOL/"><strong>EC2 Windows HOL </strong></a></td>
                 <td align="left"> TBD
                     <ul>
-                        <li><strong>Level</strong>: 200</li>
+                        <li><strong>Level</strong>: 100</li>
                         <li><strong>Duration</strong>: One hour </li>
                     </ul>
                 </td>
