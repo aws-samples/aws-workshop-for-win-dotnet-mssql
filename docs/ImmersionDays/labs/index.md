@@ -191,6 +191,15 @@
                     </ul>
                 </td>
             </tr>
+            <tr>
+                <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/ImmersionDays/labs/DeployBaseResourcesAWSToolkitforVSIntro/"><strong>Deploy base resourcses for AWS Toolkit for Visual Studio </strong></a></td>
+                <td align="left"> TBD  
+                    <ul>
+                        <li><strong>Level</strong>: 200</li>
+                        <li><strong>Duration</strong>: One hour </li>
+                    </ul>
+                </td>
+            </tr>
         </tbody>
     </table>
 </div>

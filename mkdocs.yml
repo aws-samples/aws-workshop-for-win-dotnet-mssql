@@ -60,6 +60,7 @@ nav:
         - WAF : 'workshops/dotnethackathon/waf.md'
   - Immersion Days:
       - Directory: 'ImmersionDays/index.md'
+      - Raw List: 'ImmersionDays/labs/index.md'
       - Windows: 'ImmersionDays/windows/index.md'
       - .Net: 'ImmersionDays/dotnet/index.md'
   - re:Invent 2019:
