@@ -148,7 +148,7 @@ output of the stack.
 
 2.  Select **Create Stack**
 
-3.  Specify template source [link](https://awsentworkshops.com/reinvent2019/MGT412/createInstance_image.yaml "CloudFormation Template"
+3.  Specify [template source] (https://awsentworkshops.com/reinvent2019/MGT412/createInstance_image.yaml "CloudFormation Template")
 
 4.  Select **Next**
 
@@ -176,7 +176,7 @@ monitored by OpsCenter.
 
 2.  Select **Create Stack**
 
-3.  Specify template source *ASGTemplate.yaml* [link](https://awsentworkshops.com/reinvent2019/MGT412/ASGTemplate.yml "CloudFormation Template"
+3.  Specify [template source] (https://awsentworkshops.com/reinvent2019/MGT412/ASGTemplate.yml "CloudFormation Template")
 
 4.  On the **Specify Stack details** screen provide the stack name and the
     custom AMI ID that you created previously. Click Next
