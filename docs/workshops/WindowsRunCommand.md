@@ -1,4 +1,4 @@
-# **Using Run Command Against Windows Workloads**
+# Using Run Command Against Windows Workloads
 This lab will demonstrate how to use of the Run Commmand feature to run scripts against Windows Workloads. In this lab we will do the following:
 
 1. Use the AWS-RunPowerShellScript Command Document to run PowerShell Cmdlets on our Instance
@@ -173,15 +173,19 @@ After we completed Step 1 we should have the following in our AWS Account:
 * PowerShell Script Copied to the S3 Bucket Specified in Output of our Cloudformation Stack
 
 Head over to the AWS Systems Manager Console, and ensure that we see our Instance showing up as a managed instances as shown in our next screenshot. 
+
 ![](/assets/images/managedinstance.png)
 
 Now lets click on Run Command under Nodes & Instances. 
+
 ![](/assets/images/RunCommand.png)
 
-Click on the Run Command Button in the upper right hand corner. 
+Click on the Run Command Button in the upper right hand corner.
+
 ![](/assets/images/RunCommandButton.png)
 
 Search for the **AWS-RunPowerShellScript** Command Document and Select it. 
+
 ![](/assets/images/AWS-RunPowerShellScriptSelect.png)
 
 Copy the code from the next code block, and paste it into the command parameter box. This command will output the Windows OS Version and also give us a list of services on the box and their status. 
@@ -194,17 +198,21 @@ Get-Service
 ![](/assets/images/CommandInputRunPowerShell.png)
 
 We need to determine how we are going to target our instances. In this case we are going to specify our targets by Tag which will pick up our deployed instance or any instance with that tag. 
+
 ![](/assets/images/RunCommandSpecifyTag.png)
 
 In our next step we will specify how we want output logs to be handled. In this case we are going to output out Logs to S3 and also CloudWatch Logs. We will examine the output after we executed this run command document. 
+
 ![](/assets/images/RunCommandOutPutLogs.png)
 
 Now that we have entered all the needed input, lets click on the ![Run Button](/assets/images/RunButton.png)
 
 This will execute this command document against our target instances, we can monitoring the status after it is executed.
+
 ![](/assets/images/RunCommandExecuted.png)
 
 Once completed we can click on the Instance ID, this will take us to the output portion. We can observe the output here of click to CloudWatch Logs or S3 to observe the logs there. 
+
 ![](/assets/images/CheckRunCommandOutput.png)
 
 Here we demonstrated how we can use Run Command to run PowerShell Scripts and Commands on an instance and get the output information. Now lets see how we can use the AWS-RunRemoteScript command document to execute a powershell script from an S3 Bucket. 

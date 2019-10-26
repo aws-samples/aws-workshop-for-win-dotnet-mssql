@@ -1,4 +1,4 @@
-# **Re-Host Lab using CloudEndure**
+# Re-Host Lab using CloudEndure
 
 In this lab we will migrate two Windows instances that have been deployed into our lab environment. This is an example of re-hosting, we will not be making any changes to the instances but migrating them as is. This demonstrates how you can migrate on-prem workloads to AWS making minimal changes. 
 
@@ -40,9 +40,9 @@ To get started, let's go over to the [registration](https://migration-register.c
 
 3. On the **Create New Project** dialog box, set the following, then click **CREATE PROJECT**.
     * **Project name:** Enter a unique name for the Project. The name can contain up to 255 characters.
-    * **Project type:** Select either Disaster Recovery or Migration.
+    * **Project type:** Select Migration, you can also use CloudEndure for Disaster Recovery.
     * **Target cloud:** CloudEndure exclusively utilizes the AWS cloud as a Target infrastructure.
-    * **License:** Select a License Package to associate with your Project.
+    * **License:** Leave Default Licensing for Migration.
 
 ![](/assets/images/WIN306/CreateNewProject.png)
 
@@ -343,117 +343,107 @@ After creating an AWS policy which is based on CloudEndure's pre-defined policy,
 
 ![](/assets/images/WIN306/EnterUserInfo.png)
 
+2. After entering your AWS credentials in the CloudEndure User Console, navigate to **Setup & Info > REPLICATION SETTINGS.** You will need to define your **Source** and **Target** infrastructures and regions (in this case AWS Canada). More information about replication settings can be found in CloudEndure [documentation](https://docs.cloudendure.com/Content/Defining_Your_Replication_Settings/Defining_Replication_Settings_for_AWS/Defining_Replication_Settings_for_AWS.htm)
 
+![](/assets/images/WIN306/SourceTargetReplicationSettings.png)
 
+3. Once you have set all of your settings, click the **SAVE REPLICATION SETTINGS** button at the bottom of the page.You will now be able to add machines to your Project. 
 
-    
+![](/assets/images/WIN306/SaveReplicationSettings.png)
 
+### **Adding Machines to our CloudEndure Project**
 
+1. After you click save you are presented with a Project Completed Box. Click on the **SHOW ME HOW** button to see how you can install the CloudEndure Agent.
 
-    * After entering your AWS credentials in the CloudEndure User Console, navigate to *Setup & Info > REPLICATION SETTINGS.*
+![](/assets/images/WIN306/ProjectMigrationSetup.png)
 
+2. The **How To Add Machines** pane will appear. Your Installation Token will be shown in the upper part of the pane under the **Your Agent installation token** header. For more information about installing the agents, please refer to CloudEndure [documenation](https://docs.cloudendure.com/Content/Installing_the_CloudEndure_Agents/Installing_the_Agents/Installing_the_Agents.htm):
 
+![](/assets/images/WIN306/HowToAddMachines.png)
 
-    * Next, you will need to define your *Source* and *Target* infrastructures and regions. More information about replication settings can be found here:
+3. In this lab, we are going to use AWS Systems Manager to help download and install the CloudEndure Agent to the two Windows Instances we will be migrating. Let's jump back into the AWS Console and ead over to the AWS Systems Manager Console.
 
+**AWS Systems Manager** - is an AWS service that you can use to view and control your infrastructure on AWS and On-premise. Using the Systems Manager console, you can view operational data from multiple AWS services and automate operational tasks across your AWS resources. Systems Manager helps you maintain security and compliance by scanning your managed instances and reporting on (or taking corrective action on) any policy violations it detects. Managed instance refers to machines managed by AWS Systems Manager whether on-premise or within AWS. 
 
-https://docs.cloudendure.com/Content/Defining_Your_Replication_Settings/Defining_Replication_Settings_for_AWS/Defining_Replication_Settings_for_AWS.htm
+AWS Systems Manager (SSM) has many [capabilities](https://docs.aws.amazon.com/systems-manager/latest/userguide/features.html) but this lab will focus on one capability:
 
+* **Run Command** - remotely and securely manage the configuration of your managed instances at scale. Use Run Command to perform on-demand changes like updating applications or running Linux shell scripts and Windows PowerShell commands on a target set of dozens or hundreds of instances. Run Command uses Command Documents. 
 
-    * Once you have set all of your settings, click the *SAVE REPLICATION SETTINGS* button at the bottom of the page.
+4. Now lets click on Run Command under Nodes & Instances. 
 
+  ![](/assets/images/RunCommand.png)
 
+5. Click on the Run Command Button in the upper right hand corner. 
 
-    * You will now be able to add machines to your Project. 
+  ![](/assets/images/RunCommandButton.png)
 
+6. Search for the **AWS-RunPowerShellScript** by clicking the magnifying glass and selecting **Document Name Prefix** and then **Equals** AWS-Run, this will filter the list of Command Documents. Then select the **AWS-RunPowerShellScript** command document. 
 
+  ![](/assets/images/AWS-RunPowerShellScriptSelect.png)
 
-    * Click SHOW ME HOW button.
+7. Copy the code from the next code block, and paste it into the command parameter box. This command will reset the password for the Administrator user to match the password stored in AWS Secrets Manager, for more information on AWS Secrets Manager please visit the [product page](https://aws.amazon.com/secrets-manager/). It will also download the CloudEndure agent to the **C:\CloudEndure** directory locally on the instances and install the agent. 
 
+**Note** - Replace the PutYourTokenCodeHere with the Token code from the CloudEndure Console. 
 
+  ![](/assets/images/WindowsInstaller.png)
 
-    * The *How To Add Machines* pane will appear. Your Installation Token will be shown in the upper part of the pane under the *Your Agent installation token* header. For more information about installing the agents, please refer to the following link:
+```PowerShell
+$AdminSecrets = ConvertFrom-Json -InputObject (Get-SECSecretValue -SecretId 'AdminSecret').SecretString
+net user Administrator $AdminSecrets.Password
+New-Item "C:\CloudEndure" -Type directory -Force
+Start-BitsTransfer -Source "https://console.cloudendure.com/installer_win.exe" -Destination "C:\CloudEndure" -ErrorAction Stop
+Start-Process -FilePath "C:\CloudEndure\installer_win.exe" -ArgumentList '-t','PutYourTokenCodeHere','--no-prompt'
+```
 
+![](/assets/images/WIN306/ssmcommandparams.png)
 
-https://docs.cloudendure.com/Content/Installing_the_CloudEndure_Agents/Installing_the_Agents/Installing_the_Agents.htm
+8. Next, we will select our two target instances to run our command against. With AWS Systems Manager you can select targets manually as we are here, or specifcy a tag to target many servers. 
 
+![](/assets/images/WIN306/SSMSelectCEInstances.png)
 
-    * Click the *Download the Windows installer* link at the bottom of the pane under the *For Windows machines* header.
+9. Next, we will specify where we want the logs to be output too. In this case, we will select CloudWatch Logs.
 
+![](/assets/images/WIN306/CloudWatchoutput.png)
 
+10. Now that we have entered all the needed input, lets click on the ![Run Button](/assets/images/RunButton.png)This will execute this command document against our target instances, we can monitoring the status after it is executed.
 
-    * Copy or distribute the downloaded *Agent Installer* file to each *Source machine *that you want to include in your solution.
+![](/assets/images/RunCommandExecuted.png)
 
+11. Once completed we can click on the Instance ID, this will take us to the output portion. We can observe the output here or click to CloudWatch Logs to observe the logs there. Here we demonstrated how we can use Run Command to run PowerShell Scripts and Commands on an instance and get the output information.
 
+12. Once the installation is completed successfully, the replication of the **Source machine** data will start automatically, and you will be able to monitor it through the CloudEndure **User Console**. A Replication Server is launched on the target location which staging disks are attached and data is replicated.
 
-    * Run the *Agent Installer* file on each *Source machine* with your *Installation Token*.
 
+**You can now move on to starting the refactoring lab while replication takes places. This will take roughly 30 Minutes or so to complete** 
 
+### **Replication Complete - Test and Cutover**
 
-    * After performing these steps, the installation will begin.
+Once the initial sync and Data Replication are complete, the **DATA REPLICATION PROGRESS** bar will show **Continuous Data Protection** (Disaster Recovery) or **Continuous Data Replication** (Migration).
 
+The **Target machine** Blueprint is a set of instructions on how to launch a **Target machine** for the selected **Source machine**. The Blueprint settings will serve as the base settings for the creation of the **Target machine**.
 
+You can access the Machine’s BLUEPRINT by selecting the **BLUEPRINT** tab from the right-hand top navigation menu. For more information about configuring the target machine blueprint, please refer to CloudEndure's [documentation](https://docs.cloudendure.com/#Configuring_and_Running_Migration/Configuring_the_Target_Machine_Blueprint/Configuring_the_Target_Machine_Blueprint.htm)
 
-    * Once the installation is completed successfully, the replication of the *Source machine* data will start automatically, and you will be able to monitor it through the CloudEndure *User Console*.
 
+Before you migrate your Source machines into the Target infrastructure, you should test your CloudEndure Migration solution. The **Test Mode** action launches and runs a Target machine in the Target infrastructure for the Source machine you selected for testing.
 
+To start the test, click the purple **LAUNCH TARGET MACHINES** button and select the **Test Mode** option.
 
-    * A Replication Server is launched on the target location which staging disks are attached and data is replicated.
 
+A confirmation message will appear. Click **CONTINUE** to perform the test.
 
+Selecting the **Job Progress** menu option opens the **Job Progress** pane. The pane displays detailed information about the progress and status of several actions, including the launch of Test or Recovery machines and the deletion of Target machines.
 
-    * Once the initial sync and Data Replication are complete, the *DATA REPLICATION PROGRESS* bar will show *Continuous Data Protection *(Disaster Recovery) or *Continuous Data Replication* (Migration).
+During the machine conversion stage, a conversion instance will be launched temporarily to inject the required AWS binaries to the target machine root volume.
 
+You can monitor the job progress until it finishes.
 
+You can review the instance ID in the TARGET tab. 
 
-    * The *Target machine* Blueprint is a set of instructions on how to launch a *Target machine* for the selected *Source machine*. The Blueprint settings will serve as the base settings for the creation of the *Target machine*.
+Confirm that the Target machine was launched successfully.
 
+Perform acceptance tests on the machine.
 
+Once the Target machine is tested successfully, you can delete it and launch the Target machine in Cutover Mode.
 
-    * You can access the Machine’s BLUEPRINT by selecting the *BLUEPRINT* tab from the right-hand top navigation menu. For more information about configuring the target machine blueprint, please refer to the following documentation:
-
-
-https://docs.cloudendure.com/#Configuring_and_Running_Migration/Configuring_the_Target_Machine_Blueprint/Configuring_the_Target_Machine_Blueprint.htm
-
-
-    * Before you migrate your Source machines into the Target infrastructure, you should test your CloudEndure Migration solution. The *Test Mode* action launches and runs a Target machine in the Target infrastructure for the Source machine you selected for testing.
-
-
-
-    * To start the test, click the purple *LAUNCH TARGET MACHINES* button and select the *Test Mode* option.
-
-
-
-    * A confirmation message will appear. Click *CONTINUE* to perform the test.
-
-
-
-    * Selecting the *Job Progress* menu option opens the *Job Progress* pane. The pane displays detailed information about the progress and status of several actions, including the launch of Test or Recovery machines and the deletion of Target machines.
-
-
-
-    * During the machine conversion stage, a conversion instance will be launched temporarily to inject the required AWS binaries to the target machine root volume.
-
-
-
-    * You can monitor the job progress until it finishes.
-
-
-
-    * You can review the instance ID in the TARGET tab. 
-
-
-
-    * Confirm that the Target machine was launched successfully.
-
-
-
-    * Perform acceptance tests on the machine.
-
-
-
-
-
-
-    * Once the Target machine is tested successfully, you can delete it and launch the Target machine in Cutover Mode.
 

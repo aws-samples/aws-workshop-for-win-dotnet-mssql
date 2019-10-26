@@ -1,4 +1,4 @@
-# **Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager**
+# Managing Windows Workloads at Scale with PowerShell DSC and AWS Systems Manager
 This lab will demonstrate one way to use PowerShell Desired State Configuration with AWS Systems Manager (SSM) to configure Windows workloads and maintain compliance. It's goal is to share a pattern and concepts that you can utilize within your own AWS Environment. In this lab we will do the following:
 
 1. Generate a MOF File
