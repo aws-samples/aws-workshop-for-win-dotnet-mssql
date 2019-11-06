@@ -369,7 +369,7 @@ AWS Systems Manager (SSM) has many [capabilities](https://docs.aws.amazon.com/sy
 
 * **Run Command** - remotely and securely manage the configuration of your managed instances at scale. Use Run Command to perform on-demand changes like updating applications or running Linux shell scripts and Windows PowerShell commands on a target set of dozens or hundreds of instances. Run Command uses Command Documents. 
 
-**NOTE** In order to use AWS Systems Manager (SSM) you need to have the SSM Agent installed on the machined you want to manage. You also need to have a IAM Role attached to the machine to allow the agent to communicate to the AWS Systems Manager API. In this lab this has been taken care of you, please note the roles created in the CloudFormation Templates used to build out this lab. 
+**NOTE** In order to use AWS Systems Manager (SSM) you need to have the SSM Agent installed on the machined you want to manage. You also need to have a IAM Role attached to the machine to allow the agent to communicate to the AWS Systems Manager API. In this lab we are using AWS Windows AMIs which include the SSM agent pre-installed. The IAM Role has been created for you and attached to the instance, please note the roles created in the [Migration Instances Templates](https://awsentworkshops.com/reinvent2019/win306/appendix/#migration-instances-template) used to build out this lab. It is also include in the code block in IAM Role Section. 
 
 4. Click on **AWS Systems Manager** under **Management & Governance** to go to the Systems Manager Console.
 
@@ -424,7 +424,7 @@ This will execute this command document against our target instances, we can mon
 ![](/assets/images/WIN306/ReplicationBegins.png)
 
 
-**You can now move on to starting the refactoring lab while replication takes places or take a bio break. This will take roughly 15-30 Minutes to complete the initial replication. After which we can continue with the remainder of this lab.** 
+**You can now move on to starting the refactoring lab while replication takes places or take a bio break. This will take roughly 30-40 Minutes to complete the initial replication. After which we can continue with the remainder of this lab.** 
 
 ### **Replication Complete - Test and Cutover**
 
@@ -475,4 +475,48 @@ You can RDP to the Machines, create files and install software as you wish and p
 
 In this lab we became familiar with CloudEndure to perform migrations. We also played with AWS Systems Manager and how you remotely manage your infrastructure. 
 
+## IAM Role CloudFormation Code Block
 
+```YAML
+  SSMInstanceRole: 
+    Type : AWS::IAM::Role
+    Properties:
+      Policies:
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Action:
+                  - s3:GetObject
+                Resource: 
+                  - !Sub 'arn:aws:s3:::aws-ssm-${AWS::Region}/*'
+                  - !Sub 'arn:aws:s3:::aws-windows-downloads-${AWS::Region}/*'
+                  - !Sub 'arn:aws:s3:::amazon-ssm-${AWS::Region}/*'
+                  - !Sub 'arn:aws:s3:::amazon-ssm-packages-${AWS::Region}/*'
+                  - !Sub 'arn:aws:s3:::${AWS::Region}-birdwatcher-prod/*'
+                  - !Sub 'arn:aws:s3:::patch-baseline-snapshot-${AWS::Region}/*'
+                Effect: Allow
+          PolicyName: ssm-custom-s3-policy
+        - PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - secretsmanager:GetSecretValue
+                  - secretsmanager:DescribeSecret
+                Resource: 
+                  - !Ref 'SecretsARN'
+          PolicyName: QS-MSSQL-SSM
+      Path: /
+      ManagedPolicyArns:
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/AmazonSSMManagedInstanceCore'
+        - !Sub 'arn:${AWS::Partition}:iam::aws:policy/CloudWatchAgentServerPolicy'
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+        - Effect: "Allow"
+          Principal:
+            Service:
+            - "ec2.amazonaws.com"
+            - "ssm.amazonaws.com"
+          Action: "sts:AssumeRole"
+```
