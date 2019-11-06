@@ -83,16 +83,13 @@ Parameters:
   SrcAvailabilityZones:
     Description: 'List of Availability Zones to use for the subnets in the VPC. Note:
       The logical order is preserved and only 2 AZs are used for this deployment.'
-    Default: 'eu-west-1a,eu-west-1b'
-    Type: String
+    Type: List<AWS::EC2::AvailabilityZone::Name>
   DestAvailabilityZones:
     Description: 'List of Availability Zones to use for the subnets in the VPC. Note:
       The logical order is preserved and only 2 AZs are used for this deployment.'
-    Default: 'eu-west-1a,eu-west-1b'
-    Type: String
+    Type: List<AWS::EC2::AvailabilityZone::Name>
   DomainAdminPassword:
     AllowedPattern: (?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*
-    Default: Pass@word1
     Description: Password for the domain admin user. Must be at least 8 characters
       containing letters, numbers and symbols
     MaxLength: '32'
@@ -5705,6 +5702,14 @@ Parameters:
   SSMInstanceProfile:
     Description: Instance Profile Name
     Type: String
+  DBPassword:
+    AllowedPattern: (?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*
+    Description: Password for the domain admin user. Must be at least 8 characters
+      containing letters, numbers and symbols
+    MaxLength: '32'
+    MinLength: '8'
+    NoEcho: 'true'
+    Type: String   
 Conditions: 
   Create-SQLServer-to-AuroraMySQL-Environment: !Equals [ !Ref LabType, 'Microsoft SQL Server to Amazon Aurora (MySQL)' ]
   Create-SQLServer-to-RDSSQLServer-Environment: !Equals [ !Ref LabType, 'Microsoft SQL Server to Amazon RDS SQL Server' ]
@@ -5802,7 +5807,7 @@ Resources:
       DBName: 'OracleDB'
       AllocatedStorage: 100
       MasterUsername: 'dbmaster'
-      MasterUserPassword: 'dbmaster123'
+      MasterUserPassword: !Ref 'DBPassword'
       DBInstanceClass: 'db.r5.2xlarge'
       Engine: oracle-ee
       EngineVersion: 
@@ -5905,7 +5910,7 @@ Resources:
       DatabaseName: 'AuroraDB'
       DBClusterParameterGroupName: default.aurora-postgresql9.6
       MasterUsername: 'dbmaster'
-      MasterUserPassword: 'dbmaster123'
+      MasterUserPassword: !Ref 'DBPassword'
       Port: '5432'
       BackupRetentionPeriod: '7'
     DependsOn: RDSSecurityGroup
@@ -5974,7 +5979,7 @@ Resources:
       DatabaseName: AuroraMySQL
       Engine: aurora
       MasterUsername: awssct
-      MasterUserPassword: Password1
+      MasterUserPassword: !Ref 'DBPassword'
     DependsOn: RDSSecurityGroup 
   AuroraMySQLInstance:
     Condition: Create-SQLServer-to-AuroraMySQL-Environment
@@ -6030,7 +6035,7 @@ Resources:
       AllocatedStorage: '250'
       Iops: '5000'
       MasterUsername: awssct
-      MasterUserPassword: Password1
+      MasterUserPassword: !Ref 'DBPassword'
       PubliclyAccessible: 'false'
       BackupRetentionPeriod: '0'
     DependsOn: RDSSecurityGroup
@@ -6048,7 +6053,7 @@ Resources:
       DBName: 'TargetDB'
       AllocatedStorage: 100
       MasterUsername: 'dbmaster'
-      MasterUserPassword: 'dbmaster123'
+      MasterUserPassword: !Ref 'DBPassword'
       DBInstanceClass: 'db.r5.2xlarge'
       Engine: oracle-ee
       EngineVersion: 
