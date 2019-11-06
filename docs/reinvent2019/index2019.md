@@ -56,7 +56,7 @@
                 </td>
             </tr>
             <tr>
-                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2019/win306/index/"><strong>Migrate Microsoft workloads to AWS</strong></a></td>
+                <td align="left"><a class="table" href="https://awsentworkshops.com/reinvent2019/win306/win306/"><strong>Migrate Microsoft workloads to AWS</strong></a></td>
                 <td align="left">Migrating your Microsoft workloads to the AWS Cloud will increase your competitive edge, drive business value, and modernize your infrastructure. This workshop facilitates your understanding of strategies that help with the preparation and execution steps required for migrating Microsoft workloads to the AWS Cloud. Please bring a laptop (and charger) for the hands-on exercises.
                     <ul>
                         <li><strong>Level</strong>: Intermediate</li>

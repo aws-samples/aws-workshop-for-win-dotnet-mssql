@@ -343,7 +343,7 @@ After creating an AWS policy which is based on CloudEndure's pre-defined policy,
 
 ![](/assets/images/WIN306/EnterUserInfo.png)
 
-2. After entering your AWS credentials in the CloudEndure User Console, navigate to **Setup & Info > REPLICATION SETTINGS.** You will need to define your **Source** and **Target** infrastructures and regions (in this case AWS Canada). More information about replication settings can be found in the CloudEndure [documentation](https://docs.cloudendure.com/Content/Defining_Your_Replication_Settings/Defining_Replication_Settings_for_AWS/Defining_Replication_Settings_for_AWS.htm)
+2. After entering your AWS credentials in the CloudEndure User Console, navigate to **Setup & Info > REPLICATION SETTINGS.** You will need to define your **Source** (Other Infrastructure) and **Target** infrastructures and regions (in this case AWS EU(Ireland)). More information about replication settings can be found in the CloudEndure [documentation](https://docs.cloudendure.com/Content/Defining_Your_Replication_Settings/Defining_Replication_Settings_for_AWS/Defining_Replication_Settings_for_AWS.htm)
 
 ![](/assets/images/WIN306/SourceTargetReplicationSettings.png)
 
@@ -368,6 +368,8 @@ After creating an AWS policy which is based on CloudEndure's pre-defined policy,
 AWS Systems Manager (SSM) has many [capabilities](https://docs.aws.amazon.com/systems-manager/latest/userguide/features.html) but this lab will focus on one capability:
 
 * **Run Command** - remotely and securely manage the configuration of your managed instances at scale. Use Run Command to perform on-demand changes like updating applications or running Linux shell scripts and Windows PowerShell commands on a target set of dozens or hundreds of instances. Run Command uses Command Documents. 
+
+**NOTE** In order to use AWS Systems Manager (SSM) you need to have the SSM Agent installed on the machined you want to manage. You also need to have a IAM Role attached to the machine to allow the agent to communicate to the AWS Systems Manager API. In this lab this has been taken care of you, please note the roles created in the CloudFormation Templates used to build out this lab. 
 
 4. Click on **AWS Systems Manager** under **Management & Governance** to go to the Systems Manager Console.
 
