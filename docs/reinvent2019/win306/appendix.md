@@ -381,7 +381,7 @@ Resources:
         EC2ServerInstanceType: !Ref 'EC2ServerInstanceType'
         RDSInstanceType: !Ref 'RDSInstanceType'
         Subnet1: !GetAtt 'DestVPCStack.Outputs.PrivateSubnet1AID'
-        Subnet2: !GetAtt 'DestVPCStack.Outputs.PublicSubnet1ID'
+        Subnet2: !GetAtt 'DestVPCStack.Outputs.PublicSubnet2ID'
         VPCID: !GetAtt 'DestVPCStack.Outputs.VPCID'
         SSMInstanceProfile: !GetAtt 'MigrationInstances.Outputs.SSMInstanceProfileName'
         DBPassword: !Join ['', ['{{resolve:secretsmanager:', !Ref AdminPassword, ':SecretString:password}}' ]]
