@@ -92,7 +92,6 @@ Parameters:
     Type: String
   DomainAdminPassword:
     AllowedPattern: (?=^.{6,255}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9])(?=.*[a-z])|(?=.*[^A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9]))^.*
-    Default: Pass@word1
     Description: Password for the domain admin user. Must be at least 8 characters
       containing letters, numbers and symbols
     MaxLength: '32'
