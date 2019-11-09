@@ -389,7 +389,7 @@ AWS Systems Manager (SSM) has many [capabilities](https://docs.aws.amazon.com/sy
 
 8. Copy the code from the next code block, and paste it into the command parameter box. This command will reset the password for the Administrator user to match the password stored in AWS Secrets Manager, for more information on AWS Secrets Manager please visit the [product page](https://aws.amazon.com/secrets-manager/). It will also download the CloudEndure agent to the **C:\CloudEndure** directory locally on the instances and install the agent. 
 
-**Note** - Replace the PutYourTokenCodeHere with the token code you copied from the CloudEndure Console. 
+>  **Note** - Replace the PutYourTokenCodeHere with the token code you copied from the CloudEndure Console. 
 
 ```PowerShell
 $AdminSecrets = ConvertFrom-Json -InputObject (Get-SECSecretValue -SecretId 'AdminSecret').SecretString
@@ -417,14 +417,14 @@ This will execute this command document against our target instances, we can mon
 
 11. Once completed we can click on the Instance ID, this will take us to the output portion. We can observe the output here or click to CloudWatch Logs to observe the logs in CloudWatch Logs once the command has completed successfully. 
 
-**Note** Here we demonstrated how we can use Run Command to run PowerShell Scripts and commands on an instance and get the output information. AWS Systems Manager is being used by many customers to patch their infrastructure, collect inventory data and have the ability to audit and security operational tasks against their infrastructure for very low cost. 
+>  **Note** - Here we demonstrated how we can use Run Command to run PowerShell Scripts and commands on an instance and get the output information. AWS Systems Manager is being used by many customers to patch their infrastructure, collect inventory data and have the ability to audit and security operational tasks against their infrastructure for very low cost. 
 
 12. Once the installation is completed successfully, the replication of the **Source machine** data will start automatically, and you will be able to monitor it through the CloudEndure **User Console**. A Replication Server is launched on the target location which staging disks are attached and data is replicated.
 
 ![](/assets/images/WIN306/ReplicationBegins.png)
 
 
-**You can now move on to starting the refactoring lab while replication takes places or take a bio break. This will take roughly 30-40 Minutes to complete the initial replication. After which we can continue with the remainder of this lab.** 
+>  **You can now move on to starting the refactoring lab while replication takes places or take a bio break. This will take roughly 30-40 Minutes to complete the initial replication. After which we can continue with the remainder of this lab.** 
 
 ### **Replication Complete - Test and Cutover**
 
