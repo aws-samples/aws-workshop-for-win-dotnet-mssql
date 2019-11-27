@@ -16,16 +16,16 @@ Connect to the Windows Server and Perform Drive Mappings
     at <https://console.aws.amazon.com/fsx/>.
 
 2.  In the top right corner of the screen make sure that you have selected the
-    us-west-2 (Oregon) region.
+    appropriate region provided by session administrator
 
 ![](media/27f3535a857059e150dff55b9cd53c69.png)
 
 1.  In the AWS Management Console – FSx open the list of the FSx file systems
     deployed in your account by clicking
 
-    ![](media/6732d7d87df8636fac8202975c8871ab.png)
+![](media/6732d7d87df8636fac8202975c8871ab.png)
 
-    in the upper left corner of the screen and selecting **File Systems**:
+in the upper left corner of the screen and selecting **File Systems**:
 
 ![](media/72f3334f369fa3b5e04bf5574ab55b41.png)
 
@@ -36,9 +36,9 @@ Connect to the Windows Server and Perform Drive Mappings
 ![](media/69879147367d72c97f1489755a8cbdd8.png)
 
 1.  Click on the **Network and Security** tab and make a note of the File
-    System’s DNS name:
+    System’s **DNS name** and **Windows Remote Powershell Endpoint** name:
 
-![](media/a491073dd76fb77a95fdf4d5cdbd0904.png)
+![](media/0f9b8debf0dba4efd6a6edf99d29a08a.png)
 
 Deploy CloudWatch FSx Performance Dashboard
 -------------------------------------------
@@ -52,7 +52,9 @@ Deploy CloudWatch FSx Performance Dashboard
 
 ![](media/b94d0f6f726afa8972be229601825938.png)
 
-1.  Specify template source [link](https://awsentworkshops.com/reinvent2019/STG324/fsx-dashboard.yaml "CloudFormation Template") and click **Next**
+1.  Specify template source
+    [FSx Dashboard](https://awsentworkshops.com/reinvent2019/STG324/fsx-dashboard.yaml)
+    and click **Next**
 
 >   Note: you will need to download the template to the local drive, then select
 >   **Upload a template file:**
@@ -84,7 +86,7 @@ Deploy CloudWatch FSx Performance Dashboard
 >   We have successfully deployed the CloudWatch console that we will be using
 >   to visualize the performance of the FSx file system later in the session.
 
-### Log in to the Windows Server 
+### Log in to the Windows Server
 
 1.  Open the EC2 console: <https://console.aws.amazon.com/ec2> and select
     **Running Instances** in the **Resources** pane:
@@ -113,9 +115,17 @@ Deploy CloudWatch FSx Performance Dashboard
 1.  When logged into the Windows server launch File Management snapin from the
     Run menu:
 
-    ![](media/2eddb32c9bcadbc91213fc969011e0f4.png)
+![](media/2eddb32c9bcadbc91213fc969011e0f4.png)
 
-2.  When logged into the Windows server open the File Explorer by clicking the
+1.  Connect to the FSx file system using FSx DNS name:
+
+![](media/6be319b43744ef31848289a3f30e2f73.png)
+
+1.  Explore the default FSx share properties and permissions:
+
+![](media/fcac5247e0c64c61458d2be09a5be448.png)
+
+1.  When logged into the Windows server open the File Explorer by clicking the
     folder icon on the Windows tool bar and select **This PC – Computer – Map
     Network drive**:
 
@@ -125,31 +135,32 @@ Deploy CloudWatch FSx Performance Dashboard
 
 ![](media/ae295ca5eaf1122deb508c0b792dc438.png)
 
-### DiskSpd Read Tests
+### DiskSpd Read Tests with caching disabled
 
-1.  From the remote desktop session to **Windows Server**, *open* a PowerShell
-    window.
+1.  From the remote desktop session to **Windows Server**, open an elevated
+    command prompt (**Run as Administrator**).
+
+![](media/ea093567051fcdc8e9d0827772c17fbc.png)
 
 | Important | This section assumes that **Amazon FSx for Windows File Server** is mapped as the **Z:/** drive. If your **Windows Instance**  does not have a mapped **Z:/** drive, map **Amazon FSx for Windows File Server** as the **Z:/** drive (see the previous section for step-by-step instructions). |
 |-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 
-2.  *Run* the script below to create a 100 GB sparse file
+1.  Run the script below to create a 100 GB sparse file
 
-3.  $random = $(Get-Random)
-
->   fsutil file createnew Z:\\${env:computername}-$random.dat 100000000000
+>   fsutil file createnew Z:\\read_file.dat 100000000000
 
 1.  Run the DiskSpeed script below to test read performance of the
     mapped **Z:** drive
 
->   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe -d120 -w0 -r -t1 -o32 -b64K
->   -Su -L Z:\\${env:computername}-$random.dat
+>   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe –d120 -w0 -r -t1 -o32 -b64K -Su -L Z:\\read_file.dat
 
 >   While the script is running, open **Task Explorer** and monitor network
 >   performance (e.g. Task Explorer \>\> Performance (tab) \>\> Ethernet).
 
 -   What was the peak read throughput you achieved?
+
+-   How many IOPS?
 
 -   What was the P99 (99th %-tile) of your test?
 
@@ -171,10 +182,10 @@ Deploy CloudWatch FSx Performance Dashboard
 
 -   How did the different parameter options alter the results?
 
-### DiskSpd Write Tests
+### DiskSpd Write Tests with caching disabled
 
-1.  From the remote desktop session to **Windows Server**, *open* a PowerShell
-    window.
+1.  From the remote desktop session to **Windows Server**, open an elevated
+    command prompt (**Run as Administrator**)
 
 | Important | This section assumes that **Amazon FSx for Windows File Server** is mapped as the **Z:/** drive. If your **Windows Instance** does not have a mapped **Z:/** drive, map **Amazon FSx for Windows File Server** as the **Z:/** drive (see the previous section for step-by-step instructions). |
 |-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -183,15 +194,18 @@ Deploy CloudWatch FSx Performance Dashboard
 2.  Run the DiskSpeed script below to test write performance of the
     mapped **Z:** drive
 
-3.  $random = $(Get-Random)
+>   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe -d120 -c2G -s64K -w100 -t1 -o32 -b64K -Sh -L Z:\\Write_file.dat
 
->   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe -d120 -c2G -s64K -w100 -t1
->   -o32 -b64K -Sh -L Z:\\${env:computername}-$random.dat
+>   If you get the error below, you can safely ignore it:
+
+![](media/2c5f32c64ed0516ddd67521accb703a9.png)
 
 >   While the script is running, open **Task Explorer** and monitor network
 >   performance (e.g. Task Explorer \>\> Performance (tab) \>\> Ethernet).
 
 -   What was the peak write throughput you achieved?
+
+-   How many IOPS?
 
 -   What was the P99 (99th %-tile) of your test?
 
@@ -245,62 +259,62 @@ Deploy CloudWatch FSx Performance Dashboard
 8.  Reset zoom by clicking the blue magnifying glass in the top right of any
     widget.
 
-### Create Continuously Available File Share 
+### Create Continuously Available File Share
 
 1.  From the Powershell console execute the following script:
 
-*$Username = 'STG324\\admin'*
+md \\\\"FSx DNS Name”\\d$\\CAFS
 
-*$Password = '@STG324@'*
+$Username = 'STG324\\admin'
 
-*$pass = ConvertTo-SecureString -AsPlainText $Password -Force*
+$Password = '@STG324@'
 
-*$MyCreds = New-Object -TypeName System.Management.Automation.PSCredential
--ArgumentList $Username,$pass*
+$pass = ConvertTo-SecureString -AsPlainText $Password -Force
 
-*invoke-command -computername "Windows Remote Powershell Endpoint”
+$MyCreds = New-Object -TypeName System.Management.Automation.PSCredential
+-ArgumentList $Username,$pass
+
+invoke-command -computername "Windows Remote Powershell Endpoint”
 -credential $MyCreds -configurationname FSxRemoteAdmin -scriptblock {
-new-fsxsmbshare -name CAFS -path D:\\ -credential $Using:MyCreds
--ContinuouslyAvailable $True }*
+new-fsxsmbshare -name CAFS -path D:\\CAFS -credential $Using:MyCreds
+-ContinuouslyAvailable $True -FullAccess Everyone }
 
-where "Windows Remote Powershell Endpoint" is the management endpoint for
-the multi-AZ FSx file system.
+where *DNS Name” and* "Windows Remote Powershell Endpoint" are the DNS FQDN and
+management endpoint for the multi-AZ FSx file system, recorded earlier in this
+session.
 
 ![](media/12ef2418c731483c07ad873d2dd3adc9.png)
 
-1.  Map the drive to the Continuously Aavailable File Share.
+1.  Map the drive to the Continuously Available File Share.
 
 >   From the command prompt:
 
->   Net use \* "File System DNS name"\\CAFS
+>   Net use \* "FSx DNS name"\\CAFS
 
-### Compare the Write Performance of Continuously Available and Not Continuously Available File Systems
+### Compare the Write Performance of Continuously Available and Not Continuously Available File Systems with write-back caching enabled
 
 Test the Write performance of the non-Continuously available File Share with
 write-back caching enabled:
 
-1.  From the remote desktop session to **Windows Server**, *open* a PowerShell
-    window.
+1.  From the remote desktop session to **Windows Server**, *open* an elevated
+    command prompt
 
 | Important | This section assumes that **Amazon FSx for Windows File Server Share** is mapped as the **Z:/** drive. If your **Windows Instance** does not have a mapped **Z:/** drive, map **Amazon FSx for Windows File Server** as the **Z:/** drive (see the previous section for step-by-step instructions). |
 |-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 
-2.  Run the DiskSpeed script below to test write performance of the
-    mapped **Z:** drive with write-back caching enabled
+2.  From the elevated command prompt run the DiskSpeed script below to test
+    write performance of the mapped **Z:** drive with write-back caching enabled
 
-3.  $random = $(Get-Random)
-
->   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe –d60 -c2G -s64K -w100 -t1
->   -o32 -b64K -L Z:\\${env:computername}-$random.dat
+>   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe –d60 -c2G -s64K -w100 -t1 -o32 -b64K -L Z:\\write_file_wb.dat
 
 Note the results of the test in terms of IOPS and latency.
 
 Test the Write performance of the Continuously Available File Share with
 write-back caching enabled:
 
-1.  From the remote desktop session to **Windows Server**, *open* a PowerShell
-    window.
+1.  From the remote desktop session to **Windows Server**, open an elevated
+    command prompt
 
 | Important | This section assumes that **Amazon FSx for Windows File Server Share CAFS share** is mapped as the **Y:/** drive. If your **Windows Instance** does not have a mapped **Y:/** drive, map **Amazon FSx for Windows File Server** as the **Y:/** drive (see the previous section for step-by-step instructions). |
 |-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -309,13 +323,15 @@ write-back caching enabled:
 2.  Run the DiskSpeed script below to test write performance of the
     mapped **Y:** drive with write-back caching enabled
 
-3.  $random = $(Get-Random)
+>   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe –d60 -c2G -s64K -w100 -t1 -o32 -b64K -L Y:\\write_file_wb.dat
 
->   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe –d60 -c2G -s64K -w100 -t1
->   -o32 -b64K -L Y:\\${env:computername}-$random.dat
+>   If you receive an error that your test was interrupted, try to replace the
+>   Y:\\ with FSx DNS name.
 
-Note the results of the test in terms of IOPS and latency.
+1.  Note the results of the test in terms of IOPS and latency.
 
--   Was there any difference in performance between non-CAFS and CAFS?
+    -   Was there any difference in performance between non-CAFS and CAFS?
 
--   If yes, why?
+    -   If yes, why?
+
+This concludes the session. Thank you!
