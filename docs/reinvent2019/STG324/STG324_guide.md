@@ -137,10 +137,8 @@ Deploy CloudWatch FSx Performance Dashboard
 
 ### DiskSpd Read Tests with caching disabled
 
-1.  From the remote desktop session to **Windows Server**, open an elevated
-    command prompt (**Run as Administrator**).
+1.  From the remote desktop session to **Windows Server**, open a command prompt.
 
-![](media/ea093567051fcdc8e9d0827772c17fbc.png)
 
 | Important | This section assumes that **Amazon FSx for Windows File Server** is mapped as the **Z:/** drive. If your **Windows Instance**  does not have a mapped **Z:/** drive, map **Amazon FSx for Windows File Server** as the **Z:/** drive (see the previous section for step-by-step instructions). |
 |-----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -184,8 +182,7 @@ Deploy CloudWatch FSx Performance Dashboard
 
 ### DiskSpd Write Tests with caching disabled
 
-1.  From the remote desktop session to **Windows Server**, open an elevated
-    command prompt (**Run as Administrator**)
+1.  From the remote desktop session to **Windows Server**, open a command prompt.
 
 | Important | This section assumes that **Amazon FSx for Windows File Server** is mapped as the **Z:/** drive. If your **Windows Instance** does not have a mapped **Z:/** drive, map **Amazon FSx for Windows File Server** as the **Z:/** drive (see the previous section for step-by-step instructions). |
 |-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -289,21 +286,20 @@ session.
 
 >   From the command prompt:
 
->   Net use \* "FSx DNS name"\\CAFS
+>   Net use \* \\\\"FSx DNS name"\\CAFS
 
 ### Compare the Write Performance of Continuously Available and Not Continuously Available File Systems with write-back caching enabled
 
 Test the Write performance of the non-Continuously available File Share with
 write-back caching enabled:
 
-1.  From the remote desktop session to **Windows Server**, *open* an elevated
-    command prompt
+1.  From the remote desktop session to **Windows Server**, open a command prompt
 
 | Important | This section assumes that **Amazon FSx for Windows File Server Share** is mapped as the **Z:/** drive. If your **Windows Instance** does not have a mapped **Z:/** drive, map **Amazon FSx for Windows File Server** as the **Z:/** drive (see the previous section for step-by-step instructions). |
 |-----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 
 
-2.  From the elevated command prompt run the DiskSpeed script below to test
+2.  From the command prompt run the DiskSpeed script below to test
     write performance of the mapped **Z:** drive with write-back caching enabled
 
 >   C:\\Tools\\DiskSpd-2.0.21a\\amd64\\DiskSpd.exe –d60 -c2G -s64K -w100 -t1 -o32 -b64K -L Z:\\write_file_wb.dat
@@ -313,8 +309,7 @@ Note the results of the test in terms of IOPS and latency.
 Test the Write performance of the Continuously Available File Share with
 write-back caching enabled:
 
-1.  From the remote desktop session to **Windows Server**, open an elevated
-    command prompt
+1.  From the remote desktop session to **Windows Server**, open a command prompt
 
 | Important | This section assumes that **Amazon FSx for Windows File Server Share CAFS share** is mapped as the **Y:/** drive. If your **Windows Instance** does not have a mapped **Y:/** drive, map **Amazon FSx for Windows File Server** as the **Y:/** drive (see the previous section for step-by-step instructions). |
 |-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
