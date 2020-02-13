@@ -1,4 +1,4 @@
-# **Windows Golden AMI Pipeline**
+# Windows Golden AMI Pipeline
 This lab will demonstrate creating a Windows AMI Pipeline using AWS Systems Manager (SSM) Automation. Most of this lab will be copying and pasting blocks of YAML code and explaining what each block does, a copy of the entire document will be included in step #8, if you would like to fast forward. In the end we will import the document to SSM Automation and fire it off to see what happens. This will help to drive the concepts of SSM Automation, and allow you to get comfortable building your own SSM Automation Worklflows. While this lab will focus on the AMI Pipeline use case, there are many other use cases and scenarios for SSM Automation.  
 
 The pipeline we will build will do the following: 
