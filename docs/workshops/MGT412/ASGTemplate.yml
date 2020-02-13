@@ -1,0 +1,116 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters:
+
+  AmiId:
+    Type: String
+
+Resources:
+  OpsCenterSessionASG:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      AutoScalingGroupName: "OpsCenterSessionASG"
+      Cooldown: '60'
+      DesiredCapacity: '2'
+      HealthCheckGracePeriod: '60'
+      HealthCheckType: EC2
+      MaxSize: '2'
+      MinSize: '1'
+      LaunchConfigurationName:
+        Ref: OpsCenterSessionLaunchConfig
+      TerminationPolicies:
+        - Default
+      AvailabilityZones:
+        - Fn::Select:
+          - 0
+          - Fn::GetAZs: ""
+      Tags:
+        - Key: "OpsCenter-Session"
+          PropagateAtLaunch: true
+          Value: "Re:Invent-Session"
+      MetricsCollection:
+        - Granularity: "1Minute"
+  OpsCenterSessionLaunchConfig:
+    Type: AWS::AutoScaling::LaunchConfiguration
+    Properties:
+      LaunchConfigurationName: "OpsCenterSessionLaunchConfig"
+      ImageId: {Ref: AmiId}
+      InstanceType: t2.micro
+  OpsCenterSessionASGDeletedAMIDocument:
+    Type: AWS::SSM::Document
+    Properties:
+      DocumentType: "Automation"
+      Content:
+        schemaVersion: "0.3"
+        description: Update an Auto Scaling Group by restoring a missing AMI.
+        assumeRole: "{{ AutomationAssumeRole }}"
+        parameters:
+          AutoScalingGroupName:
+            type: String
+            description: "(Required) Name of the Auto Scaling Group to update."
+          InstanceType:
+            type: String
+            description: "(Optional) Instance type to update the Auto Scaling Group with"
+            default: t2.micro
+          AutomationAssumeRole:
+            type: String
+            description: "(Optional) The ARN of the role that allows Automation to perform
+              the actions on your behalf"
+            default: ''
+        mainSteps:
+          - name: getInstanceIdFromASG
+            action: aws:executeAwsApi
+            onFailure: Abort
+            isCritical: true
+            timeoutSeconds: 60
+            maxAttempts: 1
+            inputs:
+              Service: autoscaling
+              Api: DescribeAutoScalingGroups
+              AutoScalingGroupNames:
+                - "{{ AutoScalingGroupName }}"
+            outputs:
+              - Name: InstanceId
+                Selector: "$.AutoScalingGroups[0].Instances[0].InstanceId"
+                Type: String
+          - name: createImageFromInstanceId
+            action: aws:createImage
+            maxAttempts: 3
+            onFailure: Abort
+            inputs:
+              InstanceId: "{{ getInstanceIdFromASG.InstanceId }}"
+              ImageName: "{{ AutoScalingGroupName }}-{{ automation:EXECUTION_ID }}"
+              NoReboot: true
+              ImageDescription: For OpsCenter Session
+          - name: createLaunchConfiguration
+            action: aws:executeAwsApi
+            onFailure: Abort
+            isCritical: true
+            timeoutSeconds: 60
+            maxAttempts: 1
+            inputs:
+              Service: autoscaling
+              Api: CreateLaunchConfiguration
+              LaunchConfigurationName: "{{ AutoScalingGroupName }}-{{ automation:EXECUTION_ID
+              }}"
+              ImageId: "{{ createImageFromInstanceId.ImageId }}"
+              InstanceType: "{{ InstanceType }}"
+          - name: updateAutoScalingGroupWithLaunchConfiguration
+            action: aws:executeAwsApi
+            onFailure: Abort
+            isCritical: true
+            timeoutSeconds: 60
+            maxAttempts: 1
+            inputs:
+              Service: autoscaling
+              Api: UpdateAutoScalingGroup
+              AutoScalingGroupName: "{{ AutoScalingGroupName }}"
+              LaunchConfigurationName: "{{ AutoScalingGroupName }}-{{ automation:EXECUTION_ID
+              }}"
+      Tags:
+        - Key: "OpsCenter-Session"
+          Value: "Re:Invent-2019"
+
+
+
+Description: CFN Template for OpsCenter Session on ASGDeletedAMI scenario
