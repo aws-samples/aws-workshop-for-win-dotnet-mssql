@@ -13,7 +13,7 @@
         <tbody>
             <tr>
                 <td align="left"><a class="table" target="_blank" href="https://awsentworkshops.com/workshops/IntroToWinAWS/index/"><strong>Introduction to Microsoft Windows on AWS</strong></a></td>
-                <td align="left"> The Introduction to Microsoft Windows on AWS is a half-day AWS experience designed to help you learn the basics of running Microsoft Windows solutions on AWS. During this workshop you are presented AWS solutions to real world Microsoft Windows use cases such as running your first Microsoft Windows EC2 instance, monitoring this instance with Amazon CloudWatch, and using AWS Systems Manager to manage this instance. 
+                <td align="left"> The Introduction to Microsoft Windows on AWS is a half-day AWS experience designed to help you learn the basics of running Microsoft Windows solutions on AWS. During this workshop you are presented AWS solutions to real world Microsoft Windows use cases such as running your first Microsoft Windows EC2 instance, monitoring this instance with Amazon CloudWatch, and using AWS Systems Manager to manage this instance.
                     <ul>
                         <li><strong>Level</strong>: 200</li>
                         <li><strong>Duration</strong>: This workshop typically takes four hours to complete. </li>
