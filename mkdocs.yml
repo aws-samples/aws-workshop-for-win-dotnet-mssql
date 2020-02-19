@@ -46,19 +46,11 @@ nav:
   - Getting Started: 'getting-started.md'
   - Workshops: 
     - Directory: 'workshops/index.md'
-    - .NET Hackathon: 
-      - Home: 'workshops/dotnethackathon/index.md'
-      - Prerequisites: 'workshops/dotnethackathon/prereq.md'
-      - Resources: 'workshops/dotnethackathon/resources.md'
-      - Challenges: 
-        - AI Services : 'workshops/dotnethackathon/ai.md'
-        - API Gateway : 'workshops/dotnethackathon/webapi.md'
-        #- Database : 'workshops/dotnethackathon/database.md'
-        - Eventing : 'workshops/dotnethackathon/eventing.md'
-        #- Microservice : 'workshops/dotnethackathon/microservice.md'
-        - Serverless : 'workshops/dotnethackathon/serverless.md'
-        - WAF : 'workshops/dotnethackathon/waf.md'
-  - Immersion Days:
+      - Introductory Microsoft Windows on AWS: 'workshops/IntroToWinAWS/index.md'
+      - Migrating Microsoft Windows to AWS: 'workshops/MigrateWindowsToAWS/index.md' 
+      - Migrating Microsoft SQL to AWS: 'workshops/MigrateSQLToAWS/index.md'
+      - Managing Microsoft Windows like a Pro: 'workshops/ManageWindowsPro/index.md'
+  - Immersion Days (Coming Soon):
       - Directory: 'ImmersionDays/index.md'
       - Raw List: 'ImmersionDays/labs/index.md'
       - Windows: 'ImmersionDays/windows/index.md'
