@@ -44,10 +44,10 @@ markdown_extensions:
 nav:
   - Home: 'index.md'
   - Getting Started: 'getting-started.md'
-  - Workshops: 
-    - Directory: 'workshops/index.md'
+  - Workshops:
+      - Directory: 'workshops/index.md'
       - Introductory Microsoft Windows on AWS: 'workshops/IntroToWinAWS/index.md'
-      - Migrating Microsoft Windows to AWS: 'workshops/MigrateWindowsToAWS/index.md' 
+      - Migrating Microsoft Windows to AWS: 'workshops/MigrateWindowsToAWS/index.md'
       - Migrating Microsoft SQL to AWS: 'workshops/MigrateSQLToAWS/index.md'
       - Managing Microsoft Windows like a Pro: 'workshops/ManageWindowsPro/index.md'
   - Immersion Days (Coming Soon):
